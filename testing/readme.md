@@ -1,1 +1,3 @@
-install beautiful soup
+- install beautiful soup
+- Scrap painting data
+- Look into NLP for trivia
