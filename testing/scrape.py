@@ -7,6 +7,10 @@ def get_html(route):
         html = response.read()
         return html
 
+# Save the scrape data
+def save_scrape(scrape_data):
+    pass
+
 def retrieve_painting_info(core_route, painting_route):
 
     route = core_route + painting_route
@@ -26,10 +30,17 @@ def retrieve_painting_info(core_route, painting_route):
     except AttributeError:
         notes = None
 
+    try:
+        image = soupy.find('div', class_ = "emuseum-img-wrap").find('img')['src']
+    except AttributeError:
+        image = None
+
+
     painting = {
         "title": title,
         "location": location,
-        "notes": notes
+        "notes": notes,
+        "image": image
     }
 
     return painting
@@ -60,7 +71,11 @@ def get_objects(core_route, works_route):
 
         for work in works:
             work_a = work.find('a')
-            paintings.append(work_a['href'])
+            work_link = work_a['href']
+
+            painting = retrieve_painting_info(core_route, work_link)
+
+            paintings.append(painting)
 
     return paintings
 
