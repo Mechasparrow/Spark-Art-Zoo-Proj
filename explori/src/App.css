@@ -1,3 +1,6 @@
+.App {
+}
+
 .App-header {
   background-color: #222;
   padding: 20px;
@@ -26,6 +29,7 @@
   margin: 16px;
   border: 1px solid black;
   border-radius: 5px;
+  background-color: white;
 }
 
 .Items .list li:hover {
