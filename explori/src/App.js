@@ -5,6 +5,9 @@ import "./App.css";
 import HeaderBar from "./Components/HeaderBar";
 import ExhibitItem from "./Components/ExhibitItem";
 
+// Grid component
+import Grid from '@material-ui/core/Grid';
+
 class App extends Component {
   render() {
     return (
@@ -13,7 +16,13 @@ class App extends Component {
 
         <div className="Items">
           <h2 className="title">Exhibits</h2>
-          <ExhibitItem></ExhibitItem>
+
+          <Grid container>
+            <Grid item>
+              <ExhibitItem></ExhibitItem>
+            </Grid>
+          </Grid>
+
           <ul className="list">
             <li>American Art</li>
             <li>Contemporary Art</li>
