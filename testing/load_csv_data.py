@@ -36,16 +36,16 @@ def read_csv(csv_text):
         if (firstrow):
             fields = row
             firstrow = False
+        else:    
+            formatted_row = []
 
-        formatted_row = []
+            i = 0
+            for item in row:
+                formatted_row.append((fields[i], item))
+                i+=1
 
-        i = 0
-        for item in row:
-            formatted_row.append((fields[i], item))
-            i+=1
-
-        formatted_row_dict = dict(formatted_row)
-        data.append(formatted_row_dict)
+            formatted_row_dict = dict(formatted_row)
+            data.append(formatted_row_dict)
 
     return data
 
