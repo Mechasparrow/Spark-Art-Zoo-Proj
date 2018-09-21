@@ -3,12 +3,27 @@ import "./App.css";
 
 // Additional components
 import HeaderBar from "./Components/HeaderBar";
-import ExhibitItem from "./Components/ExhibitItem";
+import ExhibitGrid from "./Components/ExhibitGrid";
 
-// Grid component
-import Grid from '@material-ui/core/Grid';
+//Models
+import Collection from './Models/Collection';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      collections: [
+        new Collection ("African Art", 20),
+        new Collection ("European Art", 30),
+        new Collection ("Modern Art", 100),
+        new Collection ("Modern Art", 100),
+      ]
+    }
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -16,19 +31,7 @@ class App extends Component {
 
         <div className="Items">
           <h2 className="title">Exhibits</h2>
-
-          <Grid container>
-            <Grid item>
-              <ExhibitItem></ExhibitItem>
-            </Grid>
-          </Grid>
-
-          <ul className="list">
-            <li>American Art</li>
-            <li>Contemporary Art</li>
-            <li>European Art</li>
-            <li>Asian Art</li>
-          </ul>
+          <ExhibitGrid collections = {this.state.collections} rowlength = {2}></ExhibitGrid>
         </div>
       </div>
     );

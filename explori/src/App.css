@@ -15,23 +15,3 @@
 .Items .title {
   text-align: center;
 }
-
-.Items .list {
-  margin-top: 48px;
-  max-width: 33rem;
-  font-size: 1.25em;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.Items .list li {
-  padding: 8px;
-  margin: 16px;
-  border: 1px solid black;
-  border-radius: 5px;
-  background-color: white;
-}
-
-.Items .list li:hover {
-  background-color: lightgrey;
-}
