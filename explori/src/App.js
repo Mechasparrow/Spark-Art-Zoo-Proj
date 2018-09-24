@@ -10,6 +10,7 @@ import HeaderBar from "./Components/HeaderBar";
 //Pages
 import HomePage from "./Components/HomePage";
 import ViewItemPage from "./Components/ViewItemPage";
+import QuizPage from './Components/QuizPage';
 
 class App extends Component {
   render() {
@@ -21,7 +22,8 @@ class App extends Component {
           <div>
             <Route exact path="/" component={HomePage} />
             <Route path="/view-item" component={ViewItemPage} />
-          </div>
+            <Route path = '/quiz-page' component = {QuizPage}/>
+        </div>
         </Router>
       </div>
     );
