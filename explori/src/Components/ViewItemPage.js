@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
 // Material
+import Typography from '@material-ui/core/Typography';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
@@ -45,11 +46,14 @@ class ViewItemPage extends Component {
   render() {
     const { classes } = this.props;
 
+    //TODO switch to Typography
+
     return (
       <div className="ViewItemPage">
-        <h2 className={classes.title}>Viewing ...</h2>
 
         <div className={classes.item_img} />
+
+
 
         <div className={classes.item_desc}>
           <h2>Lorem</h2>
