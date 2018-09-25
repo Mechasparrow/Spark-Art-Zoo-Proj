@@ -53,6 +53,25 @@ const styles = {
 class QuizPage extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selected: "option2"
+    }
+
+
+    this.handleRadioChange = this.handleRadioChange.bind(this);
+
+  }
+
+  handleRadioChange(e) {
+
+    let {value} = e.target;
+
+    this.setState({
+      ...this.state,
+      selected: value
+    })
+
   }
 
   //Render the QuizPage
@@ -80,8 +99,9 @@ class QuizPage extends Component {
               <RadioGroup
                 aria-label="Quiz Options"
                 name="quiz_option"
-                value="option1"
+                value={this.state.selected}
                 className={classes.group}
+                onChange = {this.handleRadioChange}
               >
                 <FormControlLabel
                   value="option1"
