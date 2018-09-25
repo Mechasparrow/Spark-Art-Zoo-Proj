@@ -18,8 +18,14 @@ import { withStyles } from "@material-ui/core/styles";
 //Models
 import Collection from "../Models/Collection";
 
+//Data
+import * as collections from '../Data/collections.json'
+
 //components
 import ExhibitGrid from "./ExhibitGrid";
+
+
+const col_data = Collection.parseList(collections)
 
 //styling
 const styles = {
@@ -36,13 +42,11 @@ class HomePage extends Component {
 
     //fulfill some dummy data
     this.state = {
-      collections: [
-        new Collection("African Art", []),
-        new Collection("European Art", []),
-        new Collection("Modern Art", []),
-        new Collection("Modern Art", [])
-      ]
+      collections: col_data
     };
+
+    console.log(col_data);
+
   }
 
   //Render the HomePage w/ a grid of collections
