@@ -1,3 +1,10 @@
+/**
+ExhibitItem.js
+
+Renders a item for a exhibit
+
+**/
+
 // React JS
 import React, { Component } from "react";
 
@@ -18,6 +25,7 @@ import Typography from "@material-ui/core/Typography";
 //Routing
 import { Link } from "react-router-dom";
 
+//styling
 const styles = {
   card: {
     minWidth: 245
@@ -36,11 +44,13 @@ const styles = {
 // Displays info regarding Collection
 // Takes in Collection as a prop (collection)
 
+//declares the exhibit item
 class ExhibitItem extends Component {
   constructor(props) {
     super(props);
   }
 
+  //render the component
   render() {
     const { classes, collection } = this.props;
 
@@ -68,6 +78,7 @@ class ExhibitItem extends Component {
   }
 }
 
+//helper for styling
 ExhibitItem.propTypes = {
   classes: PropTypes.object.isRequired
 };

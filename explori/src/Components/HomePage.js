@@ -1,3 +1,10 @@
+/**
+HomePage.js
+
+The First Page the User sees when they enter the application
+
+**/
+
 //react
 import React, { Component } from "react";
 
@@ -22,10 +29,12 @@ const styles = {
   }
 };
 
+//define the HomePage class
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
+    //fulfill some dummy data
     this.state = {
       collections: [
         new Collection("African Art", 20),
@@ -36,6 +45,7 @@ class HomePage extends Component {
     };
   }
 
+  //Render the HomePage w/ a grid of collections
   render() {
     const { classes } = this.props;
 
@@ -53,6 +63,7 @@ class HomePage extends Component {
   }
 }
 
+//styling helper config
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired
 };

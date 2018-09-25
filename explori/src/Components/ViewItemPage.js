@@ -1,3 +1,12 @@
+/**
+ViewItemPage.js
+
+Page that renders a specific Item from a Collection
+
+
+**/
+
+//react
 import React, { Component } from "react";
 
 // Styling for JavaScript
@@ -12,6 +21,7 @@ import Button from "@material-ui/core/Button";
 //Routing
 import { Link } from "react-router-dom";
 
+//Component styling
 const styles = {
   title: {
     textAlign: "center"
@@ -47,15 +57,15 @@ const styles = {
   }
 };
 
+//Declare the ViewItemPage Component
 class ViewItemPage extends Component {
   constructor(props) {
     super(props);
   }
 
+  //Render the View Item Page
   render() {
     const { classes } = this.props;
-
-    //TODO switch to Typography
 
     return (
       <div className="ViewItemPage">
@@ -90,6 +100,7 @@ class ViewItemPage extends Component {
   }
 }
 
+//styling config helper
 ViewItemPage.propTypes = {
   classes: PropTypes.object.isRequired
 };

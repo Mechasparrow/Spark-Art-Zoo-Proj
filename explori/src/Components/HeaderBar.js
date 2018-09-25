@@ -1,5 +1,14 @@
+/**
+HeaderBar.js
+
+Main Header for the application
+
+**/
+
+//reactjs
 import React, { Component } from "react";
 
+//material components
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,6 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//styling for component
 const styles = {
   root: {
     flexGrow: 1,
@@ -20,6 +30,7 @@ class HeaderBar extends Component {
     super(props);
   }
 
+  //render the component
   render() {
     const { classes } = this.props;
 
@@ -37,6 +48,7 @@ class HeaderBar extends Component {
   }
 }
 
+//styling helper
 HeaderBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
