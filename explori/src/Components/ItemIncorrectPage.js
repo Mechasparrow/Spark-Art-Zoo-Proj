@@ -23,6 +23,8 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//Routing
+import { Link } from "react-router-dom";
 
 //styling
 const styles = {
@@ -92,9 +94,15 @@ class ItemIncorrectPage extends Component {
         </div>
 
         <div className = {classes.btn_container}>
-          <Button className = {classes.button} component = "span" variant = "contained" color = "primary">
-            Back
-          </Button>
+          <Link to = "/">
+            <Button
+              className = {classes.button}
+              component = "span"
+              variant = "contained"
+              color = "primary">
+              Back
+            </Button>
+          </Link>
         </div>
 
       </div>
