@@ -15,7 +15,6 @@ import { withStyles } from "@material-ui/core/styles";
 //declare styles
 const styles = {
   root: {
-    minWidth: "245px"
   }
 };
 

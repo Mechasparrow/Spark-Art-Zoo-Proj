@@ -9,6 +9,17 @@
         "description": "A mask"
       }
     ]
+  },
+  {
+    "name": "European Art",
+    "items": [
+      {
+        "title": "Starry Night",
+        "author": "Van Gogh",
+        "image_link": "...",
+        "description": "A very starry night"
+      }
+    ]
   }
 
 ]
