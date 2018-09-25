@@ -53,7 +53,6 @@ const styles = {
 class QuizPage extends Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
 
     //set starting state
     this.state = {
@@ -75,8 +74,6 @@ class QuizPage extends Component {
       selected: value
     })
 
-=======
->>>>>>> parent of 945fd9c... completed dummy quiz page
   }
 
   //Render the QuizPage
