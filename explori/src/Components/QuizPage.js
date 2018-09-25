@@ -28,6 +28,9 @@ import FormLabel from "@material-ui/core/FormLabel";
 //button
 import Button from "@material-ui/core/Button";
 
+//Routing
+import {Redirect} from 'react-router-dom';
+
 //styling
 const styles = {
   quiz_container: {
@@ -56,11 +59,35 @@ class QuizPage extends Component {
 
     //set starting state
     this.state = {
-      selected: "option2"
+      selected: "option2",
+      submitted: false,
+      correct: null
     }
 
     //binding functions
     this.handleRadioChange = this.handleRadioChange.bind(this);
+    this.submit = this.submit.bind(this);
+
+  }
+
+  //Submits the quiz
+  submit(e) {
+
+    let {selected} = this.state;
+
+    let correct = false
+
+    if (selected == "option1") {
+      correct = true;
+    }else {
+      correct = false;
+    }
+
+    this.setState({
+      ...this.state,
+      submitted: true,
+      correct
+    })
 
   }
 
@@ -79,6 +106,22 @@ class QuizPage extends Component {
   //Render the QuizPage
   render() {
     const { classes } = this.props;
+
+    //check if we submitted the quiz
+    if (this.state.submitted) {
+
+      if (this.state.correct) {
+        return (
+          <Redirect to = "/quiz-complete"></Redirect>
+        )
+      }else {
+        return (
+          <Redirect to = "/quiz-failed"></Redirect>
+        )
+      }
+
+    }
+
 
     return (
       <div className="QuizPage">
@@ -131,7 +174,7 @@ class QuizPage extends Component {
             </FormControl>
           </div>
           <div className={classes.submit_btn}>
-            <Button variant="contained" component="span" color="primary">
+            <Button onClick = {this.submit} variant="contained" component="span" color="primary">
               Submit
             </Button>
           </div>
