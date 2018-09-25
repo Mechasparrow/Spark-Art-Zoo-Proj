@@ -24,6 +24,8 @@ import HeaderBar from "./Components/HeaderBar";
 import HomePage from "./Components/HomePage";
 import ViewItemPage from "./Components/ViewItemPage";
 import QuizPage from "./Components/QuizPage";
+import ItemCompletedPage from "./Components/ItemCompletedPage";
+import ItemIncorrectPage from "./Components/ItemIncorrectPage";
 
 //Declare the App Component
 class App extends Component {
@@ -37,6 +39,8 @@ class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route path="/view-item" component={ViewItemPage} />
             <Route path="/quiz-page" component={QuizPage} />
+            <Route path = "/quiz-failed" component = {ItemIncorrectPage} />
+            <Route path = "/quiz-complete" component = {ItemCompletedPage} />
           </div>
         </Router>
       </div>
