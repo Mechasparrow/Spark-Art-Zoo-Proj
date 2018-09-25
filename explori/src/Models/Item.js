@@ -11,21 +11,23 @@ import _ from 'lodash';
 class Item {
 
   //constructs the object
-  constructor(image_link, description) {
+  constructor(title, description, author, image_link, type=null) {
 
+    this.title = title;
+    this.author = author;
     this.image_link = image_link;
     this.description = description;
+    this.type = type;
 
   }
 
   //serializes the object to JSON
   serialize() {
 
-    let {image_link, description} = this;
+    let {title, description, author, image_link, type} = this;
 
     return {
-      image_link,
-      description
+      title, description, author, image_link, type
     }
 
   }
@@ -33,9 +35,9 @@ class Item {
   //parses the raw Item from JSON
   static parse(raw_item) {
 
-    let {image_link, description} = raw_item;
+    let {title, description, author, image_link, type} = raw_item;
 
-    return new Item(image_link, description);
+    return new Item(title, description, author, image_link, type);
 
   }
 
