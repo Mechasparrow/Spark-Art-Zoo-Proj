@@ -37,10 +37,10 @@ class HomePage extends Component {
     //fulfill some dummy data
     this.state = {
       collections: [
-        new Collection("African Art", 20),
-        new Collection("European Art", 30),
-        new Collection("Modern Art", 100),
-        new Collection("Modern Art", 100)
+        new Collection("African Art", []),
+        new Collection("European Art", []),
+        new Collection("Modern Art", []),
+        new Collection("Modern Art", [])
       ]
     };
   }
