@@ -53,6 +53,7 @@ const styles = {
 class QuizPage extends Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
 
     //set starting state
     this.state = {
@@ -74,6 +75,8 @@ class QuizPage extends Component {
       selected: value
     })
 
+=======
+>>>>>>> parent of 945fd9c... completed dummy quiz page
   }
 
   //Render the QuizPage
@@ -101,9 +104,8 @@ class QuizPage extends Component {
               <RadioGroup
                 aria-label="Quiz Options"
                 name="quiz_option"
-                value={this.state.selected}
+                value="option1"
                 className={classes.group}
-                onChange = {this.handleRadioChange}
               >
                 <FormControlLabel
                   value="option1"

@@ -45,6 +45,8 @@ class HomePage extends Component {
       collections: col_data
     };
 
+    console.log(col_data);
+
   }
 
   //Render the HomePage w/ a grid of collections
