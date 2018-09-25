@@ -101,7 +101,8 @@ class QuizPage extends Component {
               <RadioGroup
                 aria-label="Quiz Options"
                 name="quiz_option"
-                value="option1"
+                value={this.state.selected}
+                onChange = {this.handleRadioChange}
                 className={classes.group}
               >
                 <FormControlLabel
