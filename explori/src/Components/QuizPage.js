@@ -54,15 +54,17 @@ class QuizPage extends Component {
   constructor(props) {
     super(props);
 
+    //set starting state
     this.state = {
       selected: "option2"
     }
 
-
+    //binding functions
     this.handleRadioChange = this.handleRadioChange.bind(this);
 
   }
 
+  //Handles the Radio change
   handleRadioChange(e) {
 
     let {value} = e.target;
