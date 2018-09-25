@@ -58,11 +58,9 @@ class ExhibitItem extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button size="small">
-              <Link className={classes.view_item_link} to="/view-item">
-                View
-              </Link>
-            </Button>
+            <Link className={classes.view_item_link} to="/view-item">
+              <Button size="small">View</Button>
+            </Link>
           </CardActions>
         </Card>
       </div>

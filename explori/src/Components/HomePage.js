@@ -1,6 +1,9 @@
 //react
 import React, { Component } from "react";
 
+//material ui
+import Typography from "@material-ui/core/Typography";
+
 // Styling for JavaScript
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -14,6 +17,7 @@ import ExhibitGrid from "./ExhibitGrid";
 //styling
 const styles = {
   title: {
+    marginTop: "16px",
     textAlign: "center"
   }
 };
@@ -38,7 +42,10 @@ class HomePage extends Component {
     return (
       <div className="HomePage">
         <div className="Items">
-          <h2 className={classes.title}>Exhibits</h2>
+          <Typography variant="display2" className={classes.title}>
+            Exhibits
+          </Typography>
+
           <ExhibitGrid collections={this.state.collections} rowlength={2} />
         </div>
       </div>
