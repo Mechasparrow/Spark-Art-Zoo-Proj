@@ -34,10 +34,6 @@ const styles = {
     marginBottom: 16,
     padding: "8px"
   },
-  view_item_link: {
-    textDecoration: "none",
-    color: "#000000"
-  },
   actions: {}
 };
 
@@ -62,11 +58,22 @@ class ExhibitItem extends Component {
 
     this.props.select_collection(this.props.idx);
 
+    this.setState({
+      ...this.state,
+      item_selected: true
+    })
+
   }
 
   //render the component
   render() {
     const { classes, collection } = this.props;
+
+    if (this.state.item_selected) {
+      return (
+        <Redirect push to = "/view-item"></Redirect>
+      )
+    }
 
     return (
       <div className="ExhibitItem">

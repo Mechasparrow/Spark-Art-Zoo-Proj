@@ -11,6 +11,17 @@
     ]
   },
   {
+    "name": "American Art",
+    "items": [
+      {
+          "title": "Road Down the Palisades",
+          "author": "Ernest Lawson",
+          "description": "In this painting, the curve of the road directs attention deep into the landscape, past a screen of wiry trees to the Hudson River beyond. A cloud-filled sky and dirty patches of snow communicate the dreariness of an overcast winter day, but the scene is invigorated by bright spots of blue and red.",
+          "image_link": "http://emuseum.slam.org/internal/media/dispatcher/12201/preview;jsessionid=CE8EC2AFAF5CEA71EFB3A8432044A0D8"
+      }
+    ]
+  },
+  {
     "name": "European Art",
     "items": [
       {
