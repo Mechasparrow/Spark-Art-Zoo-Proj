@@ -35,7 +35,7 @@ const styles = {
 class HomePage extends Component {
   constructor(props) {
     super(props);
-
+    console.log(props);
   }
 
   //Render the HomePage w/ a grid of collections

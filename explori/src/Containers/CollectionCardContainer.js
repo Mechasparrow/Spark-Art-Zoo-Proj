@@ -1,20 +1,23 @@
+//react redux
 import {connect} from 'react-redux';
 
-//Page to map data to
-import HomePage from '../Components/HomePage';
+//component to bind
+import ExhibitItem from '../Components/ExhibitItem';
 
 //Redux actions
 import {select_collection} from '../Actions';
 
 const mapStateToProps = (state) => ({
-  collections: state.collections
+
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
+  select_collection: (collection_idx) => {
+    dispatch(select_collection(collection_idx));
+  }
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage);
+)(ExhibitItem);

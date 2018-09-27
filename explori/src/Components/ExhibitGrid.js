@@ -20,7 +20,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 //individual exhibit item
-import ExhibitItem from "./ExhibitItem";
+import CollectionCard from "../Containers/CollectionCardContainer";
 import EmptyItem from "./EmptyItem";
 
 //ExhibitGrid component
@@ -62,7 +62,7 @@ class ExhibitGrid extends Component {
       //push a new exhibit item to the current row of the grid
       current_row.push(
         <Grid sm={4} key = {idx} item>
-          <ExhibitItem collection={item} />
+          <CollectionCard idx = {idx} collection={item} />
         </Grid>
       );
 
@@ -99,7 +99,7 @@ class ExhibitGrid extends Component {
         row++;
         current_row = [];
       }
-    });
+    }.bind(this));
 
     return grid;
   }

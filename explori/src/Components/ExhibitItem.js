@@ -23,7 +23,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 //Routing
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 //styling
 const styles = {
@@ -48,6 +48,20 @@ const styles = {
 class ExhibitItem extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      item_selected: false
+    }
+
+    //bind functions
+    this.select_collection = this.select_collection.bind(this);
+  }
+
+  //selects the collection
+  select_collection() {
+
+    this.props.select_collection(this.props.idx);
+
   }
 
   //render the component
@@ -68,9 +82,7 @@ class ExhibitItem extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Link className={classes.view_item_link} push = "true" to="/view-item">
-              <Button size="small">View</Button>
-            </Link>
+              <Button onClick = {this.select_collection} size="small">View</Button>
           </CardActions>
         </Card>
       </div>
