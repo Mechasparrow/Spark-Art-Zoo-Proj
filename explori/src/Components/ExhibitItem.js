@@ -68,7 +68,7 @@ class ExhibitItem extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Link className={classes.view_item_link} push to="/view-item">
+            <Link className={classes.view_item_link} push = "true" to="/view-item">
               <Button size="small">View</Button>
             </Link>
           </CardActions>

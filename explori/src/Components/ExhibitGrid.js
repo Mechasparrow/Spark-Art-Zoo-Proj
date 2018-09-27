@@ -61,7 +61,7 @@ class ExhibitGrid extends Component {
     _.map(items, function(item, idx) {
       //push a new exhibit item to the current row of the grid
       current_row.push(
-        <Grid sm={4} item>
+        <Grid sm={4} key = {idx} item>
           <ExhibitItem collection={item} />
         </Grid>
       );

@@ -112,11 +112,11 @@ class QuizPage extends Component {
 
       if (this.state.correct) {
         return (
-          <Redirect to = "/quiz-complete"></Redirect>
+          <Redirect push to = "/quiz-complete"></Redirect>
         )
       }else {
         return (
-          <Redirect to = "/quiz-failed"></Redirect>
+          <Redirect push to = "/quiz-failed"></Redirect>
         )
       }
 
