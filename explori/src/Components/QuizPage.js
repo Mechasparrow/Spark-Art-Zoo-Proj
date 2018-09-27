@@ -68,6 +68,9 @@ class QuizPage extends Component {
     this.handleRadioChange = this.handleRadioChange.bind(this);
     this.submit = this.submit.bind(this);
 
+    //debugging
+    console.log(this.props);
+
   }
 
   //Submits the quiz

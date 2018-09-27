@@ -23,7 +23,7 @@ import HeaderBar from "./Components/HeaderBar";
 //Pages
 import HomePage from "./Containers/HomeContainer";
 import ViewItemPage from "./Containers/ViewItemContainer";
-import QuizPage from "./Components/QuizPage";
+import QuizPage from "./Containers/QuizPageContainer";
 import ItemCompletedPage from "./Components/ItemCompletedPage";
 import ItemIncorrectPage from "./Components/ItemIncorrectPage";
 
