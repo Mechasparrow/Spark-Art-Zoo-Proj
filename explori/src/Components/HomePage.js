@@ -18,14 +18,8 @@ import { withStyles } from "@material-ui/core/styles";
 //Models
 import Collection from "../Models/Collection";
 
-//Data
-import * as collections from '../Data/collections.json'
-
 //components
 import ExhibitGrid from "./ExhibitGrid";
-
-
-const col_data = Collection.parseList(collections)
 
 //styling
 const styles = {
@@ -35,17 +29,12 @@ const styles = {
   }
 };
 
+
 //define the HomePage class
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
-
-    //fulfill some dummy data
-    this.state = {
-      collections: col_data
-    };
-
-    console.log(col_data);
 
   }
 
@@ -60,7 +49,7 @@ class HomePage extends Component {
             Exhibits
           </Typography>
 
-          <ExhibitGrid collections={this.state.collections} rowlength={2} />
+          <ExhibitGrid collections={this.props.collections} rowlength={2} />
         </div>
       </div>
     );

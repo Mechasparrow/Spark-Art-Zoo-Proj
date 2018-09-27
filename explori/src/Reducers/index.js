@@ -1,4 +1,7 @@
+import {combineReducers} from 'redux';
 
-export const rootReducer = (state = null, action) => {
-  return state;
-}
+import {collections} from './collections';
+
+export const rootReducer = combineReducers({
+  collections
+});

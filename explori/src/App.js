@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import HeaderBar from "./Components/HeaderBar";
 
 //Pages
-import HomePage from "./Components/HomePage";
+import HomePage from "./Containers/HomeContainer";
 import ViewItemPage from "./Components/ViewItemPage";
 import QuizPage from "./Components/QuizPage";
 import ItemCompletedPage from "./Components/ItemCompletedPage";
