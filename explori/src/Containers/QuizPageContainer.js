@@ -6,7 +6,8 @@ import QuizPage from '../Components/QuizPage';
 
 const mapStateToProps = (state) => ({
   collections: state.collections,
-  selected_collection_idx: state.selected_collection_idx
+  selected_collection_idx: state.selected_collection_idx,
+  selected_item_idx: state.selected_item_idx
 })
 
 const mapDispatchToProps = (dispatch) => ({

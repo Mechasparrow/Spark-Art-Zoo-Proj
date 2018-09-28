@@ -8,6 +8,13 @@ Page of application that quizes the user if they know information about the pain
 //React
 import React, { Component } from "react";
 
+//libs
+import nlp from 'compromise';
+import _ from 'lodash';
+
+// Quiz Gen
+import QuizGen from '../Lib/QuizGen';
+
 // Styling for JavaScript
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -59,11 +66,18 @@ class QuizPage extends Component {
 
     //TODO pull the selected item
 
+    let selected_collection = this.props.collections[this.props.selected_collection_idx];
+    let selected_item = selected_collection.items[this.props.selected_item_idx];
+
+    let quiz_desc = QuizGen.quiz_desc(selected_item.description);
+
     //set starting state
     this.state = {
       selected: "option2",
       submitted: false,
-      correct: null
+      correct: null,
+      selected_item: selected_item,
+      quiz_desc: quiz_desc
     };
 
     //binding functions
@@ -71,8 +85,10 @@ class QuizPage extends Component {
     this.submit = this.submit.bind(this);
 
     //debugging
-    console.log(this.props);
+    console.log(selected_item);
   }
+
+
 
   //Submits the quiz
   submit(e) {
@@ -121,13 +137,11 @@ class QuizPage extends Component {
         <div className={classes.quiz_container}>
           <div className={classes.content}>
             <div className={classes.item_title}>
-              <Typography variant="display2">Quiz title</Typography>
+              <Typography variant="display2">Quiz {this.state.selected_item.title}</Typography>
             </div>
             <div className={classes.quiz_prompt}>
               <Typography paragraph variant="body1">
-                lorem ipsum, lorem ipsum, ___________, lorem ipsum, lorem ipsum,
-                lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum, lorem ipsum,
-                lorem ipsum, lorem ipsum, lorem ipsum,
+                {this.state.quiz_desc}
               </Typography>
             </div>
           </div>
