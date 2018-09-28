@@ -29,7 +29,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 
 //Routing
-import {Redirect} from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 //styling
 const styles = {
@@ -57,12 +57,14 @@ class QuizPage extends Component {
   constructor(props) {
     super(props);
 
+    //TODO pull the selected item
+
     //set starting state
     this.state = {
       selected: "option2",
       submitted: false,
       correct: null
-    }
+    };
 
     //binding functions
     this.handleRadioChange = this.handleRadioChange.bind(this);
@@ -70,19 +72,17 @@ class QuizPage extends Component {
 
     //debugging
     console.log(this.props);
-
   }
 
   //Submits the quiz
   submit(e) {
+    let { selected } = this.state;
 
-    let {selected} = this.state;
-
-    let correct = false
+    let correct = false;
 
     if (selected == "option1") {
       correct = true;
-    }else {
+    } else {
       correct = false;
     }
 
@@ -90,20 +90,17 @@ class QuizPage extends Component {
       ...this.state,
       submitted: true,
       correct
-    })
-
+    });
   }
 
   //Handles the Radio change
   handleRadioChange(e) {
-
-    let {value} = e.target;
+    let { value } = e.target;
 
     this.setState({
       ...this.state,
       selected: value
-    })
-
+    });
   }
 
   //Render the QuizPage
@@ -112,19 +109,12 @@ class QuizPage extends Component {
 
     //check if we submitted the quiz
     if (this.state.submitted) {
-
       if (this.state.correct) {
-        return (
-          <Redirect push to = "/quiz-complete"></Redirect>
-        )
-      }else {
-        return (
-          <Redirect push to = "/quiz-failed"></Redirect>
-        )
+        return <Redirect push to="/quiz-complete" />;
+      } else {
+        return <Redirect push to="/quiz-failed" />;
       }
-
     }
-
 
     return (
       <div className="QuizPage">
@@ -148,7 +138,7 @@ class QuizPage extends Component {
                 aria-label="Quiz Options"
                 name="quiz_option"
                 value={this.state.selected}
-                onChange = {this.handleRadioChange}
+                onChange={this.handleRadioChange}
                 className={classes.group}
               >
                 <FormControlLabel
@@ -177,7 +167,12 @@ class QuizPage extends Component {
             </FormControl>
           </div>
           <div className={classes.submit_btn}>
-            <Button onClick = {this.submit} variant="contained" component="span" color="primary">
+            <Button
+              onClick={this.submit}
+              variant="contained"
+              component="span"
+              color="primary"
+            >
               Submit
             </Button>
           </div>

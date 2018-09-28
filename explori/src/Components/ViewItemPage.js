@@ -10,7 +10,7 @@ Page that renders a specific Item from a Collection
 import React, { Component } from "react";
 
 //lodash
-import _ from 'lodash';
+import _ from "lodash";
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
@@ -22,7 +22,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
 // Models
-import Collection from '../Models/Collection';
+import Collection from "../Models/Collection";
 
 //Routing
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ const styles = {
     textAlign: "center"
   },
   item_img_container: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   item_img: {
     marginTop: "32px",
@@ -68,18 +68,22 @@ class ViewItemPage extends Component {
   constructor(props) {
     super(props);
 
-    const selected_collection = this.props.collections[this.props.selected_collection_idx];
+    const selected_collection = this.props.collections[
+      this.props.selected_collection_idx
+    ];
 
     //grab a random item
     const random_item = this.randomItem(selected_collection);
+    const random_item_idx = _.findIndex(selected_collection.items, random_item);
+
+    this.props.select_item(random_item_idx);
 
     this.state = {
       selected_collection,
       item: random_item
-    }
+    };
 
     console.log(this.state);
-
   }
 
   //TODO grabs a random item from the collection to display
@@ -93,12 +97,9 @@ class ViewItemPage extends Component {
 
     return (
       <div className="ViewItemPage">
-
-        <div className = {classes.item_img_container}>
-          <img className={classes.item_img} src = {this.state.item.image_link} />
-
+        <div className={classes.item_img_container}>
+          <img className={classes.item_img} src={this.state.item.image_link} />
         </div>
-
 
         <div className={classes.item_desc}>
           <Typography variant="headline" component="h2">
