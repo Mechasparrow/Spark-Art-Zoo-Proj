@@ -112,3 +112,4 @@ dmypy.json
 
 #my data
 /data
+/scraped_data

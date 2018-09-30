@@ -16,4 +16,4 @@ scraped_collections = art_scraper.retrieve_collections(True, 2)
 
 scraped_collections_json = art_scraper.scraped_data_json()
 
-scraper_io.save_data(scraped_collections_json, "./scraped_data/data.json")
+scraper_io.save_data(scraped_collections_json, "./scraped_data/web_data.json")
