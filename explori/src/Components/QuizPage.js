@@ -9,11 +9,11 @@ Page of application that quizes the user if they know information about the pain
 import React, { Component } from "react";
 
 //libs
-import nlp from 'compromise';
-import _ from 'lodash';
+import nlp from "compromise";
+import _ from "lodash";
 
 // Quiz Gen
-import QuizGen from '../Lib/QuizGen';
+import QuizGen from "../Lib/QuizGen";
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
@@ -66,37 +66,40 @@ class QuizPage extends Component {
 
     //TODO pull the selected item
 
-    let selected_collection = this.props.collections[this.props.selected_collection_idx];
+    let selected_collection = this.props.collections[
+      this.props.selected_collection_idx
+    ];
     let selected_item = selected_collection.items[this.props.selected_item_idx];
-
-    let quiz_desc = QuizGen.quiz_desc(selected_item.description);
 
     //set starting state
     this.state = {
-      selected: "option2",
+      selected: "choice1",
       submitted: false,
       correct: null,
       selected_item: selected_item,
-      quiz_desc: quiz_desc
+      quiz: new QuizGen(selected_item.description, this.props.quiz_options)
     };
 
     //binding functions
     this.handleRadioChange = this.handleRadioChange.bind(this);
+    this.renderChoices = this.renderChoices.bind(this);
     this.submit = this.submit.bind(this);
 
     //debugging
-    console.log(selected_item);
+    console.log(this.state.quiz);
   }
-
-
 
   //Submits the quiz
   submit(e) {
     let { selected } = this.state;
 
-    let correct = false;
+    let selected_choice = _.find(this.state.quiz.choices, function(choice) {
+      return choice.value === selected;
+    });
 
-    if (selected == "option1") {
+    var correct;
+
+    if (selected_choice.correct) {
       correct = true;
     } else {
       correct = false;
@@ -119,6 +122,23 @@ class QuizPage extends Component {
     });
   }
 
+  renderChoices() {
+    let rendered_choices = [];
+
+    _.map(this.state.quiz.choices, function(choice, idx) {
+      rendered_choices.push(
+        <FormControlLabel
+          key={idx}
+          value={choice.value}
+          control={<Radio />}
+          label={choice.text}
+        />
+      );
+    });
+
+    return rendered_choices;
+  }
+
   //Render the QuizPage
   render() {
     const { classes } = this.props;
@@ -137,17 +157,19 @@ class QuizPage extends Component {
         <div className={classes.quiz_container}>
           <div className={classes.content}>
             <div className={classes.item_title}>
-              <Typography variant="display2">Quiz {this.state.selected_item.title}</Typography>
+              <Typography variant="display2">
+                Quiz {this.state.selected_item.title}
+              </Typography>
             </div>
             <div className={classes.quiz_prompt}>
               <Typography paragraph variant="body1">
-                {this.state.quiz_desc}
+                {this.state.quiz.description}
               </Typography>
             </div>
           </div>
           <div className={classes.quiz_options}>
             <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Gender</FormLabel>
+              <FormLabel component="legend">Quiz Choices</FormLabel>
               <RadioGroup
                 aria-label="Quiz Options"
                 name="quiz_option"
@@ -155,28 +177,7 @@ class QuizPage extends Component {
                 onChange={this.handleRadioChange}
                 className={classes.group}
               >
-                <FormControlLabel
-                  value="option1"
-                  control={<Radio />}
-                  label="option1"
-                />
-
-                <FormControlLabel
-                  value="option2"
-                  control={<Radio />}
-                  label="option2"
-                />
-
-                <FormControlLabel
-                  value="option3"
-                  control={<Radio />}
-                  label="option3"
-                />
-                <FormControlLabel
-                  value="option4"
-                  control={<Radio />}
-                  label="option4"
-                />
+                {this.renderChoices()}
               </RadioGroup>
             </FormControl>
           </div>

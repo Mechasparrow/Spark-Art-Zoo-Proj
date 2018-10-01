@@ -1,15 +1,13 @@
 //Models
 import Collection from "../Models/Collection";
 
+//Util Lib
+import _ from "lodash";
+
 //Initial Data
 
-//import * as loaded_collections from '../Data/collections.json'
-//import * as loaded_collections from "../Data/Scraped/data.json";
-import * as loaded_collections from "../Data/Dummy/data.json";
+import { loaded_collections } from "../Data/loaded_data";
 
-//parse raw data
-const col_init_data = Collection.parseList(loaded_collections);
-
-export const collections = (state = col_init_data, action) => {
+export const collections = (state = loaded_collections, action) => {
   return state;
 };
