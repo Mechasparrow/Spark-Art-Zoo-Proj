@@ -46,11 +46,13 @@ class ExhibitItem extends Component {
     super(props);
 
     this.state = {
-      item_selected: false
+      item_selected: false,
+      view_all: false
     }
 
     //bind functions
     this.select_collection = this.select_collection.bind(this);
+    this.view_collection = this.view_collection.bind(this);
   }
 
   //selects the collection
@@ -65,6 +67,18 @@ class ExhibitItem extends Component {
 
   }
 
+  //views the entire collection
+  view_collection() {
+
+    this.props.select_collection(this.props.idx);
+
+    this.setState({
+      ...this.state,
+      view_all: true
+    })
+
+  }
+
   //render the component
   render() {
     const { classes, collection } = this.props;
@@ -72,6 +86,10 @@ class ExhibitItem extends Component {
     if (this.state.item_selected) {
       return (
         <Redirect push to = "/view-item"></Redirect>
+      )
+    } else if (this.state.view_all) {
+      return (
+        <Redirect push to = "/view-collection"></Redirect>
       )
     }
 
@@ -89,7 +107,8 @@ class ExhibitItem extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-              <Button onClick = {this.select_collection} size="small">View</Button>
+              <Button onClick = {this.select_collection} size="small">Start</Button>
+              <Button onClick = {this.view_collection} size = "small">All</Button>
           </CardActions>
         </Card>
       </div>

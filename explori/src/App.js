@@ -26,6 +26,7 @@ import ViewItemPage from "./Containers/ViewItemContainer";
 import QuizPage from "./Containers/QuizPageContainer";
 import ItemCompletedPage from "./Components/ItemCompletedPage";
 import ItemIncorrectPage from "./Components/ItemIncorrectPage";
+import ViewCollectionPage from './Containers/ViewCollectionPageContainer';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -56,6 +57,7 @@ class App extends Component {
               <Route path="/quiz-page" component={QuizPage} />
               <Route path = "/quiz-failed" component = {ItemIncorrectPage} />
               <Route path = "/quiz-complete" component = {ItemCompletedPage} />
+              <Route path = "/view-collection" component = {ViewCollectionPage} />
             </div>
           </Router>
         </div>
