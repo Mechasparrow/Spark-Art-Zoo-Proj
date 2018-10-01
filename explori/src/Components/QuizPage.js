@@ -101,6 +101,7 @@ class QuizPage extends Component {
 
     if (selected_choice.correct) {
       correct = true;
+      this.props.incrementScore();
     } else {
       correct = false;
     }

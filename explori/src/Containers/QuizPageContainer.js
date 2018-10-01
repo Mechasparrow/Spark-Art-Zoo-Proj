@@ -7,6 +7,9 @@ import QuizPage from "../Components/QuizPage";
 // quiz options gen
 import { retrieve_potential_quiz_choices } from "../Data/loaded_data";
 
+//redux actions
+import {incrementScore} from '../Actions';
+
 const mapStateToProps = state => ({
   collections: state.collections,
   quiz_options: state.quiz_options,
@@ -14,7 +17,11 @@ const mapStateToProps = state => ({
   selected_item_idx: state.selected_item_idx
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  incrementScore: () => {
+    dispatch(incrementScore());
+  }
+});
 
 export default connect(
   mapStateToProps,

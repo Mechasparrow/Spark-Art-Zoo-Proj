@@ -18,7 +18,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 // Additional components
-import HeaderBar from "./Components/HeaderBar";
+import HeaderBar from "./Containers/HeaderBarContainer";
 
 //Pages
 import HomePage from "./Containers/HomeContainer";

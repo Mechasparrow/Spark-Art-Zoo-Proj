@@ -1,4 +1,4 @@
-import { TEST, SELECT_COLLECTION, SELECT_ITEM } from "../Constants";
+import { TEST, SELECT_COLLECTION, SELECT_ITEM, INCREMENT_SCORE } from "../Constants";
 
 export const test = () => ({
   type: TEST
@@ -17,3 +17,8 @@ export const select_item = selected_item_idx => ({
     selected_item_idx
   }
 });
+
+//score actions
+export const incrementScore = () => ({
+  type: INCREMENT_SCORE
+})

@@ -8,6 +8,9 @@ Main Header for the application
 //reactjs
 import React, { Component } from "react";
 
+// Grid system
+import Grid from "@material-ui/core/Grid";
+
 //material components
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -22,6 +25,12 @@ const styles = {
   root: {
     flexGrow: 1,
     background: "#3F51B5"
+  },
+  title: {
+    textAlign: 'left'
+  },
+  score: {
+    textAlign: 'right'
   }
 };
 
@@ -38,9 +47,20 @@ class HeaderBar extends Component {
       <div className="HeaderBar">
         <AppBar className={classes.root} position="static">
           <Toolbar>
-            <Typography variant="title" color="inherit">
-              Explori
-            </Typography>
+            <Grid container spacing = {16}>
+              <Grid item md={6}>
+                <Typography className = {classes.title} variant="title" color="inherit">
+                  Explori
+                </Typography>
+              </Grid>
+              <Grid item md={6}>
+                <Typography className = {classes.score} variant = "title" color = "inherit">
+                  {this.props.score}
+                </Typography>
+              </Grid>
+            </Grid>
+
+
           </Toolbar>
         </AppBar>
       </div>
