@@ -1,3 +1,10 @@
+/**
+./Reducers/collections.js
+
+redux reducer that stores collection data
+
+**/
+
 //Models
 import Collection from "../Models/Collection";
 

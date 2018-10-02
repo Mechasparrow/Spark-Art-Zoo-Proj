@@ -1,3 +1,9 @@
+/**
+./Reducers/score.js
+
+score redux reducer that stores player score
+
+**/
 
 import {INCREMENT_SCORE} from '../Constants';
 

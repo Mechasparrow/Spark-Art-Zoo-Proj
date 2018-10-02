@@ -1,3 +1,10 @@
+/**
+./Reducers/index.js
+
+root script for the redux reducer. This combines all other reducers
+
+**/
+
 import { combineReducers } from "redux";
 
 import { collections } from "./collections";

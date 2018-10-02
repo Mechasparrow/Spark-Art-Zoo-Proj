@@ -1,3 +1,10 @@
+/**
+./Reducers/quiz_options.js
+
+redux reducer that stores the quiz_options
+
+**/
+
 import {
   loaded_collections,
   retrieve_potential_quiz_choices

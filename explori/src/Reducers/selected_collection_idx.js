@@ -1,3 +1,9 @@
+/**
+./Reducers/selected_collection_idx
+
+reducer that stores the index of the selected collection;
+
+**/
 
 import {
   SELECT_COLLECTION
