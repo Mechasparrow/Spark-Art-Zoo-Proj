@@ -5,7 +5,7 @@ import _ from "lodash";
 
 //components
 import ItemCard from "../Containers/ItemCardContainer";
-import EmptyItem from "./EmptyItem";
+import EmptyCard from "./EmptyCard";
 
 //models
 import Item from "../Models/Item";
@@ -57,7 +57,7 @@ class ItemGrid extends Component {
             for (var c = 0; c < empty_items_cnt; c++) {
               current_row.push(
                 <Grid key={idx + 100} item>
-                  <EmptyItem />
+                  <EmptyCard />
                 </Grid>
               );
             }

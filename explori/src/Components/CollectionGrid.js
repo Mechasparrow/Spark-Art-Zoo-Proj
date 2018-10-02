@@ -1,9 +1,8 @@
 /**
 
-ExhibitGrid.js
+CollectionGrid.js
 
-Creates a grid of exhibits to display
-
+Creates a grid of showcases all the collections
 **/
 
 //react js
@@ -21,9 +20,9 @@ import Grid from "@material-ui/core/Grid";
 
 //individual exhibit item
 import CollectionCard from "../Containers/CollectionCardContainer";
-import EmptyItem from "./EmptyItem";
+import EmptyCard from "./EmptyCard";
 
-//ExhibitGrid component
+//CollectionGrid component
 // takes in the row length and the exhibit items to render
 /**
 
@@ -42,7 +41,7 @@ const styles = {
 
 //Declare the component
 
-class ExhibitGrid extends Component {
+class CollectionGrid extends Component {
   constructor(props) {
     super(props);
   }
@@ -73,7 +72,7 @@ class ExhibitGrid extends Component {
           for (var c = 0; c < empty_items_cnt; c++) {
             current_row.push(
               <Grid key={idx + 100} item>
-                <EmptyItem />
+                <EmptyCard />
               </Grid>
             );
           }
@@ -123,8 +122,8 @@ class ExhibitGrid extends Component {
 }
 
 //helper for styling
-ExhibitGrid.propTypes = {
+CollectionGrid.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ExhibitGrid);
+export default withStyles(styles)(CollectionGrid);

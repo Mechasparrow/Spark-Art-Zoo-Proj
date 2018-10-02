@@ -1,8 +1,7 @@
 /**
-EmptyItem.js
+EmptyCard.js
 
-Defines a component that renders an empty item in place of a exhibit item for the ExhibitGrid Component
-
+Defines a component that renders an empty card
 **/
 
 //import reactjs
@@ -18,8 +17,8 @@ const styles = {
   }
 };
 
-//Create the EmptyItem Class
-class EmptyItem extends Component {
+//Create the EmptyCard Class
+class EmptyCard extends Component {
   constructor(props) {
     super(props);
   }
@@ -33,8 +32,8 @@ class EmptyItem extends Component {
 }
 
 //helper for styling
-EmptyItem.propTypes = {
+EmptyCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(EmptyItem);
+export default withStyles(styles)(EmptyCard);

@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Collection from "../Models/Collection";
 
 //components
-import ExhibitGrid from "./ExhibitGrid";
+import CollectionGrid from "./CollectionGrid";
 
 //styling
 const styles = {
@@ -51,7 +51,7 @@ class HomePage extends Component {
             Exhibits
           </Typography>
 
-          <ExhibitGrid collections={this.props.collections} rowlength={2} />
+          <CollectionGrid collections={this.props.collections} rowlength={2} />
         </div>
       </div>
     );

@@ -2,7 +2,7 @@
 import {connect} from 'react-redux';
 
 //component to bind
-import ExhibitItem from '../Components/ExhibitItem';
+import CollectionCard from '../Components/CollectionCard';
 
 //Redux actions
 import {select_collection} from '../Actions';
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExhibitItem);
+)(CollectionCard);
