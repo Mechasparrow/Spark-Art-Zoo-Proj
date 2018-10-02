@@ -10,6 +10,7 @@ import {INCREMENT_SCORE} from '../Constants';
 export const score = (state = 0, action) => {
 
   switch (action.type) {
+    //increments the score
     case INCREMENT_SCORE:
       return state + 1;
     default:

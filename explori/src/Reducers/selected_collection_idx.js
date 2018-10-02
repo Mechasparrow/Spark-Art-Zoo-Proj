@@ -13,6 +13,7 @@ export const selected_collection_idx = (state = 0, action) => {
 
   switch (action.type) {
 
+      //selects the collection with idx
       case SELECT_COLLECTION:
         let {collection_idx} = action.payload;
         return collection_idx;
