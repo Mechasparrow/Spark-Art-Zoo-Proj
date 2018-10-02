@@ -1,5 +1,5 @@
 /**
-index.js
+./Actions/index.js
 a.k.a ./Actions
 
 root script that defines the possible redux actions that are available
