@@ -41,15 +41,21 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    //dispatch a test action to see if redux if functioning properly DEBUG
     store.dispatch(test());
   }
 
+  //Renders the html of the key root app component
   render() {
     return (
       <Provider store = {store}>
+        {/** Inject the redux store with Provider **/}
         <div className="App">
+          {/** Renders the App Header **/}
           <HeaderBar />
 
+
+          {/** Router component that maps pages to routes**/}
           <Router>
             <div>
               <Route exact path="/" component={HomePage} />
