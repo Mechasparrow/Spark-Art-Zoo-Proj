@@ -93,7 +93,7 @@ class ViewItemPage extends Component {
     console.log(this.state);
   }
 
-  //TODO grabs a random item from the collection to display
+  // grabs a random item from the collection to display
   randomItem(collection) {
     return _.sample(collection.items);
   }

@@ -1,3 +1,11 @@
+/**
+./Components/ViewCollectionPage.js
+
+Pages that shows the items of a collection
+
+**/
+
+//react lib
 import React, {Component} from 'react';
 
 //components
@@ -10,6 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//component styling
 const styles = {
   title: {
     marginTop: '16px',
@@ -17,9 +26,10 @@ const styles = {
   }
 }
 
-
+// declares the View Collection page
 class ViewCollectionPage extends Component {
 
+  // on page load
   constructor(props) {
 
     super(props);
@@ -31,6 +41,7 @@ class ViewCollectionPage extends Component {
     super(props);
   }
 
+  // renders the component
   render() {
 
     const {classes} = this.props;

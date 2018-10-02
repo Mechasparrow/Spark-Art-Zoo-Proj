@@ -1,3 +1,11 @@
+/**
+./Components/ItemGrid.js
+
+component that renders a grid of item cards
+
+**/
+
+//react lib
 import React, { Component } from "react";
 
 //util lib
@@ -18,10 +26,12 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//styling for component
 const styles = {
   grid: {}
 };
 
+//declares the item grid
 class ItemGrid extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +39,7 @@ class ItemGrid extends Component {
     this.renderGrid = this.renderGrid.bind(this);
   }
 
+  //renders the grid with a certain amnt of items per row
   renderGrid(itemsPerRow) {
     const { classes } = this.props;
     console.log(classes);
@@ -86,13 +97,16 @@ class ItemGrid extends Component {
       }.bind(this)
     );
 
+    //returns the grid
     return (
       <Grid container className={classes.grid}>
         {grid}
       </Grid>
     );
+
   }
 
+  //render the component
   render() {
     const { classes } = this.props;
 

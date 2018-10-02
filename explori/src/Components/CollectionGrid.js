@@ -46,7 +46,7 @@ class CollectionGrid extends Component {
     super(props);
   }
 
-  //Generates a grid of Exhibit Items
+  //Generates a grid of collection cards
   //takes in items for the grid
   // takes in the # of items that can be on a given row
   generateGrid(items, itemsPerRow) {
@@ -112,7 +112,7 @@ class CollectionGrid extends Component {
     const { collections, rowlength } = this.props;
 
     return (
-      <div className="ExhibitGrid">
+      <div className="CollectionCard">
         <Grid container className={classes.root}>
           {this.generateGrid(collections, rowlength)}
         </Grid>

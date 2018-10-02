@@ -61,11 +61,12 @@ const styles = {
 
 //Declare the QuizPage class
 class QuizPage extends Component {
+
+  // on page load
   constructor(props) {
     super(props);
 
-    //TODO pull the selected item
-
+    //pulls the selected item
     let selected_collection = this.props.collections[
       this.props.selected_collection_idx
     ];
@@ -123,6 +124,7 @@ class QuizPage extends Component {
     });
   }
 
+  //renders the quiz choices
   renderChoices() {
     let rendered_choices = [];
 
@@ -153,6 +155,7 @@ class QuizPage extends Component {
       }
     }
 
+    //returns the jsx
     return (
       <div className="QuizPage">
         <div className={classes.quiz_container}>

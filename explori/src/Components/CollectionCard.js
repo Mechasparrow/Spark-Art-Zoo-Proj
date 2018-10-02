@@ -1,7 +1,7 @@
 /**
-ExhibitItem.js
+CollectionCard.js
 
-Renders a item for a exhibit
+Renders a collection info in a card form
 
 **/
 
@@ -37,11 +37,11 @@ const styles = {
   actions: {}
 };
 
-// Displays info regarding Collection
+// Displays info regarding Collection in card form
 // Takes in Collection as a prop (collection)
 
 //declares the exhibit item
-class ExhibitItem extends Component {
+class CollectionCard extends Component {
   constructor(props) {
     super(props);
 
@@ -79,7 +79,7 @@ class ExhibitItem extends Component {
 
   }
 
-  //render the component
+  //render the card-based component
   render() {
     const { classes, collection } = this.props;
 
@@ -94,7 +94,7 @@ class ExhibitItem extends Component {
     }
 
     return (
-      <div className="ExhibitItem">
+      <div className="CollectionCard">
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -117,8 +117,8 @@ class ExhibitItem extends Component {
 }
 
 //helper for styling
-ExhibitItem.propTypes = {
+CollectionCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ExhibitItem);
+export default withStyles(styles)(CollectionCard);

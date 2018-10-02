@@ -1,3 +1,11 @@
+/**
+Componenets/ItemCard.js
+
+Card that displays the item info
+
+**/
+
+//react lib
 import React, { Component } from "react";
 
 //material ui
@@ -33,6 +41,8 @@ const styles = {
   actions: {}
 };
 
+//declare ItemCard class
+
 class ItemCard extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +54,7 @@ class ItemCard extends Component {
     this.selectItem = this.selectItem.bind(this);
   }
 
+  //selects the item
   selectItem() {
     this.props.selectItem(this.props.idx);
 
@@ -53,9 +64,11 @@ class ItemCard extends Component {
     });
   }
 
+  //renders the item card
   render() {
     const { classes } = this.props;
 
+    //if the item is selected, redirect to the item view
     if (this.state.item_selected === true) {
       return <Redirect push to="/view-item" />;
     }
