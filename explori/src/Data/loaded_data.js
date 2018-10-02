@@ -1,7 +1,10 @@
-//load the json in
-//import * as loaded_collections from '../Data/collections.json'
-//import * as loaded_collections from "../Data/Scraped/data.json";
-import * as raw_loaded_collections from "../Data/Dummy/data.json";
+/**
+./Data/loaded_data.js
+
+loads the data for the application and provides methods for interacting and filtering the data
+also allows for limited ability of dynamic quiz choice creation (overly terrible rn)
+
+**/
 
 //Models
 import Collection from "../Models/Collection";
@@ -10,10 +13,17 @@ import Collection from "../Models/Collection";
 import _ from "lodash";
 import nlp from "compromise";
 
+//load the collection data json in
+
+//import * as loaded_collections from '../Data/collections.json'
+//import * as loaded_collections from "../Data/Scraped/data.json";
+import * as raw_loaded_collections from "../Data/Dummy/data.json";
+
+
 export const raw_collections = raw_loaded_collections;
 
-//filters data for items that do not have descriptions
-let filtered_init_data = _.map(raw_loaded_collections, function(collection) {
+//filters the raw collections data
+let filtered_init_data = _.map(raw_collections, function(collection) {
   let filtered_items = _.filter(collection.items, function(item) {
     return item.description !== null;
   });
@@ -21,9 +31,18 @@ let filtered_init_data = _.map(raw_loaded_collections, function(collection) {
   return new Collection(collection.name, filtered_items);
 });
 
+//filtered data exported for use as loaded_collections
 export const loaded_collections = filtered_init_data;
 
-// generates potential quiz choices with natural language processing
+/**
+  retrieve_potential_quiz_choices(collections, size)
+
+  collections: collections to pull quiz choices from
+  size: amount of quiz choices to return
+
+  generates potential quiz choices with natural language processing
+**/
+
 export const retrieve_potential_quiz_choices = (collections, size = null) => {
   let quiz_options = [];
   let option_count = 0;
