@@ -1,13 +1,36 @@
+/**
+./Lib/QuizGen.js
+
+Utility class that deals with the creation and handling of quizs for knowledge verification
+
+**/
+
+// Util libs
 import nlp from "compromise";
 import _ from "lodash";
 
+//Declare the class
 class QuizGen {
+
+  /**
+    constructor(item_desc, extra_choices)
+
+    function for creation of object
+    requires the description of the item and its extra choices to use for potential quiz answers
+  **/
+
   constructor(item_desc, extra_choices) {
     this.selected_text = QuizGen.grab_noun(item_desc).text;
     this.description = QuizGen.quiz_desc(this.selected_text, item_desc);
 
     this.choices = QuizGen.generate_choices(this.selected_text, extra_choices);
   }
+
+  /**
+    generate_choices(correct_choice, extra_choices)
+
+    Generate the choices in the correct format for the quiz
+  **/
 
   static generate_choices(correct_choice, extra_choices) {
     let choices = [];
@@ -33,6 +56,13 @@ class QuizGen {
     return choices;
   }
 
+  /**
+    grab_noun(desc)
+
+    grabs a random noun from a item description
+
+  **/
+
   static grab_noun(desc) {
     let doc = nlp(desc);
 
@@ -43,6 +73,13 @@ class QuizGen {
 
     return random_noun;
   }
+
+  /**
+    quiz_desc(selected_text, item_desc)
+
+    creates the description for the quiz that has the selected text(answer text) ommitted from the description
+
+  **/
 
   static quiz_desc(selected_text, item_desc) {
     let noun_length = selected_text.length;
