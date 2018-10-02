@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import _ from "lodash";
 
 //components
-import ItemCard from "./ItemCard";
+import ItemCard from "../Containers/ItemCardContainer";
 import EmptyItem from "./EmptyItem";
 
 //models

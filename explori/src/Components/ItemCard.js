@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 //material ui
 import Typography from "@material-ui/core/Typography";
@@ -24,22 +24,44 @@ const styles = {
     marginBottom: 16,
     padding: "8px"
   },
+  card_image_container: {
+    textAlign: "center"
+  },
+  card_image: {
+    maxHeight: "200px"
+  },
   actions: {}
 };
 
 class ItemCard extends Component {
-
   constructor(props) {
-
     super(props);
+
+    this.state = {
+      item_selected: false
+    };
+
+    this.selectItem = this.selectItem.bind(this);
+  }
+
+  selectItem() {
+    this.props.selectItem(this.props.idx);
+
+    this.setState({
+      ...this.state,
+      item_selected: true
+    });
   }
 
   render() {
+    const { classes } = this.props;
 
-    const {classes} = this.props;
+    if (this.state.item_selected === true) {
+      return <Redirect push to="/view-item" />;
+    }
 
     return (
-      <div className = "ItemCard">
+      <div className="ItemCard">
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -50,18 +72,23 @@ class ItemCard extends Component {
               {this.props.item.title}
             </Typography>
 
+            <div className={classes.card_image_container}>
+              <img
+                className={classes.card_image}
+                src={this.props.item.image_link}
+              />
+            </div>
           </CardContent>
 
           <CardActions className={classes.actions}>
-              <Button size="small">Start</Button>
+            <Button size="small" onClick={this.selectItem}>
+              Start
+            </Button>
           </CardActions>
         </Card>
       </div>
-    )
-
-
+    );
   }
-
 }
 
 //styling helper config

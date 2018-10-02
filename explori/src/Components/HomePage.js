@@ -29,13 +29,15 @@ const styles = {
   }
 };
 
-
 //define the HomePage class
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
     console.log(props);
+
+    //clear the item selection
+    this.props.clearItemSelection();
   }
 
   //Render the HomePage w/ a grid of collections

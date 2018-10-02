@@ -1,4 +1,4 @@
-import { SELECT_ITEM } from "../Constants";
+import { SELECT_ITEM, CLEAR_ITEM_SELECTION } from "../Constants";
 
 export const selected_item_idx = (state = null, action) => {
   switch (action.type) {
@@ -6,7 +6,8 @@ export const selected_item_idx = (state = null, action) => {
       let { selected_item_idx } = action.payload;
 
       return selected_item_idx;
-
+    case CLEAR_ITEM_SELECTION:
+      return null;
     default:
       return state;
   }

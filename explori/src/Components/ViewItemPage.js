@@ -73,14 +73,21 @@ class ViewItemPage extends Component {
     ];
 
     //grab a random item
-    const random_item = this.randomItem(selected_collection);
-    const random_item_idx = _.findIndex(selected_collection.items, random_item);
 
-    this.props.select_item(random_item_idx);
+    var item_idx;
+
+    if (this.props.selected_item_idx === null) {
+      item_idx = _.sample(_.keys(selected_collection.items));
+      this.props.select_item(item_idx);
+    } else {
+      item_idx = this.props.selected_item_idx;
+    }
+
+    const selected_item = selected_collection.items[item_idx];
 
     this.state = {
       selected_collection,
-      item: random_item
+      item: selected_item
     };
 
     console.log(this.state);
