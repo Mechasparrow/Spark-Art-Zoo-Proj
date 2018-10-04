@@ -38,6 +38,12 @@ const styles = {
   card_image: {
     maxHeight: "200px"
   },
+  completed: {
+    color: 'green'
+  },
+  uncomplete: {
+    color: 'red'
+  },
   actions: {}
 };
 
@@ -83,6 +89,15 @@ class ItemCard extends Component {
               className={classes.title}
             >
               {this.props.item.title}
+            </Typography>
+
+            <Typography
+              variant = "subheading"
+              component = "h2"
+              className = {classes.completed}
+            >
+              {this.props.item.completed && (<p className = {classes.completed}>Complete</p>)}
+              {!this.props.item.completed && (<p className = {classes.uncomplete}>Not Complete</p>)}
             </Typography>
 
             <div className={classes.card_image_container}>

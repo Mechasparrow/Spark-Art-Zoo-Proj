@@ -13,6 +13,9 @@ export const TEST = "TEST";
 export const SELECT_COLLECTION = "SELECT_COLLECTION";
 export const SELECT_ITEM = "SELECT_ITEM";
 
+// complete item
+export const COMPLETE_ITEM = "COMPLETE_ITEM";
+
 // deselection constants
 export const CLEAR_ITEM_SELECTION = "CLEAR_ITEM_SELECTION";
 

@@ -35,6 +35,16 @@ class Collection {
     };
   }
 
+  static serializeList(collection_list) {
+
+    let serialized_list = _.map(collection_list, function (collection) {
+      return collection.serialize();
+    })
+
+    return serialized_list;
+
+  }
+
   // parses a raw collection (JSON)
   static parse(raw_collection) {
     let { name, items } = raw_collection;

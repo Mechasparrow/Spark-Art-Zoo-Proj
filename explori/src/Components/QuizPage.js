@@ -103,6 +103,10 @@ class QuizPage extends Component {
     if (selected_choice.correct) {
       correct = true;
       this.props.incrementScore();
+
+      //TODO mark as correct
+      this.props.completeItem(this.props.selected_collection_idx, this.props.selected_item_idx);
+
     } else {
       correct = false;
     }

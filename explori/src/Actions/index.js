@@ -12,7 +12,8 @@ import {
   SELECT_COLLECTION,
   SELECT_ITEM,
   CLEAR_ITEM_SELECTION,
-  INCREMENT_SCORE
+  INCREMENT_SCORE,
+  COMPLETE_ITEM
 } from "../Constants";
 
 //test action for DEBUG
@@ -35,6 +36,15 @@ export const select_item = selected_item_idx => ({
     selected_item_idx
   }
 });
+
+// complete item
+export const complete_item = (collection_idx, item_idx) => ({
+  type: COMPLETE_ITEM,
+  payload: {
+    complete_item_idx: item_idx,
+    complete_collection_idx: collection_idx
+  }
+})
 
 //actions to clear selections
 

@@ -11,23 +11,24 @@ import _ from 'lodash';
 class Item {
 
   //constructs the object
-  constructor(title, description, author, image_link, type=null) {
+  constructor(title, description, author, image_link, type=null, completed = null) {
 
     this.title = title;
     this.author = author;
     this.image_link = image_link;
     this.description = description;
     this.type = type;
+    this.completed = completed;
 
   }
 
   //serializes the object to JSON
   serialize() {
 
-    let {title, description, author, image_link, type} = this;
+    let {title, description, author, image_link, type, completed} = this;
 
     return {
-      title, description, author, image_link, type
+      title, description, author, image_link, type, completed
     }
 
   }
@@ -37,7 +38,18 @@ class Item {
 
     let {title, description, author, image_link, type} = raw_item;
 
-    return new Item(title, description, author, image_link, type);
+    var completed = false;
+
+    return new Item(title, description, author, image_link, type, completed);
+
+  }
+
+  //parse raw Item from JSON with completion
+  static parseWithComplete(raw_item) {
+
+    let {title, description, author, image_link, type, completed} = raw_item;
+
+    return new Item(title, description, author, image_link, type, completed);
 
   }
 
@@ -45,7 +57,13 @@ class Item {
   static parseList(raw_items) {
 
     let parsed_items = _.map(raw_items, function (raw_item) {
-      return Item.parse(raw_item);
+
+      if (raw_item['completed'] !== undefined) {
+        return Item.parseWithComplete(raw_item);
+      }else {
+        return Item.parse(raw_item);
+      }
+
     })
 
     return parsed_items;
