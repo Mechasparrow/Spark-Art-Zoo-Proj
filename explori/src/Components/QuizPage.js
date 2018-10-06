@@ -14,6 +14,8 @@ import _ from "lodash";
 
 // Quiz Gen
 import QuizGen from "../Lib/QuizGen";
+import Quiz from "../Lib/Quiz";
+import ManualQuizGen from "../Lib/ManualQuizGen";
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
@@ -65,20 +67,41 @@ class QuizPage extends Component {
   constructor(props) {
     super(props);
 
-    //pulls the selected item
-    let selected_collection = this.props.collections[
-      this.props.selected_collection_idx
-    ];
-    let selected_item = selected_collection.items[this.props.selected_item_idx];
-
     if (this.props.quiz_selected === true) {
       //set starting state
+
+      //pulls the selected item
+      let selected_collection = this.props.collections[
+        this.props.selected_collection_idx
+      ];
+      let selected_item =
+        selected_collection.items[this.props.selected_item_idx];
+
+      //create empty quiz to start
+      var generated_quiz = Quiz.empty();
+
+      if (
+        selected_item.extra_options !== null &&
+        selected_item.selected_text !== null
+      ) {
+        generated_quiz = new ManualQuizGen(
+          selected_item.description,
+          selected_item.extra_options,
+          selected_item.selected_text
+        );
+      } else {
+        generated_quiz = new QuizGen(
+          selected_item.description,
+          this.props.quiz_options
+        );
+      }
+
       this.state = {
         selected: "choice1",
         submitted: false,
         correct: null,
         selected_item: selected_item,
-        quiz: new QuizGen(selected_item.description, this.props.quiz_options),
+        quiz: generated_quiz,
         invalid: false
       };
     } else {

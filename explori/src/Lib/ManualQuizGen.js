@@ -1,11 +1,11 @@
 /**
-./Lib/QuizGen.js
+./Lib/ManualQuizGen.js
 
-Utility class that deals with the creation and handling of quizs for knowledge verification
+Utility class that deals with the creation and handling of manual quizs for knowledge verification
 
 **/
 
-//Interfaces
+//Quiz Interface
 import Quiz from "./Quiz";
 
 // Util libs
@@ -13,7 +13,7 @@ import nlp from "compromise";
 import _ from "lodash";
 
 //Declare the class
-class QuizGen extends Quiz {
+class ManualQuizGen extends Quiz {
   /**
     constructor(item_desc, extra_choices)
 
@@ -21,11 +21,10 @@ class QuizGen extends Quiz {
     requires the description of the item and its extra choices to use for potential quiz answers
   **/
 
-  constructor(item_desc, extra_choices) {
-    let selected_text = QuizGen.grab_noun(item_desc).text;
+  constructor(item_desc, choices, selected_text) {
+    let q_description = ManualQuizGen.quiz_desc(selected_text, item_desc);
 
-    let q_description = QuizGen.quiz_desc(selected_text, item_desc);
-    let q_choices = QuizGen.generate_choices(selected_text, extra_choices);
+    let q_choices = ManualQuizGen.generate_choices(selected_text, choices);
 
     super(q_description, q_choices);
   }
@@ -36,7 +35,7 @@ class QuizGen extends Quiz {
     Generate the choices in the correct format for the quiz
   **/
 
-  static generate_choices(correct_choice, extra_choices) {
+  static generate_choices(correct_choice, additional_choices) {
     let choices = [];
 
     choices.push({
@@ -47,7 +46,7 @@ class QuizGen extends Quiz {
     for (var i = 0; i < 3; i++) {
       choices.push({
         correct: false,
-        text: _.sample(extra_choices)
+        text: additional_choices[i]
       });
     }
 
@@ -58,24 +57,6 @@ class QuizGen extends Quiz {
     });
 
     return choices;
-  }
-
-  /**
-    grab_noun(desc)
-
-    grabs a random noun from a item description
-
-  **/
-
-  static grab_noun(desc) {
-    let doc = nlp(desc);
-
-    let nouns = doc.nouns().data();
-    console.log(nouns);
-
-    let random_noun = _.sample(nouns);
-
-    return random_noun;
   }
 
   /**
@@ -108,4 +89,4 @@ class QuizGen extends Quiz {
   }
 }
 
-export default QuizGen;
+export default ManualQuizGen;
