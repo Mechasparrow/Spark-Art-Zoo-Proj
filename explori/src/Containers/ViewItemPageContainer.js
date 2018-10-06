@@ -15,7 +15,7 @@ import { select_item } from "../Actions";
 
 //map redux state to component props
 const mapStateToProps = state => ({
-  collection_item_selected: (state.selected_item_idx !== null && state.selected_collection_idx !== null),
+  collection_item_selected: state.selected_collection_idx !== null,
   selected_item_idx: state.selected_item_idx,
   selected_collection_idx: state.selected_collection_idx,
   collections: state.collections

@@ -25,7 +25,7 @@ import Button from "@material-ui/core/Button";
 import Collection from "../Models/Collection";
 
 //Routing
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 //Component styling
 const styles = {
@@ -63,27 +63,40 @@ class ViewItemPage extends Component {
   constructor(props) {
     super(props);
 
-    const selected_collection = this.props.collections[
-      this.props.selected_collection_idx
-    ];
+    //if the item has been selected with a valid collection
 
-    //grab a random item
+    if (this.props.collection_item_selected) {
+      const selected_collection = this.props.collections[
+        this.props.selected_collection_idx
+      ];
 
-    var item_idx;
+      var item_idx;
 
-    if (this.props.selected_item_idx === null) {
-      item_idx = _.sample(_.keys(selected_collection.items));
-      this.props.select_item(item_idx);
+      if (this.props.selected_item_idx === null) {
+        //if we did not select a item, grab a random one
+        item_idx = _.sample(_.keys(selected_collection.items));
+        this.props.select_item(item_idx);
+      } else {
+        //if we did select an item save the idx
+        item_idx = this.props.selected_item_idx;
+      }
+
+      //grab the selected item
+      const selected_item = selected_collection.items[item_idx];
+
+      this.state = {
+        selected_collection,
+        item: selected_item,
+        valid: true
+      };
     } else {
-      item_idx = this.props.selected_item_idx;
+      //if not valid, set the state to valid: false
+      //redirect back to home
+
+      this.state = {
+        valid: false
+      };
     }
-
-    const selected_item = selected_collection.items[item_idx];
-
-    this.state = {
-      selected_collection,
-      item: selected_item
-    };
 
     console.log(this.state);
   }
@@ -96,6 +109,10 @@ class ViewItemPage extends Component {
   //Render the View Item Page
   render() {
     const { classes } = this.props;
+
+    if (this.state.valid === false) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div className="ViewItemPage">
