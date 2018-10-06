@@ -6,7 +6,13 @@
         "title": "Mask",
         "author": "Nigeria",
         "image_link": "...",
-        "description": "A mask"
+        "description": "A mask",
+        "extra_options": [
+          "nope",
+          "nope",
+          "nope"
+        ],
+        "selected_text": "mask"
       }
     ]
   },
@@ -22,13 +28,23 @@
     ]
   },
   {
-    "name": "European Art",
+    "name": "Contemporary Art",
     "items": [
       {
-        "title": "Starry Night",
-        "author": "Van Gogh",
-        "image_link": "...",
-        "description": "A very starry night"
+        "title": "To Cover the Earth with a New Dew",
+        "author": "Roberto Matta",
+        "location": "On View, Gallery 210",
+        "description":
+          "In this hallucinatory landscape, the sun rises over a scene of swarming white insects and bizarre green and pink orbs. Roberto Matta moved to Paris in 1935 and became a prominent figure in the Surrealist movement. This later work showcases his continued interest in automatic drawing and painting, where the hand moves freely, uninhibited by conscious thought. Matta described his paintings as \u201cthe subconscious in its burning, liquid state; a conscious daytime substitution of the phenomena of dreams.\u201d",
+        "image_link":
+          "http://emuseum.slam.org/internal/media/dispatcher/81947/preview;jsessionid=3790FB9C682183AFE35545F344D0CEC6",
+        "type": "Painting",
+        "selected_text": "hallucinatory",
+        "extra_options": [
+          "illusionary",
+          "magical",
+          "strange"
+        ]
       }
     ]
   }

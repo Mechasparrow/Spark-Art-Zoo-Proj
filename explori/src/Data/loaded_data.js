@@ -17,8 +17,8 @@ import nlp from "compromise";
 
 //import * as loaded_collections from '../Data/collections.json'
 //import * as loaded_collections from "../Data/Scraped/data.json";
-import * as raw_loaded_collections from "../Data/Dummy/data.json";
-
+import * as raw_loaded_collections from "./Dummy/data.json";
+import * as dummy_loaded_collections from "./collections.json";
 
 export const raw_collections = raw_loaded_collections;
 
@@ -33,6 +33,62 @@ let filtered_init_data = _.map(raw_collections, function(collection) {
 
 //filtered data exported for use as loaded_collections
 export const loaded_collections = filtered_init_data;
+
+//version with dummy data spliced in
+
+let mixed_loaded_collections = _.clone(loaded_collections);
+
+_.map(dummy_loaded_collections, function(dummy_collection) {
+  //get the collection name
+  var collection_name = dummy_collection["name"];
+
+  //get the titles of each of the collection items
+  var collection_item_titles = _.map(dummy_collection.items, function(item) {
+    return item.title;
+  });
+
+  //check if we have that collection
+  var collection_there =
+    _.filter(mixed_loaded_collections, function(collection) {
+      return collection.name === collection_name;
+    }).length > 0;
+
+  // if not there add a new collection
+  if (collection_there !== true) {
+    mixed_loaded_collections.push({
+      name: collection_name,
+      items: dummy_collection.items
+    });
+  } else {
+    // if it is there, merge with the existing collection
+    mixed_loaded_collections = _.map(mixed_loaded_collections, function(
+      collection
+    ) {
+      let cloned_collection = _.clone(collection);
+
+      if (cloned_collection["name"] === collection_name) {
+        cloned_collection.items = _.concat(
+          _.filter(cloned_collection.items, function(item) {
+            for (var i = 0; i < collection_item_titles.length; i++) {
+              let title = collection_item_titles[i];
+
+              if (item.title === title) {
+                return false;
+              }
+            }
+
+            return true;
+          }),
+          dummy_collection.items
+        );
+      }
+
+      return cloned_collection;
+    });
+  }
+});
+
+export const loaded_collections_with_dummy = mixed_loaded_collections;
 
 /**
   retrieve_potential_quiz_choices(collections, size)
