@@ -44,13 +44,16 @@ const styles = {
   }
 };
 
+//creates the header bar component
 class HeaderBar extends Component {
   constructor(props) {
     super(props);
 
+    //bind the functions
     this.goBack = this.goBack.bind(this);
   }
 
+  // navigates back a page
   goBack() {
     this.props.history.goBack();
   }

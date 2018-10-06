@@ -57,48 +57,37 @@ class CollectionGrid extends Component {
 
     let row = 1;
 
-    _.map(items, function(item, idx) {
-      //push a new exhibit item to the current row of the grid
-      current_row.push(
-        <Grid sm={4} key = {idx} item>
-          <CollectionCard idx = {idx} collection={item} />
-        </Grid>
-      );
-
-      //if the max length of items have been exhausted, complete the row with empty exhibit items
-      if (idx + 1 === items_length) {
-        if (current_row.length < itemsPerRow) {
-          let empty_items_cnt = itemsPerRow - current_row.length;
-          for (var c = 0; c < empty_items_cnt; c++) {
-            current_row.push(
-              <Grid key={idx + 100} item>
-                <EmptyCard />
-              </Grid>
-            );
-          }
-        }
-      }
-
-      //if we have completely filled a row, or have exhausted all our items, push the row to the grid
-      if ((idx + 1) % itemsPerRow === 0 || idx + 1 === items_length) {
-        console.log("row completed");
-        grid.push(
-          <Grid
-            key={row}
-            item
-            style={{ marginTop: "16px" }}
-            justify="center"
-            container
-            spacing={32}
-          >
-            {current_row}
+    _.map(
+      items,
+      function(item, idx) {
+        //push a new exhibit item to the current row of the grid
+        current_row.push(
+          <Grid md={4} key={idx} item>
+            <CollectionCard idx={idx} collection={item} />
           </Grid>
         );
 
-        row++;
-        current_row = [];
-      }
-    }.bind(this));
+        //if we have completely filled a row, or have exhausted all our items, push the row to the grid
+        if ((idx + 1) % itemsPerRow === 0 || idx + 1 === items_length) {
+          console.log("row completed");
+          grid.push(
+            <Grid
+              key={row}
+              item
+              style={{ marginTop: "16px" }}
+              justify="center"
+              container
+              spacing={32}
+            >
+              {current_row}
+            </Grid>
+          );
+
+          row++;
+          current_row = [];
+        }
+      }.bind(this)
+    );
 
     return grid;
   }

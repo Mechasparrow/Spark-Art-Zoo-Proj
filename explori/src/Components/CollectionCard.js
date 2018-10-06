@@ -48,7 +48,7 @@ class CollectionCard extends Component {
     this.state = {
       item_selected: false,
       view_all: false
-    }
+    };
 
     //bind functions
     this.select_collection = this.select_collection.bind(this);
@@ -57,26 +57,22 @@ class CollectionCard extends Component {
 
   //selects the collection
   select_collection() {
-
     this.props.select_collection(this.props.idx);
 
     this.setState({
       ...this.state,
       item_selected: true
-    })
-
+    });
   }
 
   //views the entire collection
   view_collection() {
-
     this.props.select_collection(this.props.idx);
 
     this.setState({
       ...this.state,
       view_all: true
-    })
-
+    });
   }
 
   //render the card-based component
@@ -84,13 +80,9 @@ class CollectionCard extends Component {
     const { classes, collection } = this.props;
 
     if (this.state.item_selected) {
-      return (
-        <Redirect push to = "/view-item"></Redirect>
-      )
+      return <Redirect push to="/view-item" />;
     } else if (this.state.view_all) {
-      return (
-        <Redirect push to = "/view-collection"></Redirect>
-      )
+      return <Redirect push to="/view-collection" />;
     }
 
     return (
@@ -107,8 +99,12 @@ class CollectionCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-              <Button onClick = {this.select_collection} size="small">Start</Button>
-              <Button onClick = {this.view_collection} size = "small">All</Button>
+            <Button onClick={this.select_collection} size="small">
+              Start
+            </Button>
+            <Button onClick={this.view_collection} size="small">
+              All
+            </Button>
           </CardActions>
         </Card>
       </div>

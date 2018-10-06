@@ -29,32 +29,27 @@ import { Link } from "react-router-dom";
 
 //Component styling
 const styles = {
-  title: {
-    textAlign: "center"
-  },
+  title: {},
   item_img_container: {
     textAlign: "center"
   },
   item_img: {
     marginTop: "32px",
     border: "2px solid black",
-    width: "200px",
+    width: "300px",
     backgroundColor: "white"
   },
   item_desc: {
     marginTop: "56px",
-    maxWidth: "350px",
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginLeft: "15%",
+    marginRight: "15%"
   },
   quiz_btn_container: {
-    maxWidth: "400px",
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginLeft: "15%",
+    marginRight: "15%"
   },
   quiz_start: {
     marginTop: "32px",
-    marginRight: "24px",
     float: "right"
   },
   view_item_link: {

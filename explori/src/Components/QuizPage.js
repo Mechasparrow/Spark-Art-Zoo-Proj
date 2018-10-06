@@ -41,9 +41,9 @@ import { Redirect } from "react-router-dom";
 //styling
 const styles = {
   quiz_container: {
-    width: 500,
-    marginLeft: "auto",
-    marginRight: "auto"
+    marginLeft: "20%",
+    marginRight: "20%",
+    flexGrow: 1
   },
   item_title: {
     marginTop: "16px"
@@ -61,7 +61,6 @@ const styles = {
 
 //Declare the QuizPage class
 class QuizPage extends Component {
-
   // on page load
   constructor(props) {
     super(props);
@@ -72,14 +71,21 @@ class QuizPage extends Component {
     ];
     let selected_item = selected_collection.items[this.props.selected_item_idx];
 
-    //set starting state
-    this.state = {
-      selected: "choice1",
-      submitted: false,
-      correct: null,
-      selected_item: selected_item,
-      quiz: new QuizGen(selected_item.description, this.props.quiz_options)
-    };
+    if (this.props.quiz_selected === true) {
+      //set starting state
+      this.state = {
+        selected: "choice1",
+        submitted: false,
+        correct: null,
+        selected_item: selected_item,
+        quiz: new QuizGen(selected_item.description, this.props.quiz_options),
+        invalid: false
+      };
+    } else {
+      this.state = {
+        invalid: true
+      };
+    }
 
     //binding functions
     this.handleRadioChange = this.handleRadioChange.bind(this);
@@ -105,8 +111,10 @@ class QuizPage extends Component {
       this.props.incrementScore();
 
       //TODO mark as correct
-      this.props.completeItem(this.props.selected_collection_idx, this.props.selected_item_idx);
-
+      this.props.completeItem(
+        this.props.selected_collection_idx,
+        this.props.selected_item_idx
+      );
     } else {
       correct = false;
     }
@@ -150,6 +158,11 @@ class QuizPage extends Component {
   render() {
     const { classes } = this.props;
 
+    //check if we actually have this item selected
+    if (this.state.invalid) {
+      return <Redirect to="/" />;
+    }
+
     //check if we submitted the quiz
     if (this.state.submitted) {
       if (this.state.correct) {
@@ -165,7 +178,7 @@ class QuizPage extends Component {
         <div className={classes.quiz_container}>
           <div className={classes.content}>
             <div className={classes.item_title}>
-              <Typography variant="display2">
+              <Typography variant="display1">
                 Quiz {this.state.selected_item.title}
               </Typography>
             </div>

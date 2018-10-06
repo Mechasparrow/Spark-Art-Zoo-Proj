@@ -64,24 +64,10 @@ class ItemGrid extends Component {
       items,
       function(item, idx) {
         current_row.push(
-          <Grid className={classes.grid_item} sm={4} key={idx} item>
+          <Grid className={classes.grid_item} md={4} key={idx} item>
             <ItemCard idx={idx} item={item} />
           </Grid>
         );
-
-        if (idx + 1 === items_length) {
-          if (current_row.length < itemsPerRow) {
-            let empty_items_cnt = itemsPerRow - current_row.length;
-
-            for (var c = 0; c < empty_items_cnt; c++) {
-              current_row.push(
-                <Grid className={classes.grid_item} key={idx + 100} item>
-                  <EmptyCard />
-                </Grid>
-              );
-            }
-          }
-        }
 
         //if we have completely filled a row, or have exhausted all our items, push the row to the grid
         if ((idx + 1) % itemsPerRow === 0 || idx + 1 === items_length) {
