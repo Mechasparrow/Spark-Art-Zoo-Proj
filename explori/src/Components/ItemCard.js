@@ -36,7 +36,7 @@ const styles = {
     textAlign: "center"
   },
   card_image: {
-    maxHeight: "200px"
+    maxWidth: "200px"
   },
   completed: {
     color: 'green'
