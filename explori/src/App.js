@@ -15,7 +15,12 @@ import React, { Component } from "react";
 import "./App.css";
 
 // routing
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
 
 // Additional components
 import HeaderBar from "./Containers/HeaderBarContainer";
@@ -26,18 +31,20 @@ import ViewItemPage from "./Containers/ViewItemPageContainer";
 import QuizPage from "./Containers/QuizPageContainer";
 import ItemCompletedPage from "./Components/ItemCompletedPage";
 import ItemIncorrectPage from "./Components/ItemIncorrectPage";
-import ViewCollectionPage from './Containers/ViewCollectionPageContainer';
+import ViewCollectionPage from "./Containers/ViewCollectionPageContainer";
 
 // Redux
-import {Provider} from 'react-redux';
-import {store} from './Store';
+import { Provider } from "react-redux";
+import { store } from "./Store";
 
 //Redux tester
-import {test} from './Actions';
+import { test } from "./Actions";
+
+//set up header with router
+const AppHeaderWithRouter = withRouter(HeaderBar);
 
 //Declare the App Component
 class App extends Component {
-
   constructor(props) {
     super(props);
 
@@ -48,22 +55,24 @@ class App extends Component {
   //Renders the html of the key root app component
   render() {
     return (
-      <Provider store = {store}>
+      <Provider store={store}>
         {/** Inject the redux store with Provider **/}
         <div className="App">
-          {/** Renders the App Header **/}
-          <HeaderBar />
-
-
           {/** Router component that maps pages to routes**/}
           <Router>
             <div>
-              <Route exact path="/" component={HomePage} />
-              <Route path="/view-item" component={ViewItemPage} />
-              <Route path="/quiz-page" component={QuizPage} />
-              <Route path = "/quiz-failed" component = {ItemIncorrectPage} />
-              <Route path = "/quiz-complete" component = {ItemCompletedPage} />
-              <Route path = "/view-collection" component = {ViewCollectionPage} />
+              {/** Renders the App Header **/}
+              <AppHeaderWithRouter />
+
+              {/** Render the routes **/}
+              <div>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/view-item" component={ViewItemPage} />
+                <Route path="/quiz-page" component={QuizPage} />
+                <Route path="/quiz-failed" component={ItemIncorrectPage} />
+                <Route path="/quiz-complete" component={ItemCompletedPage} />
+                <Route path="/view-collection" component={ViewCollectionPage} />
+              </div>
             </div>
           </Router>
         </div>

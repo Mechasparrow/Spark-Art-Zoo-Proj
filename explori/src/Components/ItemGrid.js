@@ -29,11 +29,13 @@ import { withStyles } from "@material-ui/core/styles";
 //styling for component
 const styles = {
   grid_item: {
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    paddingTop: '16px'
+    paddingLeft: "16px",
+    paddingRight: "16px",
+    paddingTop: "16px"
   },
-  grid_row: {
+  grid_row: {},
+  root_grid: {
+    marginBottom: "16px"
   }
 };
 
@@ -62,7 +64,7 @@ class ItemGrid extends Component {
       items,
       function(item, idx) {
         current_row.push(
-          <Grid className = {classes.grid_item} sm={4} key={idx} item>
+          <Grid className={classes.grid_item} sm={4} key={idx} item>
             <ItemCard idx={idx} item={item} />
           </Grid>
         );
@@ -73,7 +75,7 @@ class ItemGrid extends Component {
 
             for (var c = 0; c < empty_items_cnt; c++) {
               current_row.push(
-                <Grid className = {classes.grid_item} key={idx + 100} item>
+                <Grid className={classes.grid_item} key={idx + 100} item>
                   <EmptyCard />
                 </Grid>
               );
@@ -90,7 +92,7 @@ class ItemGrid extends Component {
               item
               container
               className={classes.grid_row}
-              justify = "center"
+              justify="center"
             >
               {current_row}
             </Grid>
@@ -108,7 +110,6 @@ class ItemGrid extends Component {
         {grid}
       </Grid>
     );
-
   }
 
   //render the component
