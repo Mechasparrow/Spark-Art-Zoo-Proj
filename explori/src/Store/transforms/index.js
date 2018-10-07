@@ -1,3 +1,10 @@
+/**
+./Store/transforms/index.js
+
+defines the transforms that serializes and parses saved redux data
+
+**/
+
 //redux persistence
 import { createTransform } from "redux-persist";
 
