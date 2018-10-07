@@ -35,7 +35,10 @@ import ViewCollectionPage from "./Containers/ViewCollectionPageContainer";
 
 // Redux
 import { Provider } from "react-redux";
-import { store } from "./Store";
+import { store, persistor } from "./Store";
+
+//Redux persistence
+import { PersistGate } from "redux-persist/integration/react";
 
 //Redux tester
 import { test } from "./Actions";
@@ -56,26 +59,31 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        {/** Inject the redux store with Provider **/}
-        <div className="App">
-          {/** Router component that maps pages to routes**/}
-          <Router>
-            <div>
-              {/** Renders the App Header **/}
-              <AppHeaderWithRouter />
-
-              {/** Render the routes **/}
+        <PersistGate loading={null} persistor={persistor}>
+          {/** Inject the redux store with Provider **/}
+          <div className="App">
+            {/** Router component that maps pages to routes**/}
+            <Router>
               <div>
-                <Route exact path="/" component={HomePage} />
-                <Route path="/view-item" component={ViewItemPage} />
-                <Route path="/quiz-page" component={QuizPage} />
-                <Route path="/quiz-failed" component={ItemIncorrectPage} />
-                <Route path="/quiz-complete" component={ItemCompletedPage} />
-                <Route path="/view-collection" component={ViewCollectionPage} />
+                {/** Renders the App Header **/}
+                <AppHeaderWithRouter />
+
+                {/** Render the routes **/}
+                <div>
+                  <Route exact path="/" component={HomePage} />
+                  <Route path="/view-item" component={ViewItemPage} />
+                  <Route path="/quiz-page" component={QuizPage} />
+                  <Route path="/quiz-failed" component={ItemIncorrectPage} />
+                  <Route path="/quiz-complete" component={ItemCompletedPage} />
+                  <Route
+                    path="/view-collection"
+                    component={ViewCollectionPage}
+                  />
+                </div>
               </div>
-            </div>
-          </Router>
-        </div>
+            </Router>
+          </div>
+        </PersistGate>
       </Provider>
     );
   }

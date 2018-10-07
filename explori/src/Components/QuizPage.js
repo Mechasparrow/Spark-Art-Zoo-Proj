@@ -13,9 +13,9 @@ import nlp from "compromise";
 import _ from "lodash";
 
 // Quiz Gen
-import QuizGen from "../Lib/QuizGen";
-import Quiz from "../Lib/Quiz";
-import ManualQuizGen from "../Lib/ManualQuizGen";
+import QuizGen from "../Lib/Quiz/QuizGen";
+import Quiz from "../Lib/Quiz/Quiz";
+import ManualQuizGen from "../Lib/Quiz/ManualQuizGen";
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
