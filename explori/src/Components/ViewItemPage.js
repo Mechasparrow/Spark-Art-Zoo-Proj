@@ -88,10 +88,15 @@ class ViewItemPage extends Component {
 
       if (this.props.selected_item_idx === null) {
         //if we did not select a item, grab a random one
-        item_idx = _.sample(filtered_idxs);
-        console.log(item_idx);
 
-        this.props.select_item(item_idx);
+        if (filtered_idxs.length > 0) {
+          item_idx = _.sample(filtered_idxs);
+          console.log(item_idx);
+
+          this.props.select_item(item_idx);
+        }else {
+          item_idx = -1;
+        }
 
       } else {
         //if we did select an item save the idx
@@ -102,16 +107,19 @@ class ViewItemPage extends Component {
 
       //grab the selected item
       const selected_item = selected_collection.items[item_idx];
+      var item_abstract;
 
-
-
-      const item_abstract = sum({ corpus: selected_item.description, nSentences: 3 });
+      if (item_idx !== -1) {
+        item_abstract = sum({corpus: ''});
+      }else {
+        item_abstract = sum({ corpus: selected_item.description, nSentences: 3 });
+      }
 
       this.state = {
         selected_collection,
         item: selected_item,
         item_summary: item_abstract.summary,
-        valid: true
+        valid: (item_idx !== -1)
       };
     } else {
       //if not valid, set the state to valid: false

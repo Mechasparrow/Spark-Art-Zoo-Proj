@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
 //Routing
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 
 //styling
@@ -60,7 +60,8 @@ const styles = {  title: {
     marginRight: "auto"
   },
   button: {
-    float: 'right'
+    float: 'right',
+    margin: '4px'
   }
 };
 
@@ -71,11 +72,41 @@ Declare the ItemCompletePage
 class ItemCompletePage extends Component {
   constructor(props) {
     super(props);
+
+    this.nextItem = this.nextItem.bind(this);
+
+    this.state = {
+      next_item: false,
+      valid: this.props.collection_item_selected
+    }
+
+  }
+
+  //navigates to the next item
+  nextItem() {
+
+    this.props.clearItemSelection();
+
+    this.setState({
+      ...this.state,
+      next_item: true
+    })
+
   }
 
   //renders the component
   render() {
     const { classes } = this.props;
+
+    if (this.state.valid === false) {
+      return (<Redirect to = "/"></Redirect>);
+    }
+
+    if (this.state.next_item) {
+      return (
+        <Redirect to = "/view-item"></Redirect>
+      )
+    }
 
     return (
       <div className="ItemCompletePage">
@@ -102,6 +133,10 @@ class ItemCompletePage extends Component {
               Back
             </Button>
           </Link>
+          <Button onClick = {this.nextItem} className = {classes.button} component = "span" variant = "contained" color = "secondary">
+            Next
+          </Button>
+
         </div>
       </div>
     );
