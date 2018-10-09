@@ -9,6 +9,9 @@ Page that renders a specific Item from a Collection
 //react
 import React, { Component } from "react";
 
+//sumjs
+import sum from "sum";
+
 //lodash
 import _ from "lodash";
 
@@ -84,9 +87,12 @@ class ViewItemPage extends Component {
       //grab the selected item
       const selected_item = selected_collection.items[item_idx];
 
+      const item_abstract = sum({ corpus: selected_item.description });
+
       this.state = {
         selected_collection,
         item: selected_item,
+        item_summary: item_abstract.summary,
         valid: true
       };
     } else {
@@ -131,6 +137,10 @@ class ViewItemPage extends Component {
 
           <Typography paragraph component="p" variant="body1">
             {this.state.item.description}
+          </Typography>
+
+          <Typography paragraph component="p" variant="body2">
+            {this.state.item_summary}
           </Typography>
         </div>
 
