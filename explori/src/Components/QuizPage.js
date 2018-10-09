@@ -11,6 +11,7 @@ import React, { Component } from "react";
 //libs
 import nlp from "compromise";
 import _ from "lodash";
+import sum from "sum";
 
 // Quiz Gen
 import QuizGen from "../Lib/Quiz/QuizGen";
@@ -68,7 +69,6 @@ class QuizPage extends Component {
     super(props);
 
     if (this.props.quiz_selected === true) {
-      //set starting state
 
       //pulls the selected item
       let selected_collection = this.props.collections[
@@ -79,6 +79,9 @@ class QuizPage extends Component {
 
       //create empty quiz to start
       var generated_quiz = Quiz.empty();
+
+      //set starting state
+      const item_abstract = sum({ corpus: selected_item.description, nSentences: 3 });
 
       if (
         selected_item.extra_options !== null &&
@@ -91,7 +94,7 @@ class QuizPage extends Component {
         );
       } else {
         generated_quiz = new QuizGen(
-          selected_item.description,
+          item_abstract.summary,
           this.props.quiz_options
         );
       }

@@ -8,6 +8,9 @@ Renders a collection info in a card form
 // React JS
 import React, { Component } from "react";
 
+//util
+import _ from 'lodash';
+
 // Styling for JavaScript
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -75,9 +78,24 @@ class CollectionCard extends Component {
     });
   }
 
+  //returns boolean as to whether all the items of collection has been completed
+  items_completed(collection) {
+    var items_completed = false;
+
+    var uncompleted_items = _.filter(collection.items, function (item) {
+      return (item.completed !== true);
+    })
+
+    console.log(uncompleted_items)
+
+    return (uncompleted_items.length <= 0);
+
+  }
+
   //render the card-based component
   render() {
     const { classes, collection } = this.props;
+    console.log(this.items_completed(collection));
 
     if (this.state.item_selected) {
       return <Redirect push to="/view-item" />;
@@ -99,7 +117,7 @@ class CollectionCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button onClick={this.select_collection} size="small">
+            <Button disabled = {this.items_completed(collection)} onClick={this.select_collection} size="small">
               Start
             </Button>
             <Button onClick={this.view_collection} size="small">

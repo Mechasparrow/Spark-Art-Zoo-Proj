@@ -109,7 +109,7 @@ class ItemCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button size="small" onClick={this.selectItem}>
+            <Button disabled = {this.props.item.completed} size="small" onClick={this.selectItem}>
               Start
             </Button>
           </CardActions>

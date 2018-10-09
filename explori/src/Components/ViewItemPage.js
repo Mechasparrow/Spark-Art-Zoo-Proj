@@ -75,19 +75,37 @@ class ViewItemPage extends Component {
 
       var item_idx;
 
+      //filter through usable idx
+      var filtered_idxs = []
+
+      _.map(selected_collection.items, function (item, idx) {
+
+        if (item.completed !== true) {
+          filtered_idxs.push(idx);
+        }
+
+      })
+
       if (this.props.selected_item_idx === null) {
         //if we did not select a item, grab a random one
-        item_idx = _.sample(_.keys(selected_collection.items));
+        item_idx = _.sample(filtered_idxs);
+        console.log(item_idx);
+
         this.props.select_item(item_idx);
+
       } else {
         //if we did select an item save the idx
         item_idx = this.props.selected_item_idx;
+
       }
+
 
       //grab the selected item
       const selected_item = selected_collection.items[item_idx];
 
-      const item_abstract = sum({ corpus: selected_item.description });
+
+
+      const item_abstract = sum({ corpus: selected_item.description, nSentences: 3 });
 
       this.state = {
         selected_collection,
@@ -136,10 +154,6 @@ class ViewItemPage extends Component {
           </Typography>
 
           <Typography paragraph component="p" variant="body1">
-            {this.state.item.description}
-          </Typography>
-
-          <Typography paragraph component="p" variant="body2">
             {this.state.item_summary}
           </Typography>
         </div>
