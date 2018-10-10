@@ -1,19 +1,24 @@
+#
+# ./scrape_art_site.py
+#
+# scrapes the St. Louis Art Musuem Website
+#
+
+# import the scraper tools
 import modules.scraper as scraper
 import modules.io as scraper_io
 
-
-html = scraper.get_html('http://docs.python-requests.org/en/master/user/quickstart/#make-a-request')
-
+# the route for the art museum for scraping
 art_musuem_route = 'http://emuseum.slam.org'
 
+# create the art scraper object with the art museum route
 art_scraper = scraper.ArtScraper(art_musuem_route)
 
-collection_routes = art_scraper.collection_routes()
-
-collection_to_scrape = collection_routes[0]
-
+# scrape 2 items for each collection
 scraped_collections = art_scraper.retrieve_collections(True, 2)
 
+# conver the scraped collections to json
 scraped_collections_json = art_scraper.scraped_data_json()
 
+# save the data to json
 scraper_io.save_data(scraped_collections_json, "./scraped_data/web_data.json")
