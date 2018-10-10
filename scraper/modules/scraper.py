@@ -3,14 +3,13 @@ from bs4 import BeautifulSoup
 import csv
 import requests
 import json
-
 from io import StringIO
 
 # Models
 from models import Item
 from models import Collection
 
-# helper function
+# helper function for retrieving html
 def get_html(route):
     r = requests.get(route)
     return (r.text)
@@ -18,10 +17,13 @@ def get_html(route):
 # Base scraper class
 class Scraper:
 
+    # constructor for Scraper.
+    # Takes in a route to scrape from.
     def __init__(self, core_route):
         self.core_route = core_route
         self.scraped_collections = []
 
+    # take the scraped data and convert it to a dictionary
     def scraped_data_dict_array(self):
 
         collections_dicts = []
@@ -30,22 +32,27 @@ class Scraper:
 
         return collections_dicts
 
+    # get the data as json
     def scraped_data_json(self):
         collection_dicts = self.scraped_data_dict_array()
         return json.dumps(collection_dicts)
 
+    # grabs an item based off its route
     def get_item(self, item_route):
         pass
 
+    # grabs a collection based off a route
     def retrieve_collection(self, collection_route):
         pass
 
-# Scraper for the Art Museum
+# Scraper for the Art Museum by its base route
 class ArtScraper(Scraper):
 
+    # inherits from Scraper Model
     def __init__(self, core_route):
         super().__init__(core_route)
 
+    # grabs the painting
     def get_item(self, item_route):
 
         painting_route = self.core_route + item_route
@@ -75,6 +82,7 @@ class ArtScraper(Scraper):
 
         return painting_item
 
+    # grabs painting items
     def get_items(self, works_route, amnt_of_items = None):
 
         starter_route = works_route + '/objects'
@@ -117,6 +125,7 @@ class ArtScraper(Scraper):
 
         return items
 
+    # grab the collection routes
     def collection_routes(self):
         scrape_route = self.core_route + '/collections/'
         html_doc = get_html(scrape_route)
@@ -132,6 +141,8 @@ class ArtScraper(Scraper):
 
         return collection_links
 
+    # retrieve all the collections
+    # takes in the number of items per as collection_size
     def retrieve_collections(self, save_collections = False, collection_size = None):
 
         collection_routes = self.collection_routes()
@@ -147,6 +158,7 @@ class ArtScraper(Scraper):
 
         return retrieved_collections
 
+    # retrieve a single collection by its route and amount of items to retrieve per collection
     def retrieve_collection(self, collection_route, collection_size = None):
 
         collection_html_doc = get_html(self.core_route + collection_route)
@@ -158,7 +170,16 @@ class ArtScraper(Scraper):
 
         return Collection(collection_title, collection_items)
 
+# Painting scraper by its csv
 class CSVPaintingScraper(Scraper):
+
+    # uses Scraper as its base
+    # add
+    #
+    # csv_route attribute
+    # core_route (art museum)
+    # grab the csv text from google spreadsheets
+    # parsed_csv has the csv parsed into Python Dictionary
 
     def __init__(self, core_route, csv_route):
         super().__init__(core_route)
@@ -174,6 +195,7 @@ class CSVPaintingScraper(Scraper):
 
         self.parsed_csv = CSVPaintingScraper.parse_csv(csv_text)
 
+    # parses the art museum csv text data
     def parse_csv(csv_text):
         data = []
         fields = []
@@ -201,6 +223,7 @@ class CSVPaintingScraper(Scraper):
 
         return data
 
+    # get the items per csv row formatted correctly
     def get_row_items (self):
 
         csv_items = []
@@ -213,6 +236,7 @@ class CSVPaintingScraper(Scraper):
 
         return csv_items
 
+    # get the collections referenced with the painting item links
     def get_collections_with_links(self):
 
         row_items = self.get_row_items()
@@ -241,6 +265,7 @@ class CSVPaintingScraper(Scraper):
 
         return collections_with_links_array
 
+    # get a painting item from the art musuem with the item_route
     def get_item(self, item_route):
 
         painting_route = item_route
@@ -270,6 +295,7 @@ class CSVPaintingScraper(Scraper):
 
         return painting_item
 
+    # retrieve an art collection based off the csv collection title and its corresponding links
     def retrieve_csv_collection(self, collection_with_links):
 
         collection_title = collection_with_links['title']
@@ -282,6 +308,7 @@ class CSVPaintingScraper(Scraper):
 
         return Collection(collection_title, items)
 
+    # retrieve all the csv collections
     def retrieve_collections(self, save_collections = False):
 
         collections_with_links = self.get_collections_with_links()
