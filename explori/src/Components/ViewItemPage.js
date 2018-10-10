@@ -76,15 +76,13 @@ class ViewItemPage extends Component {
       var item_idx;
 
       //filter through usable idx
-      var filtered_idxs = []
+      var filtered_idxs = [];
 
-      _.map(selected_collection.items, function (item, idx) {
-
+      _.map(selected_collection.items, function(item, idx) {
         if (item.completed !== true) {
           filtered_idxs.push(idx);
         }
-
-      })
+      });
 
       if (this.props.selected_item_idx === null) {
         //if we did not select a item, grab a random one
@@ -94,32 +92,32 @@ class ViewItemPage extends Component {
           console.log(item_idx);
 
           this.props.select_item(item_idx);
-        }else {
+        } else {
           item_idx = -1;
         }
-
       } else {
         //if we did select an item save the idx
         item_idx = this.props.selected_item_idx;
-
       }
-
 
       //grab the selected item
       const selected_item = selected_collection.items[item_idx];
       var item_abstract;
 
-      if (item_idx !== -1) {
-        item_abstract = sum({corpus: ''});
-      }else {
-        item_abstract = sum({ corpus: selected_item.description, nSentences: 3 });
+      if (item_idx === -1) {
+        item_abstract = sum({ corpus: "apples are meh." });
+      } else {
+        item_abstract = sum({
+          corpus: selected_item.description,
+          nSentences: 3
+        });
       }
 
       this.state = {
         selected_collection,
         item: selected_item,
         item_summary: item_abstract.summary,
-        valid: (item_idx !== -1)
+        valid: item_idx !== -1
       };
     } else {
       //if not valid, set the state to valid: false
