@@ -10,63 +10,47 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from rest_framework import status, viewsets
+
 # models and serializers
-from backend.models import Collection
-from backend.serializers import CollectionSerializer
+from backend.models import Collection, Item
+from backend.serializers import CollectionSerializer, ItemSerializer
+
 
 # Create your views here.
 
-def index(request):
-    html = "<p>Hallo</p>"
-    return HttpResponse(html)
-
-# Collection JSON Views
-@csrf_exempt
-def collection_list(request):
+class CollectionViewSet(viewsets.ModelViewSet):
     """
-    List all the collections or create a new collection
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions for Collection model
+
     """
 
-    if (request.method == 'GET'):
-        collections = Collection.objects.all()
-        serializer = CollectionSerializer(collections, many=True)
-        return JsonResponse(serializer.data, safe = False)
+    queryset = Collection.objects.all()
+    serializer_class = CollectionSerializer
 
-    elif (request.method == 'POST'):
-        data = JSONParser().parse(request)
-        serializer = CollectionSerializer(data=data)
+    @action(detail=True)
+    def items(self, request, pk=None):
+        collection = self.get_object()
 
-        if (serializer.is_valid()):
-            serializer.save()
-            return JsonResponse(serializer.data, status = 201)
+        items = Item.objects.filter(collection=collection)
+        item_serializer = ItemSerializer(items, many = True)
 
-        return JsonResponse(serializer.errors, status = 400)
+        return Response(item_serializer.data)
 
-@csrf_exempt
-def collection_detail(request, pk):
+    def perform_create(self, serializer):
+        serializer.save()
+
+class ItemViewSet(viewsets.ModelViewSet):
     """
-    Retrieve, update, or delete a code snippet
+    This viewset automatically provides `list`, `create`, `retrieve`, `update`, and `destroy` actions for Item Model
+
     """
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
-    try:
-        collection = Collection.objects.get(pk=pk)
-    except Collection.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = CollectionSerializer(collection)
-        return JsonResponse(serializer.data)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = CollectionSerializer(collection, data=data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-
-        return JsonResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        collection.delete()
-        return HttpResponse(status=204)
+    def perform_create(self, serializer):
+        serializer.save()
