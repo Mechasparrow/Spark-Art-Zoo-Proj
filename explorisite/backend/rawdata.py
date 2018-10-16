@@ -1,6 +1,8 @@
 import json
 import os
 
+# loads the data from the scraped data folder
+
 def LoadData():
     print ("loading data...")
 
