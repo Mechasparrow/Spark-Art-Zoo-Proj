@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 
 from backend.models import Collection, Item
+from backend.rawdata import LoadData
 
 class Command(BaseCommand):
 
@@ -9,13 +10,25 @@ class Command(BaseCommand):
         loads in the scraped data somehow
         """
 
-        collection = Collection(name = "Test Coll")
-        collection.save()
+        raw_data = LoadData()
+
+        collections_names = []
+
+        # Model deletino
+        Collection.objects.all().delete()
+        Item.objects.all().delete()
+
+        for collection in raw_data:
+            collection_name = collection['name']
+            items = collection['items']
 
 
-        for i in range(0,10):
-            new_item = Item(title = "Meh", author = "mme", location = "no where", description = "nothing", image_link = "", type = "", collection = collection)
-            new_item.save()
 
+            collection = Collection(name = collection_name)
+            collection.save()
 
-        print ("saved some testing collection")
+            for item in items:
+                new_item = Item(title = item['title'], author = item['author'], location = item['location'] , description = item['description'], image_link = item['image_link'], type = item['type'], collection = collection)
+                new_item.save()
+
+        print ("collections saved")

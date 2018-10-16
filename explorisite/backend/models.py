@@ -12,8 +12,8 @@ class Item(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
-    description = models.TextField()
-    image_link = models.URLField()
+    description = models.TextField(null = True)
+    image_link = models.URLField(null = True)
     type = models.CharField(max_length=255)
     collection = models.ForeignKey(
         'Collection',
