@@ -5,6 +5,9 @@ Interface to interact with the Backend.
 
 **/
 
+// get endpoint
+import {endpoint} from './Endpoint';
+
 class ApiInterface {
 
   // Retrieves the collections
@@ -26,6 +29,16 @@ class ApiInterface {
   static getItemCollection() {
 
   }
+
+  // get the sources of data for exploration
+  static getSources() {
+
+  }
+
+  //get the collections from the source
+  static getSourceCollections() [
+
+  ]
 
 }
 
