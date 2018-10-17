@@ -1,7 +1,7 @@
 import json
 import os
 
-from backend.models import Collection, Item
+from backend.models import Collection, Item, Source
 
 # loads the data from the web scraped data
 def LoadArtScrapedData():
@@ -37,12 +37,21 @@ def SaveDataToDB(data, overwrite = False):
         Collection.objects.all().delete()
         Item.objects.all().delete()
 
+    source_name = data[0]['items'][0]['type']
+
+    try:
+        source = Source.objects.get(name = source_name)
+    except Source.DoesNotExist:
+        source = Source(name = source_name)
+        source.save()
+
+
     # populates the database
     for collection in raw_data:
         collection_name = collection['name']
         items = collection['items']
 
-        collection = Collection(name = collection_name)
+        collection = Collection(name = collection_name, source = source)
         collection.save()
 
         for item in items:

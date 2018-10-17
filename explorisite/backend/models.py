@@ -2,7 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+class Source(models.Model):
+    name = models.CharField(max_length = 255, unique = True)
+
 class Collection(models.Model):
+
+    source = models.ForeignKey(
+        'Source',
+        on_delete = models.CASCADE
+    )
+
     name = models.CharField(max_length = 255)
 
     def __str__(self):

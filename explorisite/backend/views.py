@@ -16,9 +16,8 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 
 # models and serializers
-from backend.models import Collection, Item
-from backend.serializers import CollectionSerializer, ItemSerializer
-
+from backend.models import Collection, Item, Source
+from backend.serializers import CollectionSerializer, ItemSerializer, SourceSerializer
 
 # Create your views here.
 
@@ -54,3 +53,23 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+class SourceViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`, `etc` for Source Model
+    """
+
+    queryset = Source.objects.all()
+    serializer_class = SourceSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    @action(detail=True)
+    def collections(self, request, pk=None):
+        source = self.get_object()
+
+        collections = Collection.objects.filter(source = source)
+        collection_serializer = CollectionSerializer(collections, many = True)
+
+        return Response(collection_serializer.data)

@@ -4,9 +4,14 @@ from . import models
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Collection
-        fields = ('id', 'name')
+        fields = ('id', 'source', 'name')
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Item
-        fields = ('title', 'author', 'location', 'description', 'image_link', 'type', 'collection')
+        fields = ('id', 'title', 'author', 'location', 'description', 'image_link', 'type', 'collection')
+
+class SourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Source
+        fields = ('id', 'name')
