@@ -2,9 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+# Source model
+# The source from which the collections come from (Zoo, Art Musuem, etc)
+
 class Source(models.Model):
     name = models.CharField(max_length = 255, unique = True)
 
+# A Collection of items from a particular source
 class Collection(models.Model):
 
     source = models.ForeignKey(
@@ -17,6 +21,7 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
+# A item that is part of a collection
 class Item(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)

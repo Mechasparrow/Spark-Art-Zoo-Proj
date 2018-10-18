@@ -12,7 +12,6 @@ class Command(BaseCommand):
         loads in the scraped data somehow
         """
 
-
         # grabs the raw json data
         loaded_data = LoadArtScrapedData()
 

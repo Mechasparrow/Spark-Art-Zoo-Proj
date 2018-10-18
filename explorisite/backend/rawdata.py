@@ -1,3 +1,6 @@
+# rawdata.py
+# util module for handling dummy data to be seeded for the db
+
 import json
 import os
 
@@ -37,8 +40,11 @@ def SaveDataToDB(data, overwrite = False):
         Collection.objects.all().delete()
         Item.objects.all().delete()
 
+    # Grabs the name that the source should be
     source_name = data[0]['items'][0]['type']
 
+    # If the source by the specified type does not exist, create it
+    # If it does exist, retrieve it so the collections can be tied to a specific collection
     try:
         source = Source.objects.get(name = source_name)
     except Source.DoesNotExist:
