@@ -10,8 +10,9 @@ import {
   retrieve_potential_quiz_choices
 } from "../Data/loaded_data";
 
+//DEBUG no quiz options for now
 export const quiz_options = (
-  state = retrieve_potential_quiz_choices(loaded_collections, 200),
+  state = /**retrieve_potential_quiz_choices(loaded_collections, 200)**/ [],
   action
 ) => {
   switch (action.type) {

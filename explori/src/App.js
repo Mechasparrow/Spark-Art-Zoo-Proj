@@ -43,6 +43,9 @@ import { PersistGate } from "redux-persist/integration/react";
 //Redux tester
 import { test } from "./Actions";
 
+//install ApiInterface for DEBUG
+import ApiInterface from "./Lib/ApiInterface";
+
 //set up header with router
 const AppHeaderWithRouter = withRouter(HeaderBar);
 
@@ -50,6 +53,16 @@ const AppHeaderWithRouter = withRouter(HeaderBar);
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // DEBUG
+    console.log("COLLECTION TEST");
+    ApiInterface.getCollections();
+
+    console.log("ITEM TEST");
+    ApiInterface.getItems();
+
+    console.log("SOURCE TEST");
+    ApiInterface.getSources();
 
     //dispatch a test action to see if redux if functioning properly DEBUG
     store.dispatch(test());
