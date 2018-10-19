@@ -11,6 +11,8 @@ import _ from "lodash";
 class Item {
   //constructs the object
   constructor(
+    id,
+    collection,
     title,
     description,
     author,
@@ -20,6 +22,8 @@ class Item {
     selected_text = null,
     extra_options = null
   ) {
+    this.id = id;
+    this.collection = collection;
     this.title = title;
     this.author = author;
     this.image_link = image_link;
@@ -33,6 +37,8 @@ class Item {
   //serializes the object to JSON
   serialize() {
     let {
+      id,
+      collection,
       title,
       description,
       author,
@@ -44,6 +50,8 @@ class Item {
     } = this;
 
     return {
+      id,
+      collection,
       title,
       description,
       author,
@@ -58,6 +66,8 @@ class Item {
   //parses the raw Item from JSON
   static parse(raw_item) {
     let {
+      id,
+      collection,
       title,
       description,
       author,
@@ -69,6 +79,8 @@ class Item {
     } = raw_item;
 
     return new Item(
+      id,
+      collection,
       title,
       description,
       author,

@@ -58,11 +58,30 @@ class App extends Component {
     console.log("COLLECTION TEST");
     ApiInterface.getCollections();
 
+    console.log("Indiv COLLECTION RETRIEV");
+    ApiInterface.getCollection(10)
+
     console.log("ITEM TEST");
     ApiInterface.getItems();
 
+    console.log("Get item collection");
+    ApiInterface.getItemCollection(35);
+
+    console.log("indiv ITEM TEST");
+    ApiInterface.getItem(35);
+
     console.log("SOURCE TEST");
     ApiInterface.getSources();
+
+
+    console.log("SOURCE TEST");
+    ApiInterface.getSource(1);
+
+    console.log("Get Source collections");
+    ApiInterface.getSourceCollections(1);
+
+    console.log("Get collection source");
+    ApiInterface.getCollectionSource(10);
 
     //dispatch a test action to see if redux if functioning properly DEBUG
     store.dispatch(test());
