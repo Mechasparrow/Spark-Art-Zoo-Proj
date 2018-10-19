@@ -15,3 +15,8 @@ class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Source
         fields = ('id', 'name')
+
+class ChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Choice
+        fields = ('id', 'item', 'text', 'correct')

@@ -36,3 +36,11 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+class Choice(models.Model):
+    item = models.ForeignKey(
+        'Item',
+        on_delete = models.CASCADE
+    )
+    text = models.CharField(max_length=255)
+    correct = models.BooleanField(default = False)

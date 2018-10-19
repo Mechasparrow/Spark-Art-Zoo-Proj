@@ -8,6 +8,7 @@ router = DefaultRouter()
 router.register(r'collections', views.CollectionViewSet)
 router.register(r'items', views.ItemViewSet)
 router.register(r'sources', views.SourceViewSet)
+router.register(r'choices', views.ChoiceViewSet)
 
 urlpatterns = [
     path('', include(router.urls))

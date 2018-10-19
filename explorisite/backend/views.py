@@ -16,8 +16,8 @@ from rest_framework.response import Response
 from rest_framework import status, viewsets
 
 # models and serializers
-from backend.models import Collection, Item, Source
-from backend.serializers import CollectionSerializer, ItemSerializer, SourceSerializer
+from backend.models import Collection, Item, Source, Choice
+from backend.serializers import CollectionSerializer, ItemSerializer, SourceSerializer, ChoiceSerializer
 
 # Create your views here.
 
@@ -54,6 +54,14 @@ class ItemViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save()
 
+    @action(detail=True)
+    def choices(self, request, pk = None):
+        item = self.get_object()
+
+        choices = Choice.objects.filter(item = item)
+        choice_serializer = ChoiceSerializer(choices, many = True)
+        return Response(choice_serializer.data)
+
 class SourceViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`, `etc` for Source Model
@@ -73,3 +81,14 @@ class SourceViewSet(viewsets.ModelViewSet):
         collection_serializer = CollectionSerializer(collections, many = True)
 
         return Response(collection_serializer.data)
+
+class ChoiceViewSet(viewsets.ModelViewSet):
+    """
+    This viewset provided `list`, `create`, `retrieve`, etc for Choice Model
+    """
+
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
