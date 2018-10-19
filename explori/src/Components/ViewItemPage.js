@@ -27,6 +27,9 @@ import Button from "@material-ui/core/Button";
 // Models
 import Collection from "../Models/Collection";
 
+//api interface
+import ApiInterface from "../Lib/ApiInterface";
+
 //Routing
 import { Redirect, Link } from "react-router-dom";
 
@@ -66,13 +69,13 @@ class ViewItemPage extends Component {
   constructor(props) {
     super(props);
 
+    //bind the functions
+    this.loadInData = this.loadInData.bind(this);
+
     //if the item has been selected with a valid collection
 
     if (this.props.collection_item_selected) {
-      const selected_collection = this.props.collections[
-        this.props.selected_collection_idx
-      ];
-
+      /** FIXME
       var item_idx;
 
       //filter through usable idx
@@ -113,12 +116,16 @@ class ViewItemPage extends Component {
         });
       }
 
+      **/
+
       this.state = {
-        selected_collection,
-        item: selected_item,
-        item_summary: item_abstract.summary,
-        valid: item_idx !== -1
+        selected_collection: null,
+        item: null,
+        item_summary: null,
+        valid: true
       };
+
+      this.loadInData();
     } else {
       //if not valid, set the state to valid: false
       //redirect back to home
@@ -129,6 +136,63 @@ class ViewItemPage extends Component {
     }
 
     console.log(this.state);
+  }
+
+  //loads in the selected collection and the selected item
+  loadInData() {
+    let { selected_item_idx, selected_collection_idx } = this.props;
+
+    ApiInterface.getCollection(selected_collection_idx)
+      .then(
+        function(collection) {
+          //update component state with selected collection
+          this.setState({
+            ...this.state,
+            selected_collection: collection
+          });
+
+          if (selected_item_idx !== null) {
+            return ApiInterface.getItem(selected_item_idx);
+          } else {
+            return new Promise(function(resolve, reject) {
+              ApiInterface.getCollectionItems(collection.id)
+                .then(function(items) {
+                  let rando_item = _.sample(items);
+                  resolve(rando_item);
+                })
+                .catch(function(err) {
+                  reject(err);
+                });
+            });
+          }
+        }.bind(this)
+      )
+      .then(
+        function(item) {
+          // summarize the item
+          if (item.description !== null) {
+            var item_abstract = sum({
+              corpus: item.description,
+              nSentences: 3
+            });
+
+            var item_summary = item_abstract.summary;
+          } else {
+            var item_summary = "";
+          }
+
+          //update the state with selected item and summmary
+          this.setState({
+            ...this.state,
+            item,
+            item_summary
+          });
+        }.bind(this)
+      )
+      .catch(function(err) {
+        console.log(err);
+        console.log("Error with server perhaps");
+      });
   }
 
   // grabs a random item from the collection to display
@@ -144,41 +208,48 @@ class ViewItemPage extends Component {
       return <Redirect to="/" />;
     }
 
-    return (
-      <div className="ViewItemPage">
-        <div className={classes.item_img_container}>
-          <img className={classes.item_img} src={this.state.item.image_link} />
+    if (this.state.item !== null) {
+      return (
+        <div className="ViewItemPage">
+          <div className={classes.item_img_container}>
+            <img
+              className={classes.item_img}
+              src={this.state.item.image_link}
+            />
+          </div>
+
+          <div className={classes.item_desc}>
+            <Typography variant="headline" component="h2">
+              {this.state.item.title}
+            </Typography>
+
+            <Typography variant="subheading" component="h2">
+              by {this.state.item.author}
+            </Typography>
+
+            <Typography paragraph component="p" variant="body1">
+              {this.state.item_summary}
+            </Typography>
+          </div>
+
+          <div className={classes.quiz_btn_container}>
+            <Link className={classes.view_item_link} to="/quiz-page">
+              <Button
+                className={classes.quiz_start}
+                color="primary"
+                variant="contained"
+                component="span"
+                size="large"
+              >
+                Quiz
+              </Button>
+            </Link>
+          </div>
         </div>
-
-        <div className={classes.item_desc}>
-          <Typography variant="headline" component="h2">
-            {this.state.item.title}
-          </Typography>
-
-          <Typography variant="subheading" component="h2">
-            by {this.state.item.author}
-          </Typography>
-
-          <Typography paragraph component="p" variant="body1">
-            {this.state.item_summary}
-          </Typography>
-        </div>
-
-        <div className={classes.quiz_btn_container}>
-          <Link className={classes.view_item_link} to="/quiz-page">
-            <Button
-              className={classes.quiz_start}
-              color="primary"
-              variant="contained"
-              component="span"
-              size="large"
-            >
-              Quiz
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return <p>Loading data...</p>;
+    }
   }
 }
 

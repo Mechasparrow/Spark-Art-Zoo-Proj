@@ -39,10 +39,10 @@ const styles = {
     maxWidth: "200px"
   },
   completed: {
-    color: 'green'
+    color: "green"
   },
   uncomplete: {
-    color: 'red'
+    color: "red"
   },
   actions: {}
 };
@@ -62,7 +62,9 @@ class ItemCard extends Component {
 
   //selects the item
   selectItem() {
-    this.props.selectItem(this.props.idx);
+    let { item } = this.props;
+
+    this.props.selectItem(item.id);
 
     this.setState({
       ...this.state,
@@ -92,12 +94,16 @@ class ItemCard extends Component {
             </Typography>
 
             <Typography
-              variant = "subheading"
-              component = "h2"
-              className = {classes.completed}
+              variant="subheading"
+              component="h2"
+              className={classes.completed}
             >
-              {this.props.item.completed && (<p className = {classes.completed}>Complete</p>)}
-              {!this.props.item.completed && (<p className = {classes.uncomplete}>Not Complete</p>)}
+              {this.props.item.completed && (
+                <p className={classes.completed}>Complete</p>
+              )}
+              {!this.props.item.completed && (
+                <p className={classes.uncomplete}>Not Complete</p>
+              )}
             </Typography>
 
             <div className={classes.card_image_container}>
@@ -109,7 +115,11 @@ class ItemCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button disabled = {this.props.item.completed} size="small" onClick={this.selectItem}>
+            <Button
+              disabled={this.props.item.completed}
+              size="small"
+              onClick={this.selectItem}
+            >
               Start
             </Button>
           </CardActions>

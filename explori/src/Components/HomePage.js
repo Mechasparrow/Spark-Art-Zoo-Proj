@@ -15,6 +15,9 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//api interface
+import ApiInterface from "../Lib/ApiInterface";
+
 //Models
 import Collection from "../Models/Collection";
 
@@ -36,8 +39,34 @@ class HomePage extends Component {
     super(props);
     console.log(props);
 
+    this.state = {
+      collections: []
+    };
+
+    //bind the functions
+    this.loadInCollections = this.loadInCollections.bind(this);
+
     //clear the item selection
     this.props.clearItemSelection();
+
+    //load in the collections from the server
+    this.loadInCollections();
+  }
+
+  loadInCollections() {
+    ApiInterface.getCollections()
+      .then(
+        function(collections) {
+          this.setState({
+            ...this.state,
+            collections
+          });
+        }.bind(this)
+      )
+      .catch(function(err) {
+        console.log(err);
+        console.log("server probably not up");
+      });
   }
 
   //Render the HomePage w/ a grid of collections
@@ -51,7 +80,7 @@ class HomePage extends Component {
             Exhibits
           </Typography>
 
-          <CollectionGrid collections={this.props.collections} rowlength={2} />
+          <CollectionGrid collections={this.state.collections} rowlength={2} />
         </div>
       </div>
     );

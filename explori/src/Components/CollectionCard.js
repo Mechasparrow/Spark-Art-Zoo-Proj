@@ -9,7 +9,7 @@ Renders a collection info in a card form
 import React, { Component } from "react";
 
 //util
-import _ from 'lodash';
+import _ from "lodash";
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
@@ -70,7 +70,9 @@ class CollectionCard extends Component {
 
   //views the entire collection
   view_collection() {
-    this.props.select_collection(this.props.idx);
+    let { collection } = this.props;
+
+    this.props.select_collection(collection.id);
 
     this.setState({
       ...this.state,
@@ -82,14 +84,13 @@ class CollectionCard extends Component {
   items_completed(collection) {
     var items_completed = false;
 
-    var uncompleted_items = _.filter(collection.items, function (item) {
-      return (item.completed !== true);
-    })
+    var uncompleted_items = _.filter(collection.items, function(item) {
+      return item.completed !== true;
+    });
 
-    console.log(uncompleted_items)
+    console.log(uncompleted_items);
 
-    return (uncompleted_items.length <= 0);
-
+    return uncompleted_items.length <= 0;
   }
 
   //render the card-based component
@@ -117,7 +118,11 @@ class CollectionCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button disabled = {this.items_completed(collection)} onClick={this.select_collection} size="small">
+            <Button
+              disabled={this.items_completed(collection)}
+              onClick={this.select_collection}
+              size="small"
+            >
               Start
             </Button>
             <Button onClick={this.view_collection} size="small">
