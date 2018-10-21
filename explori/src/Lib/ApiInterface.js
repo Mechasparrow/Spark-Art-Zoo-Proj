@@ -9,6 +9,7 @@ Interface to interact with the Backend.
 import Collection from "../Models/Collection";
 import Item from "../Models/Item";
 import Source from "../Models/Source";
+import Choice from "../Models/Choice";
 
 //libs
 import axios from "axios";
@@ -23,15 +24,15 @@ let format = "?format=json";
 class ApiInterface {
   // Retrieve specific collection
   static getCollection(collection_id) {
+    let collection_endpoint =
+      endpoint + "/collections/" + collection_id + format;
 
-    let collection_endpoint = endpoint + "/collections/" + collection_id + format;
+    console.log("individual collections");
 
-    console.log('individual collections');
-
-    return new Promise (function (resolve, reject) {
+    return new Promise(function(resolve, reject) {
       axios
         .get(collection_endpoint)
-        .then (function (res) {
+        .then(function(res) {
           let data = res.data;
 
           let parsed_data = Collection.parse(data);
@@ -39,11 +40,10 @@ class ApiInterface {
 
           resolve(parsed_data);
         })
-        .catch (function (err) {
+        .catch(function(err) {
           reject(err);
-        })
+        });
     });
-
   }
 
   // Retrieves the collections
@@ -153,25 +153,33 @@ class ApiInterface {
 
   // get the collection of the item
   static getItemCollection(item_id) {
-
     console.log("getting the item collection");
 
     return new Promise(function(resolve, reject) {
+      ApiInterface.getItem(item_id)
+        .then(function(item) {
+          return ApiInterface.getCollection(item.collection);
+        })
+        .then(function(collection) {
+          console.log("item collection loaded");
+          console.log(collection);
 
-      ApiInterface.getItem(item_id).then (function (item) {
-        return ApiInterface.getCollection(item.collection);
-      }).then (function (collection) {
-
-        console.log("item collection loaded");
-        console.log(collection);
-
-        resolve(collection);
-      }).catch (function (err) {
-        reject(err)
-      })
-
+          resolve(collection);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
     });
+  }
 
+  //retrive the choices of an item
+  static getItemChoices(item_id) {
+    //TODO
+  }
+
+  //retrive all the choices
+  static getChoices() {
+    //TODO
   }
 
   // get specific source
@@ -223,56 +231,53 @@ class ApiInterface {
         .catch(function(err) {
           reject(err);
         });
-      });
+    });
   }
 
   //get the collections from the source
   static getSourceCollections(source_id) {
+    let source_collections_endpoint =
+      endpoint + "/sources/" + source_id + "/collections" + format;
 
-      let source_collections_endpoint = endpoint + "/sources/" + source_id + "/collections" + format;
+    console.log("getting the source collections");
 
-      console.log("getting the source collections");
+    return new Promise(function(resolve, reject) {
+      axios
+        .get(source_collections_endpoint)
+        .then(function(res) {
+          let data = res.data;
 
-      return new Promise(function(resolve, reject) {
-        axios
-          .get(source_collections_endpoint)
-          .then(function(res) {
-            let data = res.data;
+          let parsed_data = Collection.parseList(data);
 
-            let parsed_data = Collection.parseList(data);
+          //DEBUG
+          console.log("source collections loaded");
+          console.log(parsed_data);
 
-            //DEBUG
-            console.log("source collections loaded");
-            console.log(parsed_data);
-
-            resolve(parsed_data);
-          })
-          .catch(function(err) {
-            reject(err);
-          });
+          resolve(parsed_data);
+        })
+        .catch(function(err) {
+          reject(err);
         });
-
+    });
   }
 
   //get the source of the collection
   static getCollectionSource(collection_id) {
+    return new Promise(function(resolve, reject) {
+      ApiInterface.getCollection(collection_id)
+        .then(function(coll) {
+          return ApiInterface.getSource(coll.source);
+        })
+        .then(function(source) {
+          console.log("collection source retrieve");
+          console.log(source);
 
-    return new Promise(function (resolve, reject) {
-
-      ApiInterface.getCollection(collection_id).then (function (coll) {
-        return ApiInterface.getSource(coll.source)
-      }).then(function (source) {
-
-        console.log("collection source retrieve")
-        console.log(source);
-
-        resolve(source);
-      }).catch (function (err) {
-        reject(err);
-      });
-
+          resolve(source);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
     });
-
   }
 }
 
