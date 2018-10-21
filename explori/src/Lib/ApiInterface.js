@@ -174,12 +174,36 @@ class ApiInterface {
 
   //retrive the choices of an item
   static getItemChoices(item_id) {
+    const item_choices_endpoint =
+      endpoint + "/items/" + item_id + "/choices/" + format;
+
     //TODO
   }
 
   //retrive all the choices
   static getChoices() {
-    //TODO
+    const choices_endpoint = endpoint + "/choices/" + format;
+
+    console.log("getting all dah choices...");
+
+    return new Promise(function(resolve, reject) {
+      axios
+        .get(choices_endpoint)
+        .then(function(res) {
+          let data = res.data;
+
+          let parsed_data = Choice.parseList(data);
+
+          //DEBUG
+          console.log("the choices: ");
+          console.log(parsed_data);
+
+          resolve(parsed_data);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
   }
 
   // get specific source

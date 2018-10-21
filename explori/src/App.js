@@ -56,6 +56,9 @@ class App extends Component {
 
     //dispatch a test action to see if redux if functioning properly DEBUG
     store.dispatch(test());
+
+    //GETTING CHOICES DEBUG
+    ApiInterface.getChoices();
   }
 
   //Renders the html of the key root app component
