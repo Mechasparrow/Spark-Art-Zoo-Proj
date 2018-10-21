@@ -21,3 +21,6 @@ export const CLEAR_ITEM_SELECTION = "CLEAR_ITEM_SELECTION";
 
 //score constants
 export const INCREMENT_SCORE = "INCREMENT_SCORE";
+
+//load in choice data
+export const LOAD_IN_CHOICES = "LOAD_IN_CHOICES";

@@ -46,6 +46,9 @@ import { test } from "./Actions";
 //install ApiInterface for DEBUG
 import ApiInterface from "./Lib/ApiInterface";
 
+//install the load api data scripts for DEBUG
+import { generate_potential_quiz_options } from "./Data/loaded_api_data";
+
 //set up header with router
 const AppHeaderWithRouter = withRouter(HeaderBar);
 
@@ -62,6 +65,13 @@ class App extends Component {
 
     //GETTING CHOICES FOR SPECIFIC ITEM DEBUG
     ApiInterface.getItemChoices(37);
+
+    generate_potential_quiz_options(200).then(function(quiz_options) {
+      console.log("Faux quiz options");
+      console.log(quiz_options);
+    });
+
+    //Getting Faux choices DEBUG
   }
 
   //Renders the html of the key root app component
