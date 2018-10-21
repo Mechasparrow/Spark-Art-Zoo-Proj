@@ -13,7 +13,8 @@ import {
   SELECT_ITEM,
   CLEAR_ITEM_SELECTION,
   INCREMENT_SCORE,
-  COMPLETE_ITEM
+  COMPLETE_ITEM,
+  LOAD_IN_CHOICES
 } from "../Constants";
 
 //test action for DEBUG
@@ -44,7 +45,7 @@ export const complete_item = (collection_idx, item_idx) => ({
     complete_item_idx: item_idx,
     complete_collection_idx: collection_idx
   }
-})
+});
 
 //actions to clear selections
 
@@ -56,3 +57,13 @@ export const clear_item_selection = () => ({
 export const incrementScore = () => ({
   type: INCREMENT_SCORE
 });
+
+//load in choices
+export const loadInChoices = loaded_choices => ({
+  type: LOAD_IN_CHOICES,
+  payload: {
+    loaded_choices
+  }
+});
+
+//async load in choices redux actions via api
