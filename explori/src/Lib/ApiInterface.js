@@ -177,7 +177,24 @@ class ApiInterface {
     const item_choices_endpoint =
       endpoint + "/items/" + item_id + "/choices/" + format;
 
-    //TODO
+    return new Promise(function(resolve, reject) {
+      axios
+        .get(item_choices_endpoint)
+        .then(function(res) {
+          let data = res.data;
+
+          let parsed_data = Choice.parseList(data);
+
+          //DEBUG
+          console.log("the choices for the selected item: ");
+          console.log(parsed_data);
+
+          resolve(parsed_data);
+        })
+        .catch(function(err) {
+          reject(err);
+        });
+    });
   }
 
   //retrive all the choices

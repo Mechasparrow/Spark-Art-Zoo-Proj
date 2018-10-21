@@ -59,6 +59,9 @@ class App extends Component {
 
     //GETTING CHOICES DEBUG
     ApiInterface.getChoices();
+
+    //GETTING CHOICES FOR SPECIFIC ITEM DEBUG
+    ApiInterface.getItemChoices(37);
   }
 
   //Renders the html of the key root app component
