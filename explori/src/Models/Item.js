@@ -5,10 +5,13 @@ Creates the Item model. Contains the image and description of an item
 
 */
 
+//root model
+import Model from "./Model";
+
 //util lib
 import _ from "lodash";
 
-class Item {
+class Item extends Model {
   //constructs the object
   constructor(
     id,
@@ -22,21 +25,7 @@ class Item {
     selected_text = null,
     extra_options = null
   ) {
-    this.id = id;
-    this.collection = collection;
-    this.title = title;
-    this.author = author;
-    this.image_link = image_link;
-    this.description = description;
-    this.type = type;
-    this.completed = completed;
-    this.selected_text = selected_text;
-    this.extra_options = extra_options;
-  }
-
-  //serializes the object to JSON
-  serialize() {
-    let {
+    super({
       id,
       collection,
       title,
@@ -47,58 +36,15 @@ class Item {
       completed,
       selected_text,
       extra_options
-    } = this;
-
-    return {
-      id,
-      collection,
-      title,
-      description,
-      author,
-      image_link,
-      type,
-      completed,
-      selected_text,
-      extra_options
-    };
-  }
-
-  //parses the raw Item from JSON
-  static parse(raw_item) {
-    let {
-      id,
-      collection,
-      title,
-      description,
-      author,
-      image_link,
-      type,
-      completed,
-      selected_text,
-      extra_options
-    } = raw_item;
-
-    return new Item(
-      id,
-      collection,
-      title,
-      description,
-      author,
-      image_link,
-      type,
-      completed,
-      selected_text,
-      extra_options
-    );
-  }
-
-  //parses the a list of raw Items from JSON
-  static parseList(raw_items) {
-    let parsed_items = _.map(raw_items, function(raw_item) {
-      return Item.parse(raw_item);
     });
+  }
 
-    return parsed_items;
+  static parse(raw_item) {
+    return Model.parse(raw_item, Item);
+  }
+
+  static parseList(raw_items) {
+    return Model.parseList(raw_items, Item);
   }
 }
 

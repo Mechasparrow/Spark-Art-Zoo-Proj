@@ -7,52 +7,28 @@ It is a choice for an item
 
 **/
 
-//util lib
-import _ from "lodash";
+//root model
+import Model from "./Model";
 
-class Choice {
+class Choice extends Model {
   //initialize with the name and Items of the collection
   constructor(id, item, text, correct) {
-    this.id = id;
-    this.item = item;
-    this.text = text;
-    this.correct = correct;
-  }
-
-  // serializes a collection into raw form (JSON)
-  serialize() {
-    let { id, item, text, correct } = this;
-
-    return {
+    super({
       id,
       item,
       text,
       correct
-    };
-  }
-
-  static serializeList(choice_list) {
-    let serialized_list = _.map(choice_list, function(choice) {
-      return choice.serialize();
     });
-
-    return serialized_list;
   }
 
   // parses a raw choice (JSON)
   static parse(raw_choice) {
-    let { id, item, text, correct } = raw_choice;
-
-    return new Choice(id, item, text, correct);
+    return Model.parse(raw_choice, Choice);
   }
 
   //parses a list of raw choices (JSON)
   static parseList(raw_choices) {
-    let parsed_choices = _.map(raw_choices, function(raw_choice) {
-      return Choice.parse(raw_choice);
-    });
-
-    return parsed_choices;
+    return Model.parseList(raw_choices, Choice);
   }
 }
 

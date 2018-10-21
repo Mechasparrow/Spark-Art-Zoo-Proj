@@ -20,7 +20,11 @@ import nlp from "compromise";
 import * as raw_loaded_collections from "./Dummy/data.json";
 import * as dummy_loaded_collections from "./collections.json";
 
-export const raw_collections = raw_loaded_collections;
+export const raw_collections = _.map(raw_loaded_collections, function(
+  raw_collection
+) {
+  return Collection.parse(raw_collection);
+});
 
 //filters the raw collections data
 let filtered_init_data = _.map(raw_collections, function(collection) {
@@ -28,7 +32,12 @@ let filtered_init_data = _.map(raw_collections, function(collection) {
     return item.description !== null;
   });
 
-  return new Collection(collection.name, filtered_items);
+  let raw_coll = {
+    name: collection.name,
+    items: filtered_items
+  };
+
+  return Collection.parse(raw_coll);
 });
 
 //filtered data exported for use as loaded_collections

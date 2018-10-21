@@ -2,38 +2,25 @@
 // JavaScript version of the Django Source Model
 // Source of the collections
 
-//libs
-import _ from "lodash";
+//root model
+import Model from "./Model";
 
-class Source {
+class Source extends Model {
   constructor(id, name) {
-    this.id = id;
-    this.name = name;
+    super({
+      id,
+      name
+    });
   }
 
   //parser
   static parse(raw_source) {
-    let { id, name } = raw_source;
-    return new Source(id, name);
+    return Model.parse(raw_source, Source);
   }
 
   //parse multiple sources
   static parseList(raw_sources) {
-    let parsed_sources = _.map(raw_sources, function(raw_source) {
-      return Source.parse(raw_source);
-    });
-
-    return parsed_sources;
-  }
-
-  //serializer
-  serialize() {
-    let { id, name } = this;
-
-    return {
-      id,
-      name
-    };
+    return Model.parseList(raw_sources, Source);
   }
 }
 
