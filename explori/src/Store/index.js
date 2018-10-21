@@ -9,6 +9,9 @@ sets up the redux store for the application with persistence
 //redux functions
 import { createStore, applyMiddleware } from "redux";
 
+// redux thunk
+import thunk from "redux-thunk";
+
 //logger
 import logger from "redux-logger";
 
@@ -34,5 +37,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, applyMiddleware(logger));
+export const store = createStore(
+  persistedReducer,
+  applyMiddleware(logger, thunk)
+);
 export const persistor = persistStore(store);

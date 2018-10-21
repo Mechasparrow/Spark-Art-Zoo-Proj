@@ -10,12 +10,14 @@ import {
   retrieve_potential_quiz_choices
 } from "../Data/loaded_data";
 
-//DEBUG no quiz options for now
-export const quiz_options = (
-  state = /**retrieve_potential_quiz_choices(loaded_collections, 200)**/ [],
-  action
-) => {
+// import redux action constants
+import { LOAD_IN_CHOICES } from "../Constants";
+
+export const quiz_options = (state = [], action) => {
   switch (action.type) {
+    case LOAD_IN_CHOICES:
+      let { loaded_choices } = action.payload;
+      return loaded_choices;
     default:
       return state;
   }

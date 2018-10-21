@@ -40,14 +40,14 @@ import { store, persistor } from "./Store";
 //Redux persistence
 import { PersistGate } from "redux-persist/integration/react";
 
-//Redux tester
-import { test } from "./Actions";
+//Redux testing DEBUG
+import { test, loadInChoicesFromApi } from "./Actions";
+
+//Redux action for loading in faux choices
+import { loadInFauxChoicesViaApi } from "./Actions";
 
 //install ApiInterface for DEBUG
 import ApiInterface from "./Lib/ApiInterface";
-
-//install the load api data scripts for DEBUG
-import { generate_potential_quiz_options } from "./Data/loaded_api_data";
 
 //set up header with router
 const AppHeaderWithRouter = withRouter(HeaderBar);
@@ -60,18 +60,8 @@ class App extends Component {
     //dispatch a test action to see if redux if functioning properly DEBUG
     store.dispatch(test());
 
-    //GETTING CHOICES DEBUG
-    ApiInterface.getChoices();
-
-    //GETTING CHOICES FOR SPECIFIC ITEM DEBUG
-    ApiInterface.getItemChoices(37);
-
-    generate_potential_quiz_options(200).then(function(quiz_options) {
-      console.log("Faux quiz options");
-      console.log(quiz_options);
-    });
-
-    //Getting Faux choices DEBUG
+    //Gen _200_ faux choices from via api
+    store.dispatch(loadInFauxChoicesViaApi(200));
   }
 
   //Renders the html of the key root app component

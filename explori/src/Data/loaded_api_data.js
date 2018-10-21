@@ -47,8 +47,6 @@ export const generate_potential_quiz_options = (size = null) => {
 
             //remove unneccesary whitespace
             if (noun_text[0] == " ") {
-              console.log("no");
-
               //remove the pesky spaces
               let split_text = noun_text.split("");
               split_text.shift();
@@ -58,7 +56,6 @@ export const generate_potential_quiz_options = (size = null) => {
 
             //push the quiz option to the list
             quiz_options.push(noun_text);
-            console.log(quiz_options.length);
           });
         });
 

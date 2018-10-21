@@ -6,6 +6,9 @@ root script that defines the possible redux actions that are available
 
 **/
 
+//import data load via api for extra api features
+import { generate_potential_quiz_options } from "../Data/loaded_api_data";
+
 //Import all the necessary redux constants
 import {
   TEST,
@@ -67,3 +70,15 @@ export const loadInChoices = loaded_choices => ({
 });
 
 //async load in choices redux actions via api
+export const loadInFauxChoicesViaApi = (size = null) => {
+  return (dispatch, getState) => {
+    generate_potential_quiz_options(size)
+      .then(generated_quiz_choices => {
+        dispatch(loadInChoices(generated_quiz_choices));
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch(loadInChoices([]));
+      });
+  };
+};
