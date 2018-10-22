@@ -11,6 +11,9 @@ import React, { Component } from "react";
 //util libs
 import Instascan from "instascan";
 
+//routing
+import { Redirect } from "react-router-dom";
+
 //material ui
 import Typography from "@material-ui/core/Typography";
 
@@ -36,49 +39,69 @@ class ScannerPage extends Component {
     super(props);
 
     this.state = {
-      scanned_content: null
+      item_selected: false
     };
 
     this.scannerElemRef = React.createRef();
   }
 
+  componentWillUnmount() {
+    this.scanner.stop();
+  }
+
   componentDidMount() {
     var current_elem = this.scannerElemRef.current;
 
-    let scanner = new Instascan.Scanner({ video: current_elem });
+    this.scanner = new Instascan.Scanner({ video: current_elem });
 
-    scanner.addListener(
+    this.scanner.addListener(
       "scan",
       function(content) {
-        this.setState({
-          ...this.state,
-          scanned_content: content
-        });
+        var item_idx = parseInt(content);
 
-        //DEBUG redirect to appropiate item
-
-        scanner.stop();
+        console.log(item_idx);
+        if (item_idx.toString() !== "NaN") {
+          this.props.selectItemAndCollection(
+            item_idx,
+            function() {
+              this.setState({
+                ...this.state,
+                item_selected: true
+              });
+              this.scanner.stop();
+            }.bind(this)
+          );
+        } else {
+          alert("invalid QR Code");
+        }
       }.bind(this)
     );
 
     Instascan.Camera.getCameras()
-      .then(function(cameras) {
-        if (cameras.length > 0) {
-          scanner.start(cameras[0]);
-        } else {
-          console.error("No cameras found.");
-        }
-      })
+      .then(
+        function(cameras) {
+          if (cameras.length > 0) {
+            this.scanner.start(cameras[0]);
+          } else {
+            console.error("No cameras found.");
+          }
+        }.bind(this)
+      )
       .catch(function(e) {
         console.error(e);
       });
 
-    console.log(scanner);
+    console.log(this.scanner);
   }
 
   //Render the Scanner Page
   render() {
     const { classes } = this.props;
+
+    //if item selected value scanned, redirect
+    if (this.state.item_selected) {
+      return <Redirect to="/view-item" />;
+    }
 
     return (
       <div className="ScannerPage">
@@ -86,15 +109,9 @@ class ScannerPage extends Component {
           Scanner
         </Typography>
 
-        {this.state.scanned_content === null && (
-          <div className={classes.video_container}>
-            <video className={classes.video} ref={this.scannerElemRef} />
-          </div>
-        )}
-
-        {this.state.scanned_content !== null && (
-          <div className={classes.content_scanned_container} />
-        )}
+        <div className={classes.video_container}>
+          <video className={classes.video} ref={this.scannerElemRef} />
+        </div>
       </div>
     );
   }

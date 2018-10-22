@@ -6,6 +6,9 @@ root script that defines the possible redux actions that are available
 
 **/
 
+//get api
+import ApiInterface from "../Lib/ApiInterface";
+
 //import data load via api for extra api features
 import { generate_potential_quiz_options } from "../Data/loaded_api_data";
 
@@ -41,6 +44,20 @@ export const select_item = selected_item_idx => ({
     selected_item_idx
   }
 });
+
+export const select_item_and_collection = (item_idx, callback) => {
+  return (dispatch, getState) => {
+    ApiInterface.getItem(item_idx)
+      .then(function(item) {
+        let coll_id = item.collection;
+        dispatch(select_item(item_idx));
+        dispatch(select_collection(coll_id));
+      })
+      .then(function() {
+        callback();
+      });
+  };
+};
 
 // complete item
 export const complete_item = item_idx => ({

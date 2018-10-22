@@ -32,7 +32,7 @@ import QuizPage from "./Containers/QuizPageContainer";
 import ItemCompletedPage from "./Containers/ItemCompletePageContainer";
 import ItemIncorrectPage from "./Containers/ItemUncompletePageContainer";
 import ViewCollectionPage from "./Containers/ViewCollectionPageContainer";
-import ScannerPage from "./Components/ScannerPage";
+import ScannerPage from "./Containers/ScannerPageContainer";
 
 // Redux
 import { Provider } from "react-redux";
