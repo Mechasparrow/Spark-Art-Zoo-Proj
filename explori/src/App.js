@@ -32,6 +32,7 @@ import QuizPage from "./Containers/QuizPageContainer";
 import ItemCompletedPage from "./Containers/ItemCompletePageContainer";
 import ItemIncorrectPage from "./Containers/ItemUncompletePageContainer";
 import ViewCollectionPage from "./Containers/ViewCollectionPageContainer";
+import ScannerPage from "./Components/ScannerPage";
 
 // Redux
 import { Provider } from "react-redux";
@@ -88,6 +89,7 @@ class App extends Component {
                     path="/view-collection"
                     component={ViewCollectionPage}
                   />
+                  <Route path="/scanner" component={ScannerPage} />
                 </div>
               </div>
             </Router>
