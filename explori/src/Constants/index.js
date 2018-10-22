@@ -12,6 +12,8 @@ export const TEST = "TEST";
 // selection constants
 export const SELECT_COLLECTION = "SELECT_COLLECTION";
 export const SELECT_ITEM = "SELECT_ITEM";
+export const SELECT_SOURCE = "SELECT_SOURCE";
+
 
 // complete item
 export const COMPLETE_ITEM = "COMPLETE_ITEM";

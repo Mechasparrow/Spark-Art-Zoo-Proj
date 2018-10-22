@@ -15,11 +15,15 @@ import HomePage from "../Components/HomePage";
 import {
   select_collection,
   clear_item_selection,
-  clear_collection_selection
+  clear_collection_selection,
+  grabStartingSource, selectSource
 } from "../Actions";
 
+
 //map redux state to component props
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  selected_source_id: state.selected_source_id
+});
 
 //map redux dispatch actions to component props
 const mapDispatchToProps = dispatch => ({
@@ -28,6 +32,12 @@ const mapDispatchToProps = dispatch => ({
   },
   clearCollectionSelection: () => {
     dispatch(clear_collection_selection());
+  },
+  selectSource: (source_id) => {
+    dispatch(selectSource(source_id));
+  },
+  grabStartingSource: () => {
+    dispatch(grabStartingSource());
   }
 });
 

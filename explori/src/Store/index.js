@@ -25,7 +25,7 @@ import { transformCompletedItems } from "./transforms";
 import { rootReducer } from "../Reducers";
 
 //persistence blacklist
-let whitelist = ["completed_items", "score"];
+let whitelist = ["completed_items", "selected_source_id", "score"];
 
 //persistence
 const persistConfig = {

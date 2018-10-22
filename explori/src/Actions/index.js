@@ -9,6 +9,9 @@ root script that defines the possible redux actions that are available
 //get api
 import ApiInterface from "../Lib/ApiInterface";
 
+//util lib
+import _ from 'lodash';
+
 //import data load via api for extra api features
 import { generate_potential_quiz_options } from "../Data/loaded_api_data";
 
@@ -21,7 +24,8 @@ import {
   CLEAR_COLLECTION_SELECTION,
   INCREMENT_SCORE,
   COMPLETE_ITEM,
-  LOAD_IN_CHOICES
+  LOAD_IN_CHOICES,
+  SELECT_SOURCE
 } from "../Constants";
 
 //test action for DEBUG
@@ -89,6 +93,25 @@ export const loadInChoices = loaded_choices => ({
     loaded_choices
   }
 });
+
+//source selection
+export const selectSource = (selected_source_id) => ({
+  type: SELECT_SOURCE,
+  payload: {
+    selected_source_id
+  }
+})
+
+export const grabStartingSource = () => {
+
+  return (dispatch, getState) => {
+      ApiInterface.getSources().then (function (sources) {
+        var rando_source = _.sample(sources);
+        dispatch(selectSource(rando_source.id));
+      })
+  }
+
+}
 
 //async load in choices redux actions via api
 export const loadInFauxChoicesViaApi = (size = null) => {

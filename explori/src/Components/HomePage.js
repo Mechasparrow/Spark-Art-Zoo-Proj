@@ -40,11 +40,12 @@ class HomePage extends Component {
     console.log(props);
 
     this.state = {
-      collections: []
+      collections: [],
+      source: null
     };
 
     //bind the functions
-    this.loadInCollections = this.loadInCollections.bind(this);
+    this.loadInData = this.loadInData.bind(this);
 
     //clear the item selection
     this.props.clearItemSelection();
@@ -52,20 +53,50 @@ class HomePage extends Component {
     //clear the collection selection
     this.props.clearCollectionSelection();
 
-    //load in the collections from the server
-    this.loadInCollections();
+    if (this.props.selected_source_id === null) {
+      this.props.grabStartingSource();
+    }
+
+
+    //load in the data from the server
+    this.loadInData()
+
   }
 
-  loadInCollections() {
-    ApiInterface.getCollections()
+  //loads in the data from the server
+  loadInData() {
+
+    var grab_collections;
+
+    if (this.props.selected_source_id === null) {
+      grab_collections = ApiInterface.getCollections()
+    }else {
+      grab_collections = ApiInterface.getSourceCollections(this.props.selected_source_id)
+    }
+
+    grab_collections
       .then(
         function(collections) {
           this.setState({
             ...this.state,
             collections
           });
+
+          if (this.props.selected_source_id === null) {
+            return new Promise ((resolve, reject) => {
+              resolve(null)
+            })
+          }else {
+            return ApiInterface.getSource(this.props.selected_source_id)
+          }
+
         }.bind(this)
-      )
+      ).then (function (source) {
+        this.setState({
+          ...this.state,
+          source
+        })
+      }.bind(this))
       .catch(function(err) {
         console.log(err);
         console.log("server probably not up");
@@ -80,8 +111,16 @@ class HomePage extends Component {
       <div className="HomePage">
         <div className="Items">
           <Typography variant="display2" className={classes.title}>
-            Exhibits
-          </Typography>
+
+            {this.state.source !== null && (<div>
+              Exhibits for the {this.state.source.name} Adventure!
+            </div>)}
+
+            {this.state.source === null && (
+              <div>Exhibits </div>)
+            }
+
+            </Typography>
 
           <CollectionGrid collections={this.state.collections} rowlength={2} />
         </div>

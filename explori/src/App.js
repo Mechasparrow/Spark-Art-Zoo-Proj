@@ -63,6 +63,9 @@ class App extends Component {
 
     //Gen _200_ faux choices from via api
     store.dispatch(loadInFauxChoicesViaApi(200));
+
+
+
   }
 
   //Renders the html of the key root app component
