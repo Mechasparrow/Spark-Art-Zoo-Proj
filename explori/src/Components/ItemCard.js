@@ -8,6 +8,9 @@ Card that displays the item info
 //react lib
 import React, { Component } from "react";
 
+//util lib
+import _ from "lodash";
+
 //material ui
 import Typography from "@material-ui/core/Typography";
 
@@ -53,11 +56,35 @@ class ItemCard extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      item_selected: false
-    };
-
+    //bind the functions
     this.selectItem = this.selectItem.bind(this);
+    this.setItemCompleted = this.setItemCompleted.bind(this);
+
+    this.state = {
+      item_selected: false,
+      item_completed: false
+    };
+  }
+
+  componentDidMount() {
+    this.setItemCompleted();
+  }
+
+  //sets whether the item has been completed
+  setItemCompleted() {
+    let { completed_items, item } = this.props;
+
+    let is_item_completed =
+      _.find(completed_items, function(completed_item) {
+        return completed_item.item_id === item.id;
+      }) !== undefined;
+
+    console.log(is_item_completed);
+
+    this.setState({
+      ...this.state,
+      item_completed: is_item_completed
+    });
   }
 
   //selects the item
@@ -98,10 +125,10 @@ class ItemCard extends Component {
               component="h2"
               className={classes.completed}
             >
-              {this.props.item.completed && (
+              {this.state.item_completed && (
                 <p className={classes.completed}>Complete</p>
               )}
-              {!this.props.item.completed && (
+              {!this.state.item_completed && (
                 <p className={classes.uncomplete}>Not Complete</p>
               )}
             </Typography>
@@ -116,7 +143,7 @@ class ItemCard extends Component {
 
           <CardActions className={classes.actions}>
             <Button
-              disabled={this.props.item.completed}
+              disabled={this.state.item_completed}
               size="small"
               onClick={this.selectItem}
             >

@@ -9,18 +9,17 @@ defines the transforms that serializes and parses saved redux data
 import { createTransform } from "redux-persist";
 
 //import models
-import Collection from "../../Models/Collection";
+import CompletedItem from "../../Models/CompletedItem";
 
-export const transformCollections = createTransform(
+//performs needed conversions for completed items
+export const transformCompletedItems = createTransform(
   (inboundState, key) => {
-    let colls = inboundState;
-    return Collection.serializeList(colls);
+    let completed_items = inboundState;
+    return CompletedItem.serializeList(completed_items);
   },
-
   (outboundState, key) => {
-    let raw_colls = outboundState;
-    return Collection.parseList(raw_colls);
+    let raw_completed_items = outboundState;
+    return CompletedItem.parseList(raw_completed_items);
   },
-
-  { whitelist: ["collections"] }
+  { whitelist: ["completed_items"] }
 );

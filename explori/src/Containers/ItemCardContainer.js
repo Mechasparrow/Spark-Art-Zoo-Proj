@@ -14,8 +14,13 @@ import ItemCard from "../Components/ItemCard";
 //redux actions
 import { select_item } from "../Actions";
 
+//util lib
+import _ from "lodash";
+
 //map redux state to component props
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  completed_items: state.completed_items
+});
 
 //map redux dispatch actions to component props
 const mapDispatchToProps = dispatch => ({

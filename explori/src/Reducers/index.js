@@ -10,11 +10,13 @@ import { combineReducers } from "redux";
 import { selected_collection_idx } from "./selected_collection_idx";
 import { selected_item_idx } from "./selected_item_idx";
 import { quiz_options } from "./quiz_options";
+import { completed_items } from "./completed_items";
 import { score } from "./score";
 
 export const rootReducer = combineReducers({
   selected_collection_idx,
   selected_item_idx,
   quiz_options,
+  completed_items,
   score
 });

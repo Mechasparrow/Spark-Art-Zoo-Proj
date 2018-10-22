@@ -19,20 +19,20 @@ import logger from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import { transformCollections } from "./transforms";
+import { transformCompletedItems } from "./transforms";
 
 //root reducer
 import { rootReducer } from "../Reducers";
 
 //persistence blacklist
-let whitelist = ["score"];
+let whitelist = ["completed_items", "score"];
 
 //persistence
 const persistConfig = {
   key: "root",
   storage,
   whitelist,
-  transforms: [transformCollections]
+  transforms: [transformCompletedItems]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

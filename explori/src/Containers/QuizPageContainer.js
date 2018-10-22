@@ -31,8 +31,8 @@ const mapDispatchToProps = dispatch => ({
   incrementScore: () => {
     dispatch(incrementScore());
   },
-  completeItem: (collection_idx, selected_idx) => {
-    dispatch(complete_item(collection_idx, selected_idx));
+  completeItem: selected_item_idx => {
+    dispatch(complete_item(selected_item_idx));
   }
 });
 

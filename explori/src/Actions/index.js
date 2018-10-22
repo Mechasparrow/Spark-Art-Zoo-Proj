@@ -42,11 +42,10 @@ export const select_item = selected_item_idx => ({
 });
 
 // complete item
-export const complete_item = (collection_idx, item_idx) => ({
+export const complete_item = item_idx => ({
   type: COMPLETE_ITEM,
   payload: {
-    complete_item_idx: item_idx,
-    complete_collection_idx: collection_idx
+    completed_item_idx: item_idx
   }
 });
 

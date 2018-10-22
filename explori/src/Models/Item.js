@@ -10,11 +10,12 @@ import Model from "./Model";
 
 //util lib
 import _ from "lodash";
+import uid from "uid";
 
 class Item extends Model {
   //constructs the object
   constructor(
-    id,
+    id = uid(),
     collection,
     title,
     description,
