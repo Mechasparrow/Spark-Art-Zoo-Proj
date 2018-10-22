@@ -48,7 +48,6 @@ const collection_length = state => {
 
 //map redux state to component props
 const mapStateToProps = state => ({
-  collections: state.collections,
   collection_selected: state.selected_collection_idx !== null,
   selected_collection_idx: state.selected_collection_idx
 });

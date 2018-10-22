@@ -25,7 +25,7 @@ import { transformCollections } from "./transforms";
 import { rootReducer } from "../Reducers";
 
 //persistence blacklist
-let whitelist = ["collections", "score"];
+let whitelist = ["score"];
 
 //persistence
 const persistConfig = {

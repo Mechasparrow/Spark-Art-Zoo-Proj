@@ -15,9 +15,7 @@ import HomePage from "../Components/HomePage";
 import { select_collection, clear_item_selection } from "../Actions";
 
 //map redux state to component props
-const mapStateToProps = state => ({
-  collections: state.collections
-});
+const mapStateToProps = state => ({});
 
 //map redux dispatch actions to component props
 const mapDispatchToProps = dispatch => ({

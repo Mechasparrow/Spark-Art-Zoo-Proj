@@ -17,8 +17,7 @@ import { select_item } from "../Actions";
 const mapStateToProps = state => ({
   collection_item_selected: state.selected_collection_idx !== null,
   selected_item_idx: state.selected_item_idx,
-  selected_collection_idx: state.selected_collection_idx,
-  collections: state.collections
+  selected_collection_idx: state.selected_collection_idx
 });
 
 //map redux dispatch action to components

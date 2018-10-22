@@ -15,12 +15,12 @@ import QuizPage from "../Components/QuizPage";
 import { retrieve_potential_quiz_choices } from "../Data/loaded_data";
 
 //redux actions
-import {incrementScore, complete_item} from '../Actions';
+import { incrementScore, complete_item } from "../Actions";
 
 //map redux state to component props
 const mapStateToProps = state => ({
-  quiz_selected: (state.selected_collection_idx !== null && state.selected_item_idx !== null),
-  collections: state.collections,
+  quiz_selected:
+    state.selected_collection_idx !== null && state.selected_item_idx !== null,
   quiz_options: state.quiz_options,
   selected_collection_idx: state.selected_collection_idx,
   selected_item_idx: state.selected_item_idx

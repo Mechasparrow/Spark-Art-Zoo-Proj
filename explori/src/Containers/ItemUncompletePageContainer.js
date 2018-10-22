@@ -12,14 +12,14 @@ import { connect } from "react-redux";
 import ItemUncompletedPage from "../Components/ItemIncorrectPage";
 
 //Redux actions
-import {clear_item_selection } from "../Actions";
+import { clear_item_selection } from "../Actions";
 
 //map redux state to component props
 const mapStateToProps = state => ({
-  collections: state.collections,
   selected_item_idx: state.selected_item_idx,
   selected_collection_idx: state.selected_collection_idx,
-  collection_item_selected: (state.selected_collection_idx !== null && state.selected_item_idx !== null)
+  collection_item_selected:
+    state.selected_collection_idx !== null && state.selected_item_idx !== null
 });
 
 //map redux dispatch actions to component props
