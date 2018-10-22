@@ -14,9 +14,11 @@ class ChoiceInline(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
-
+# Item admin form
 admin.site.register(models.Item, ItemAdmin)
-
 
 # Choice admin form
 admin.site.register(models.Choice)
+
+# Selection admin form
+admin.site.register(models.Source)

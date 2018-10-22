@@ -71,6 +71,7 @@ class ViewItemPage extends Component {
 
     //bind the functions
     this.loadInData = this.loadInData.bind(this);
+    this.checkQuizable = this.checkQuizable.bind(this);
 
     //if the item has been selected with a valid collection
 
@@ -94,6 +95,24 @@ class ViewItemPage extends Component {
 
     console.log(this.state);
   }
+
+  //checks if the item being viewed is quizable
+  checkQuizable() {
+
+    let {item} = this.state;
+
+    if (item !== null) {
+      if (item.description !== "" && item.description !== null) {
+        return true;
+      }else {
+        return false;
+      }
+    }else {
+      return false;
+    }
+
+  }
+
 
   //loads in the selected collection and the selected item
   loadInData() {
@@ -172,7 +191,7 @@ class ViewItemPage extends Component {
           }
 
           // summarize the item
-          if (item.description !== null) {
+          if (item.description != "" && item.description != null) {
             var item_abstract = sum({
               corpus: item.description,
               nSentences: 3
@@ -245,6 +264,7 @@ class ViewItemPage extends Component {
                 variant="contained"
                 component="span"
                 size="large"
+                disabled = {!this.checkQuizable()}
               >
                 Quiz
               </Button>

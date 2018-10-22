@@ -18,6 +18,9 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//util
+import _ from 'lodash';
+
 //api interface
 import ApiInterface from "../Lib/ApiInterface";
 
@@ -43,6 +46,8 @@ class ViewCollectionPage extends Component {
 
     //bind the functions
     this.loadInData = this.loadInData.bind(this);
+    this.getItemsCompletedCount = this.getItemsCompletedCount.bind(this);
+    this.getItemsCount = this.getItemsCount.bind(this);
 
     if (this.props.collection_selected) {
       this.state = {
@@ -60,6 +65,32 @@ class ViewCollectionPage extends Component {
 
     //// DEBUG:
     console.log(this.props);
+  }
+
+  //Gets the items completed for the collection
+  getItemsCompletedCount() {
+    const {completed_items} = this.props;
+
+    let {collection_items} = this.state;
+
+    var coll_completed_items = _.filter(collection_items, function (item) {
+
+      var item_completed = _.find(completed_items, function(completed_item) {
+        return completed_item.item_id === item.id;
+      }) !== undefined;
+
+      return item_completed;
+
+    })
+
+    return coll_completed_items.length;
+
+  }
+
+
+  //Gets the total item count of the collection
+  getItemsCount() {
+    return this.state.collection_items.length;
   }
 
   //loads the selected collection and the collection items from the server
@@ -111,8 +142,7 @@ class ViewCollectionPage extends Component {
           variant="display1"
           className={classes.items_completed_ratio}
         >
-          Completed
-          {/**{this.props.items_completed} / {this.props.collection_size} DEBUG **/}
+          {this.getItemsCompletedCount()} / {this.getItemsCount()}
         </Typography>
 
         <div>

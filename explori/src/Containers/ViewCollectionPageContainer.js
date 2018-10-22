@@ -49,7 +49,8 @@ const collection_length = state => {
 //map redux state to component props
 const mapStateToProps = state => ({
   collection_selected: state.selected_collection_idx !== null,
-  selected_collection_idx: state.selected_collection_idx
+  selected_collection_idx: state.selected_collection_idx,
+  completed_items: state.completed_items
 });
 
 //map redux dispatch action to components
