@@ -147,7 +147,22 @@ class ViewItemPage extends Component {
       .then(
         function(item) {
           //if uncompleted, set the state to be invalid and return
+
+          let item_invalid = false;
+
+          //check if item invalid
           if (item === null) {
+            item_invalid = true;
+          } else {
+            let item_completed =
+              _.find(completed_items, function(completed_item) {
+                return completed_item.item_id === item.id;
+              }) !== undefined;
+
+            item_invalid = item_completed;
+          }
+
+          if (item_invalid) {
             this.setState({
               ...this.state,
               valid: false
