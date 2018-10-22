@@ -8,8 +8,19 @@ The First Page the User sees when they enter the application
 //react
 import React, { Component } from "react";
 
+//lib
+import _ from 'lodash';
+
 //material ui
 import Typography from "@material-ui/core/Typography";
+
+//Forms
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+
 
 // Styling for JavaScript
 import PropTypes from "prop-types";
@@ -29,6 +40,12 @@ const styles = {
   title: {
     marginTop: "16px",
     textAlign: "center"
+  },
+  formControlContainer: {
+    textAlign: 'center'
+  },
+  formControl: {
+    minWidth: '245px'
   }
 };
 
@@ -41,11 +58,15 @@ class HomePage extends Component {
 
     this.state = {
       collections: [],
-      source: null
+      source: null,
+      sources: []
     };
 
     //bind the functions
     this.loadInData = this.loadInData.bind(this);
+    this.generateSourceOptions = this.generateSourceOptions.bind(this);
+    this.getSourceId = this.getSourceId.bind(this);
+    this.handleSourceChange = this.handleSourceChange.bind(this);
 
     //clear the item selection
     this.props.clearItemSelection();
@@ -64,14 +85,23 @@ class HomePage extends Component {
   }
 
   //loads in the data from the server
-  loadInData() {
+  loadInData(source_id = null) {
 
     var grab_collections;
 
     if (this.props.selected_source_id === null) {
       grab_collections = ApiInterface.getCollections()
     }else {
-      grab_collections = ApiInterface.getSourceCollections(this.props.selected_source_id)
+
+      if (source_id === null) {
+
+        grab_collections = ApiInterface.getSourceCollections(this.props.selected_source_id)
+
+      }else {
+        grab_collections = ApiInterface.getSourceCollections(source_id)
+
+      }
+
     }
 
     grab_collections
@@ -96,11 +126,48 @@ class HomePage extends Component {
           ...this.state,
           source
         })
+
+        return ApiInterface.getSources()
+
+      }.bind(this)).then (function (sources) {
+        this.setState({
+          ...this.state,
+          sources
+        })
       }.bind(this))
       .catch(function(err) {
         console.log(err);
         console.log("server probably not up");
       });
+  }
+
+  generateSourceOptions() {
+    let source_options = [];
+    let sources = this.state.sources;
+
+    _.map(sources, function (source, idx) {
+      source_options.push(
+        <MenuItem key = {idx} value={source.id}>{source.name}</MenuItem>
+      )
+    })
+
+    return source_options
+
+  }
+
+  getSourceId() {
+    if (this.state.source !== null) {
+      return this.state.source.id;
+    }else {
+      return null;
+    }
+  }
+
+  handleSourceChange(e) {
+    let source_id = e.target.value;
+    this.props.selectSource(source_id);
+    this.loadInData(source_id);
+
   }
 
   //Render the HomePage w/ a grid of collections
@@ -120,7 +187,23 @@ class HomePage extends Component {
               <div>Exhibits </div>)
             }
 
-            </Typography>
+          </Typography>
+
+          <div class = {classes.formControlContainer} >
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="source-select">Source</InputLabel>
+            <Select
+              value = {this.getSourceId()}
+              onChange = {this.handleSourceChange}
+              inputProps={{
+                name: 'source',
+                id: 'source-select',
+              }}
+            >
+              {this.generateSourceOptions()}
+            </Select>
+          </FormControl>
+        </div>
 
           <CollectionGrid collections={this.state.collections} rowlength={2} />
         </div>
