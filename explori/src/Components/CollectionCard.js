@@ -15,6 +15,9 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 
+//Api
+import ApiInterface from "../Lib/ApiInterface";
+
 //Models
 import Collection from "../Models/Collection";
 
@@ -50,17 +53,54 @@ class CollectionCard extends Component {
 
     this.state = {
       item_selected: false,
+      collection_completed: false,
       view_all: false
     };
 
     //bind functions
     this.select_collection = this.select_collection.bind(this);
     this.view_collection = this.view_collection.bind(this);
+    this.get_collection_completed = this.get_collection_completed.bind(this);
+  }
+
+  componentDidMount() {
+    this.get_collection_completed();
+  }
+
+  //sets boolean as to whether all the items of collection has been completed
+  //then it updates state
+  get_collection_completed() {
+    let { collection, completed_items } = this.props;
+
+    ApiInterface.getCollectionItems(collection.id).then(
+      function(items) {
+        var uncompleted_items = _.filter(items, function(item) {
+          console.log(completed_items);
+          let item_completed =
+            _.find(completed_items, function(completed_item) {
+              return completed_item.item_id === item.id;
+            }) !== undefined;
+
+          console.log(item_completed);
+
+          return !item_completed;
+        });
+
+        let collection_completed = uncompleted_items.length === 0;
+
+        this.setState({
+          ...this.state,
+          collection_completed
+        });
+      }.bind(this)
+    );
   }
 
   //selects the collection
   select_collection() {
-    this.props.select_collection(this.props.idx);
+    let { collection } = this.props;
+
+    this.props.select_collection(collection.id);
 
     this.setState({
       ...this.state,
@@ -80,23 +120,9 @@ class CollectionCard extends Component {
     });
   }
 
-  //returns boolean as to whether all the items of collection has been completed
-  items_completed(collection) {
-    var items_completed = false;
-
-    var uncompleted_items = _.filter(collection.items, function(item) {
-      return item.completed !== true;
-    });
-
-    console.log(uncompleted_items);
-
-    return uncompleted_items.length <= 0;
-  }
-
   //render the card-based component
   render() {
     const { classes, collection } = this.props;
-    console.log(this.items_completed(collection));
 
     if (this.state.item_selected) {
       return <Redirect push to="/view-item" />;
@@ -119,7 +145,7 @@ class CollectionCard extends Component {
 
           <CardActions className={classes.actions}>
             <Button
-              disabled={this.items_completed(collection)}
+              disabled={this.state.collection_completed}
               onClick={this.select_collection}
               size="small"
             >

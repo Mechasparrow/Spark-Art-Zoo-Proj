@@ -49,6 +49,9 @@ class HomePage extends Component {
     //clear the item selection
     this.props.clearItemSelection();
 
+    //clear the collection selection
+    this.props.clearCollectionSelection();
+
     //load in the collections from the server
     this.loadInCollections();
   }

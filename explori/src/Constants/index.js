@@ -18,6 +18,7 @@ export const COMPLETE_ITEM = "COMPLETE_ITEM";
 
 // deselection constants
 export const CLEAR_ITEM_SELECTION = "CLEAR_ITEM_SELECTION";
+export const CLEAR_COLLECTION_SELECTION = "CLEAR_COLLECTION_SELECTION";
 
 //score constants
 export const INCREMENT_SCORE = "INCREMENT_SCORE";

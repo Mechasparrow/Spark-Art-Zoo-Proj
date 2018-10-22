@@ -75,49 +75,6 @@ class ViewItemPage extends Component {
     //if the item has been selected with a valid collection
 
     if (this.props.collection_item_selected) {
-      /** FIXME
-      var item_idx;
-
-      //filter through usable idx
-      var filtered_idxs = [];
-
-      _.map(selected_collection.items, function(item, idx) {
-        if (item.completed !== true) {
-          filtered_idxs.push(idx);
-        }
-      });
-
-      if (this.props.selected_item_idx === null) {
-        //if we did not select a item, grab a random one
-
-        if (filtered_idxs.length > 0) {
-          item_idx = _.sample(filtered_idxs);
-          console.log(item_idx);
-
-          this.props.select_item(item_idx);
-        } else {
-          item_idx = -1;
-        }
-      } else {
-        //if we did select an item save the idx
-        item_idx = this.props.selected_item_idx;
-      }
-
-      //grab the selected item
-      const selected_item = selected_collection.items[item_idx];
-      var item_abstract;
-
-      if (item_idx === -1) {
-        item_abstract = sum({ corpus: "apples are meh." });
-      } else {
-        item_abstract = sum({
-          corpus: selected_item.description,
-          nSentences: 3
-        });
-      }
-
-      **/
-
       this.state = {
         selected_collection: null,
         item: null,
@@ -140,7 +97,11 @@ class ViewItemPage extends Component {
 
   //loads in the selected collection and the selected item
   loadInData() {
-    let { selected_item_idx, selected_collection_idx } = this.props;
+    let {
+      selected_item_idx,
+      selected_collection_idx,
+      completed_items
+    } = this.props;
 
     ApiInterface.getCollection(selected_collection_idx)
       .then(
@@ -157,8 +118,24 @@ class ViewItemPage extends Component {
             return new Promise(function(resolve, reject) {
               ApiInterface.getCollectionItems(collection.id)
                 .then(function(items) {
-                  let rando_item = _.sample(items);
-                  resolve(rando_item);
+                  //filter through items that have been completed
+                  var usable_items = _.filter(items, function(item) {
+                    let item_completed =
+                      _.find(completed_items, function(completed_item) {
+                        return completed_item.item_id === item.id;
+                      }) !== undefined;
+
+                    return !item_completed;
+                  });
+
+                  //if none uncompleted, return null
+                  if (usable_items.length <= 0) {
+                    resolve(null);
+                  } else {
+                    //else return a random uncompleted item
+                    let rando_item = _.sample(usable_items);
+                    resolve(rando_item);
+                  }
                 })
                 .catch(function(err) {
                   reject(err);
@@ -169,6 +146,16 @@ class ViewItemPage extends Component {
       )
       .then(
         function(item) {
+          //if uncompleted, set the state to be invalid and return
+          if (item === null) {
+            this.setState({
+              ...this.state,
+              valid: false
+            });
+
+            return;
+          }
+
           // summarize the item
           if (item.description !== null) {
             var item_abstract = sum({
@@ -187,6 +174,9 @@ class ViewItemPage extends Component {
             item,
             item_summary
           });
+
+          //select the item
+          this.props.select_item(item.id);
         }.bind(this)
       )
       .catch(function(err) {

@@ -15,6 +15,7 @@ import {
   SELECT_COLLECTION,
   SELECT_ITEM,
   CLEAR_ITEM_SELECTION,
+  CLEAR_COLLECTION_SELECTION,
   INCREMENT_SCORE,
   COMPLETE_ITEM,
   LOAD_IN_CHOICES
@@ -53,6 +54,10 @@ export const complete_item = item_idx => ({
 
 export const clear_item_selection = () => ({
   type: CLEAR_ITEM_SELECTION
+});
+
+export const clear_collection_selection = () => ({
+  type: CLEAR_COLLECTION_SELECTION
 });
 
 //score actions

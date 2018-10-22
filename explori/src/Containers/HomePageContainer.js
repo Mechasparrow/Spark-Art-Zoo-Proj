@@ -12,7 +12,11 @@ import { connect } from "react-redux";
 import HomePage from "../Components/HomePage";
 
 //Redux actions
-import { select_collection, clear_item_selection } from "../Actions";
+import {
+  select_collection,
+  clear_item_selection,
+  clear_collection_selection
+} from "../Actions";
 
 //map redux state to component props
 const mapStateToProps = state => ({});
@@ -21,6 +25,9 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   clearItemSelection: () => {
     dispatch(clear_item_selection());
+  },
+  clearCollectionSelection: () => {
+    dispatch(clear_collection_selection());
   }
 });
 

@@ -17,6 +17,7 @@ import { select_item } from "../Actions";
 const mapStateToProps = state => ({
   collection_item_selected: state.selected_collection_idx !== null,
   selected_item_idx: state.selected_item_idx,
+  completed_items: state.completed_items,
   selected_collection_idx: state.selected_collection_idx
 });
 
