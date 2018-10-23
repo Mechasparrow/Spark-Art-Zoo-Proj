@@ -46,6 +46,22 @@ class ApiInterface {
     });
   }
 
+  // Gets the badge of a collection
+  static getCollectionBadge(collection_id) {
+    //TODO
+  }
+
+  //retrieve all the potential badges
+  static getBadges() {
+      //TODO
+  }
+
+  //retrieve a specific badge
+  static getBadge(badge_id) {
+    // TODO
+  }
+
+
   // Retrieves the collections
   static getCollections() {
     let collections_endpoint = endpoint + "/collections" + format;
