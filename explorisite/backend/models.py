@@ -27,8 +27,8 @@ class Collection(models.Model):
 # A item that is part of a collection
 class Item(models.Model):
     title = models.CharField(max_length=255)
-    author = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    author = models.CharField(max_length=255, blank = True)
+    location = models.CharField(max_length=255, blank = True)
     description = models.TextField(null = True, blank = True)
     image_link = models.URLField(null = True)
     type = models.CharField(max_length=255, null = True, blank = True)
