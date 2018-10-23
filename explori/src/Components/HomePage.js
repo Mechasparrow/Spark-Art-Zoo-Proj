@@ -56,17 +56,19 @@ class HomePage extends Component {
     super(props);
     console.log(props);
 
+    //set default state
     this.state = {
       collections: [],
       source: null,
+      source_id: 0,
       sources: []
     };
 
     //bind the functions
     this.loadInData = this.loadInData.bind(this);
     this.generateSourceOptions = this.generateSourceOptions.bind(this);
-    this.getSourceId = this.getSourceId.bind(this);
     this.handleSourceChange = this.handleSourceChange.bind(this);
+    this.grabRandomSource = this.grabRandomSource.bind(this);
 
     //clear the item selection
     this.props.clearItemSelection();
@@ -74,14 +76,33 @@ class HomePage extends Component {
     //clear the collection selection
     this.props.clearCollectionSelection();
 
+    //if there is no selected source
     if (this.props.selected_source_id === null) {
-      this.props.grabStartingSource();
+
+      //grab a random source and then load it in + save
+      this.grabRandomSource().then (function (selected_source) {
+        this.props.selectSource(selected_source.id);
+        this.loadInData(selected_source.id);
+      }.bind(this))
+
+    }else {
+      //load in the data from the server
+      this.loadInData()
     }
 
 
-    //load in the data from the server
-    this.loadInData()
+  }
 
+  //grabs a random source to start if the starting source has not been saved
+  grabRandomSource() {
+    return new Promise((resolve, reject) => {
+      ApiInterface.getSources().then (function (sources) {
+        let rando_source = _.sample(sources);
+        resolve(rando_source);
+      }).catch (function (err) {
+        reject(err);
+      })
+    })
   }
 
   //loads in the data from the server
@@ -92,6 +113,9 @@ class HomePage extends Component {
     if (this.props.selected_source_id === null) {
       grab_collections = ApiInterface.getCollections()
     }else {
+
+      //if no source id specified, use all collections, else
+      //filter by the source
 
       if (source_id === null) {
 
@@ -106,6 +130,7 @@ class HomePage extends Component {
 
     grab_collections
       .then(
+        // update the collections of the state
         function(collections) {
           this.setState({
             ...this.state,
@@ -122,14 +147,17 @@ class HomePage extends Component {
 
         }.bind(this)
       ).then (function (source) {
+        // update the selected source
         this.setState({
           ...this.state,
-          source
+          source,
+          source_id: source.id
         })
 
         return ApiInterface.getSources()
 
       }.bind(this)).then (function (sources) {
+        //grabs the sources
         this.setState({
           ...this.state,
           sources
@@ -141,6 +169,7 @@ class HomePage extends Component {
       });
   }
 
+  //generate the source options
   generateSourceOptions() {
     let source_options = [];
     let sources = this.state.sources;
@@ -155,18 +184,18 @@ class HomePage extends Component {
 
   }
 
-  getSourceId() {
-    if (this.state.source !== null) {
-      return this.state.source.id;
-    }else {
-      return null;
-    }
-  }
-
+  //handle the source change via option menu
   handleSourceChange(e) {
     let source_id = e.target.value;
+
+    this.setState({
+      ...this.state,
+      source_id
+    })
+
     this.props.selectSource(source_id);
     this.loadInData(source_id);
+
 
   }
 
@@ -189,21 +218,22 @@ class HomePage extends Component {
 
           </Typography>
 
-          <div class = {classes.formControlContainer} >
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="source-select">Source</InputLabel>
-            <Select
-              value = {this.getSourceId()}
-              onChange = {this.handleSourceChange}
-              inputProps={{
-                name: 'source',
-                id: 'source-select',
-              }}
-            >
-              {this.generateSourceOptions()}
-            </Select>
-          </FormControl>
-        </div>
+          <div className = {classes.formControlContainer} >
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="source-select">Source</InputLabel>
+              <Select
+                value = {this.state.source_id}
+                onChange = {this.handleSourceChange}
+                inputProps={{
+                  name: 'source',
+                  id: 'source-select',
+                }}
+                name = "source-select"
+              >
+                {this.generateSourceOptions()}
+              </Select>
+            </FormControl>
+          </div>
 
           <CollectionGrid collections={this.state.collections} rowlength={2} />
         </div>

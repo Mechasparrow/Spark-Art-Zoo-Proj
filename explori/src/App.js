@@ -82,7 +82,7 @@ class App extends Component {
                 <AppHeaderWithRouter />
 
                 {/** Render the routes **/}
-                <div>
+                <div className = "routes">
                   <Route exact path="/" component={HomePage} />
                   <Route path="/view-item" component={ViewItemPage} />
                   <Route path="/quiz-page" component={QuizPage} />

@@ -11,3 +11,7 @@
 .App-title {
   font-size: 1.5em;
 }
+
+.App .routes {
+  margin-top: 80px;
+}

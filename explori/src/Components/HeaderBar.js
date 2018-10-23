@@ -83,8 +83,8 @@ class HeaderBar extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="HeaderBar">
-        <AppBar className={classes.root} position="static">
+      <div className={classes.root}>
+        <AppBar position="fixed">
           <Toolbar>
             {this.props.location.pathname !== "/" && (
               <IconButton onClick={this.goBack} className={classes.back_button}>
