@@ -6,6 +6,11 @@ class CollectionSerializer(serializers.ModelSerializer):
         model = models.Collection
         fields = ('id', 'source', 'name')
 
+class BadgeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Badge
+        fields = ('id', 'collection', 'image_link')
+
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Item

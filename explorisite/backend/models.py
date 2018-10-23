@@ -24,6 +24,17 @@ class Collection(models.Model):
     def __str__(self):
         return self.name
 
+# A badge that can be earned from a completed collection
+class Badge(models.Model):
+    collection = models.ForeignKey(
+        'Collection',
+        on_delete=models.CASCADE
+    )
+    image_link = models.URLField(null = True)
+
+    def __str__(self):
+        return self.collection.name
+
 # A item that is part of a collection
 class Item(models.Model):
     title = models.CharField(max_length=255)
