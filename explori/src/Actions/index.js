@@ -49,13 +49,16 @@ export const select_item = selected_item_idx => ({
   }
 });
 
-export const select_item_and_collection = (item_idx, callback) => {
+export const select_item_and_collection_and_source = (item_idx, callback) => {
   return (dispatch, getState) => {
     ApiInterface.getItem(item_idx)
       .then(function(item) {
         let coll_id = item.collection;
         dispatch(select_item(item_idx));
         dispatch(select_collection(coll_id));
+        return ApiInterface.getCollection(coll_id);
+      }).then (function (collection) {
+        dispatch(selectSource(collection.source));
       })
       .then(function() {
         callback();

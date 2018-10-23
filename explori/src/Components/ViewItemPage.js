@@ -178,6 +178,9 @@ class ViewItemPage extends Component {
                 return completed_item.item_id === item.id;
               }) !== undefined;
 
+            if (item_completed) {
+              alert(item.title + " has been completed");
+            }
             item_invalid = item_completed;
           }
 

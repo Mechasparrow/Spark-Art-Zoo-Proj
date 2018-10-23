@@ -12,15 +12,15 @@ import { connect } from "react-redux";
 import ScannerPage from "../Components/ScannerPage";
 
 //Redux actions
-import { select_item_and_collection } from "../Actions";
+import { select_item_and_collection_and_source } from "../Actions";
 
 //map redux state to component props
 const mapStateToProps = state => ({});
 
 //map redux dispatch actions to component props
 const mapDispatchToProps = dispatch => ({
-  selectItemAndCollection: (item_idx, callback) => {
-    dispatch(select_item_and_collection(item_idx, callback));
+  selectItemAndCollectionAndSource: (item_idx, callback) => {
+    dispatch(select_item_and_collection_and_source(item_idx, callback));
   }
 });
 

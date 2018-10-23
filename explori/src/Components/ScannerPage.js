@@ -61,7 +61,7 @@ class ScannerPage extends Component {
 
         console.log(item_idx);
         if (item_idx.toString() !== "NaN") {
-          this.props.selectItemAndCollection(
+          this.props.selectItemAndCollectionAndSource(
             item_idx,
             function() {
               this.setState({
