@@ -87,6 +87,7 @@ class HeaderBar extends Component {
     this.goHome = this.goHome.bind(this);
     this.goToBadges = this.goToBadges.bind(this);
     this.goToScanner = this.goToScanner.bind(this);
+    this.goToRandomItem = this.goToRandomItem.bind(this);
 
     this.openSideMenu = this.openSideMenu.bind(this);
     this.closeSideMenu = this.closeSideMenu.bind(this);
@@ -128,6 +129,17 @@ class HeaderBar extends Component {
     this.props.history.push("/");
   }
 
+  goToRandomItem() {
+    let that = this;
+
+    let viewItem = () => {
+      that.props.history.push("/meh");
+      that.props.history.push("/view-item");
+    };
+
+    this.props.selectRandomItem(this.props.selected_source_id, viewItem);
+  }
+
   //returns the options to pass to the menu
   getMenuOptions() {
     let menu_options = [];
@@ -153,15 +165,11 @@ class HeaderBar extends Component {
       action: this.goToBadges
     });
 
-    /**
-    TODO
-    //random item
     menu_options.push({
       text: "Random item",
       icon: <ShuffleIcon />,
-      action: () => {}
+      action: this.goToRandomItem
     });
-    **/
 
     return menu_options;
   }

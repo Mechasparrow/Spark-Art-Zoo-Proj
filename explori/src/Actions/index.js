@@ -10,7 +10,7 @@ root script that defines the possible redux actions that are available
 import ApiInterface from "../Lib/ApiInterface";
 
 //util lib
-import _ from 'lodash';
+import _ from "lodash";
 
 //import data load via api for extra api features
 import { generate_potential_quiz_options } from "../Data/loaded_api_data";
@@ -49,6 +49,7 @@ export const select_item = selected_item_idx => ({
   }
 });
 
+// Selects an item with its corresponding collection and source
 export const select_item_and_collection_and_source = (item_idx, callback) => {
   return (dispatch, getState) => {
     ApiInterface.getItem(item_idx)
@@ -57,11 +58,31 @@ export const select_item_and_collection_and_source = (item_idx, callback) => {
         dispatch(select_item(item_idx));
         dispatch(select_collection(coll_id));
         return ApiInterface.getCollection(coll_id);
-      }).then (function (collection) {
+      })
+      .then(function(collection) {
         dispatch(selectSource(collection.source));
       })
       .then(function() {
-        callback();
+        if (callback) {
+          callback();
+        }
+      });
+  };
+};
+
+// Selects a random item for viewing in current source
+export const select_random_item = (source_id, cb) => {
+  return (dispatch, getState) => {
+    ApiInterface.getSourceCollections(source_id)
+      .then(function(collections) {
+        var rando_collection = _.sample(collections);
+
+        return ApiInterface.getCollectionItems(rando_collection.id);
+      })
+      .then(function(items) {
+        var rando_item = _.sample(items);
+
+        dispatch(select_item_and_collection_and_source(rando_item.id, cb));
       });
   };
 };
@@ -98,23 +119,21 @@ export const loadInChoices = loaded_choices => ({
 });
 
 //source selection
-export const selectSource = (selected_source_id) => ({
+export const selectSource = selected_source_id => ({
   type: SELECT_SOURCE,
   payload: {
     selected_source_id
   }
-})
+});
 
 export const grabStartingSource = () => {
-
   return (dispatch, getState) => {
-      ApiInterface.getSources().then (function (sources) {
-        var rando_source = _.sample(sources);
-        dispatch(selectSource(rando_source.id));
-      })
-  }
-
-}
+    ApiInterface.getSources().then(function(sources) {
+      var rando_source = _.sample(sources);
+      dispatch(selectSource(rando_source.id));
+    });
+  };
+};
 
 //async load in choices redux actions via api
 export const loadInFauxChoicesViaApi = (size = null) => {
