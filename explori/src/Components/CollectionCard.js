@@ -75,13 +75,10 @@ class CollectionCard extends Component {
     ApiInterface.getCollectionItems(collection.id).then(
       function(items) {
         var uncompleted_items = _.filter(items, function(item) {
-          console.log(completed_items);
           let item_completed =
             _.find(completed_items, function(completed_item) {
               return completed_item.item_id === item.id;
             }) !== undefined;
-
-          console.log(item_completed);
 
           return !item_completed;
         });

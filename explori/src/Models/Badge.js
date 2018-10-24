@@ -6,7 +6,6 @@ JavaScript Model for the Collection Badges
 
 **/
 
-
 //util lib
 import _ from "lodash";
 
@@ -21,15 +20,16 @@ class Badge extends Model {
       id,
       collection,
       image_link
-    })
+    });
   }
 
   static parse(raw_badge) {
-    return Model.parse(raw_badge, Badge)
+    return Model.parse(raw_badge, Badge);
   }
 
   static parseList(raw_badges) {
-    return Model.parseList(raw_badges, Badge)
+    return Model.parseList(raw_badges, Badge);
   }
-
 }
+
+export default Badge;

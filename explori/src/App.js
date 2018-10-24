@@ -63,9 +63,6 @@ class App extends Component {
 
     //Gen _200_ faux choices from via api
     store.dispatch(loadInFauxChoicesViaApi(200));
-
-
-
   }
 
   //Renders the html of the key root app component
@@ -82,7 +79,7 @@ class App extends Component {
                 <AppHeaderWithRouter />
 
                 {/** Render the routes **/}
-                <div className = "routes">
+                <div className="routes">
                   <Route exact path="/" component={HomePage} />
                   <Route path="/view-item" component={ViewItemPage} />
                   <Route path="/quiz-page" component={QuizPage} />
