@@ -33,6 +33,7 @@ import ItemCompletedPage from "./Containers/ItemCompletePageContainer";
 import ItemIncorrectPage from "./Containers/ItemUncompletePageContainer";
 import ViewCollectionPage from "./Containers/ViewCollectionPageContainer";
 import ScannerPage from "./Containers/ScannerPageContainer";
+import BadgePage from "./Containers/BadgesPageContainer";
 
 // Redux
 import { Provider } from "react-redux";
@@ -85,6 +86,7 @@ class App extends Component {
                   <Route path="/quiz-page" component={QuizPage} />
                   <Route path="/quiz-failed" component={ItemIncorrectPage} />
                   <Route path="/quiz-complete" component={ItemCompletedPage} />
+                  <Route path="/badges" component={BadgePage} />
                   <Route
                     path="/view-collection"
                     component={ViewCollectionPage}

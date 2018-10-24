@@ -121,7 +121,7 @@ class HeaderBar extends Component {
   }
 
   goToBadges() {
-    //TODO
+    this.props.history.push("/badges");
   }
 
   goHome() {
