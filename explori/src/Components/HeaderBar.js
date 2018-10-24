@@ -22,6 +22,12 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 
 //icons
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import MenuIcon from "@material-ui/icons/Menu";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
+import StarIcon from "@material-ui/icons/Star";
+
+//Sidebar
+import SideMenu from "./SideMenu";
 
 //prop types + styling
 import PropTypes from "prop-types";
@@ -34,7 +40,6 @@ const styles = {
     background: "#3F51B5"
   },
   title: {
-    marginLeft: "16px",
     flexGrow: 1
   },
   score: {
@@ -44,12 +49,22 @@ const styles = {
     fontSize: "1.25em",
     color: "white"
   },
-  back_button_icon: {
+  menu_button_icon: {
     fontSize: "1.5em",
     color: "white"
   }
 };
 
+//Home Icon
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
+
+//QR icon
 function QRIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -63,9 +78,36 @@ class HeaderBar extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      sidemenu: false
+    };
+
     //bind the functions
     this.goBack = this.goBack.bind(this);
+    this.goHome = this.goHome.bind(this);
+    this.goToBadges = this.goToBadges.bind(this);
     this.goToScanner = this.goToScanner.bind(this);
+
+    this.openSideMenu = this.openSideMenu.bind(this);
+    this.closeSideMenu = this.closeSideMenu.bind(this);
+
+    this.getMenuOptions = this.getMenuOptions.bind(this);
+  }
+
+  //opens the side menu
+  openSideMenu() {
+    this.setState({
+      ...this.state,
+      sidemenu: true
+    });
+  }
+
+  //closes the side menu
+  closeSideMenu() {
+    this.setState({
+      ...this.state,
+      sidemenu: false
+    });
   }
 
   // navigates back a page
@@ -78,22 +120,71 @@ class HeaderBar extends Component {
     this.props.history.push("/scanner");
   }
 
+  goToBadges() {
+    //TODO
+  }
+
+  goHome() {
+    this.props.history.push("/");
+  }
+
+  //returns the options to pass to the menu
+  getMenuOptions() {
+    let menu_options = [];
+
+    //push the home option
+    menu_options.push({
+      text: "Home",
+      icon: <HomeIcon />,
+      action: this.goHome
+    });
+
+    //push the qr option
+    menu_options.push({
+      text: "Scan Code",
+      icon: <QRIcon />,
+      action: this.goToScanner
+    });
+
+    //push the badges option
+    menu_options.push({
+      text: "View Badges",
+      icon: <StarIcon />,
+      action: this.goToBadges
+    });
+
+    /**
+    TODO
+    //random item
+    menu_options.push({
+      text: "Random item",
+      icon: <ShuffleIcon />,
+      action: () => {}
+    });
+    **/
+
+    return menu_options;
+  }
+
   //render the component
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
+        <SideMenu
+          open={this.state.sidemenu}
+          openSideMenu={this.openSideMenu}
+          closeSideMenu={this.closeSideMenu}
+          options={this.getMenuOptions()}
+        />
         <AppBar position="fixed">
           <Toolbar>
-            {this.props.location.pathname !== "/" && (
-              <IconButton onClick={this.goBack} className={classes.back_button}>
-                <NavigateBeforeIcon className={classes.back_button_icon} />
-              </IconButton>
-            )}
-
-            <IconButton onClick={this.goToScanner}>
-              <QRIcon className={classes.qr_icon} />
+            <IconButton
+              onClick={this.openSideMenu}
+              className={classes.menu_button}
+            >
+              <MenuIcon className={classes.menu_button_icon} />
             </IconButton>
 
             <Typography
