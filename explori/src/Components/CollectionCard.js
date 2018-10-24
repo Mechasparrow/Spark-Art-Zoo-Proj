@@ -40,6 +40,12 @@ const styles = {
     marginBottom: 16,
     padding: "8px"
   },
+  completed: {
+    color: "green"
+  },
+  uncomplete: {
+    color: "red"
+  },
   actions: {}
 };
 
@@ -149,6 +155,7 @@ class CollectionCard extends Component {
             >
               {collection.name}
             </Typography>
+
           </CardContent>
 
           <CardActions className={classes.actions}>
