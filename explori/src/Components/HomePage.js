@@ -33,7 +33,7 @@ import ApiInterface from "../Lib/ApiInterface";
 import Collection from "../Models/Collection";
 
 //components
-import CollectionGrid from "./CollectionGrid";
+import CollectionGrid from "../Containers/CollectionGridContainer";
 
 //styling
 const styles = {
@@ -128,46 +128,61 @@ class HomePage extends Component {
 
     }
 
-    grab_collections
-      .then(
-        // update the collections of the state
-        function(collections) {
+    return new Promise((resolve, reject) => {
+
+      grab_collections
+        .then(
+          // update the collections of the state
+          function(collections) {
+            this.setState({
+              ...this.state,
+              collections
+            });
+
+            if (this.props.selected_source_id === null) {
+              return new Promise ((resolve, reject) => {
+                resolve(null)
+              })
+            }else {
+              return ApiInterface.getSource(this.props.selected_source_id)
+            }
+
+          }.bind(this)
+        ).then (function (source) {
+          // update the selected source
           this.setState({
             ...this.state,
-            collections
-          });
+            source,
+            source_id: source.id
+          })
 
-          if (this.props.selected_source_id === null) {
-            return new Promise ((resolve, reject) => {
-              resolve(null)
-            })
-          }else {
-            return ApiInterface.getSource(this.props.selected_source_id)
-          }
+          return ApiInterface.getSources()
 
-        }.bind(this)
-      ).then (function (source) {
-        // update the selected source
-        this.setState({
-          ...this.state,
-          source,
-          source_id: source.id
-        })
+        }.bind(this)).then (function (sources) {
+          //grabs the sources
+          this.setState({
+            ...this.state,
+            sources
+          })
 
-        return ApiInterface.getSources()
-
-      }.bind(this)).then (function (sources) {
-        //grabs the sources
-        this.setState({
-          ...this.state,
-          sources
-        })
-      }.bind(this))
-      .catch(function(err) {
-        console.log(err);
-        console.log("server probably not up");
-      });
+          resolve()
+        }.bind(this))
+        .catch(function(err) {
+          console.log(err);
+          console.log("server probably not up");
+          reject(err);
+        });
+    })
   }
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+      if (this.props !== prevProps) {
+        this.loadInData()
+      }
+
+    }
 
   //generate the source options
   generateSourceOptions() {
@@ -186,16 +201,10 @@ class HomePage extends Component {
 
   //handle the source change via option menu
   handleSourceChange(e) {
-    let source_id = e.target.value;
-
-    this.setState({
-      ...this.state,
-      source_id
-    })
+    let source_id = parseInt(e.target.value);
 
     this.props.selectSource(source_id);
-    this.loadInData(source_id);
-
+    this.forceUpdate();
 
   }
 
@@ -235,8 +244,10 @@ class HomePage extends Component {
             </FormControl>
           </div>
 
-          <CollectionGrid collections={this.state.collections} rowlength={2} />
-        </div>
+
+            <CollectionGrid rowlength={2} />
+
+          </div>
       </div>
     );
   }
