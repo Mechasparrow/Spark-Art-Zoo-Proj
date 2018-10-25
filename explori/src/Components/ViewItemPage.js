@@ -107,7 +107,11 @@ class ViewItemPage extends Component {
     let { item } = this.state;
 
     if (item !== null) {
-      if (item.description !== "" && item.description !== null) {
+      if (
+        item.description !== "" &&
+        item.description !== null &&
+        this.state.item_completed !== true
+      ) {
         return true;
       } else {
         return false;
@@ -147,7 +151,11 @@ class ViewItemPage extends Component {
                         return completed_item.item_id === item.id;
                       }) !== undefined;
 
-                    return !item_completed;
+                    return (
+                      !item_completed &&
+                      item.description !== "" &&
+                      item.description !== null
+                    );
                   });
 
                   //if none uncompleted, return null
@@ -181,10 +189,10 @@ class ViewItemPage extends Component {
                 return completed_item.item_id === item.id;
               }) !== undefined;
 
-            if (item_completed) {
-              alert(item.title + " has been completed");
-            }
-            item_invalid = item_completed;
+            this.setState({
+              ...this.state,
+              item_completed
+            });
           }
 
           if (item_invalid) {

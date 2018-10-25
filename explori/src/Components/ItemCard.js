@@ -142,12 +142,8 @@ class ItemCard extends Component {
           </CardContent>
 
           <CardActions className={classes.actions}>
-            <Button
-              disabled={this.state.item_completed}
-              size="small"
-              onClick={this.selectItem}
-            >
-              Start
+            <Button size="small" onClick={this.selectItem}>
+              View
             </Button>
           </CardActions>
         </Card>
