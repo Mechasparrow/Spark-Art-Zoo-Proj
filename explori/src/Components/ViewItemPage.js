@@ -35,7 +35,13 @@ import { Redirect, Link } from "react-router-dom";
 
 //Component styling
 const styles = {
-  title: {},
+  subheading: {
+    fontSize: "1.25em"
+  },
+  item_sum: {
+    fontSize: "1em"
+  },
+
   item_img_container: {
     textAlign: "center"
   },
@@ -98,21 +104,18 @@ class ViewItemPage extends Component {
 
   //checks if the item being viewed is quizable
   checkQuizable() {
-
-    let {item} = this.state;
+    let { item } = this.state;
 
     if (item !== null) {
       if (item.description !== "" && item.description !== null) {
         return true;
-      }else {
+      } else {
         return false;
       }
-    }else {
+    } else {
       return false;
     }
-
   }
-
 
   //loads in the selected collection and the selected item
   loadInData() {
@@ -246,15 +249,31 @@ class ViewItemPage extends Component {
           </div>
 
           <div className={classes.item_desc}>
-            <Typography variant="headline" component="h2">
+            <Typography
+              className={classes.title}
+              variant="headline"
+              component="h2"
+            >
               {this.state.item.title}
             </Typography>
 
-            <Typography variant="subheading" component="h2">
-              by {this.state.item.author}
+            <Typography
+              className={classes.subheading}
+              variant="subheading"
+              component="h2"
+            >
+              {this.state.item.author !== null &&
+                this.state.item.author !== "" && (
+                  <div>by {this.state.item.author}</div>
+                )}
             </Typography>
 
-            <Typography paragraph component="p" variant="body1">
+            <Typography
+              className={classes.item_sum}
+              paragraph
+              component="p"
+              variant="body1"
+            >
               {this.state.item_summary}
             </Typography>
           </div>
@@ -267,7 +286,7 @@ class ViewItemPage extends Component {
                 variant="contained"
                 component="span"
                 size="large"
-                disabled = {!this.checkQuizable()}
+                disabled={!this.checkQuizable()}
               >
                 Quiz
               </Button>

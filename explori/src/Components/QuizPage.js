@@ -54,14 +54,22 @@ const styles = {
     marginRight: "20%",
     flexGrow: 1
   },
+
   item_title: {
     marginTop: "16px"
   },
+
   quiz_prompt: {
     marginTop: "8px"
   },
+  quiz_desc: {
+    fontSize: "1em"
+  },
   quiz_options: {
     marginTop: "32px"
+  },
+  quiz_option: {
+    fontSize: "1em"
   },
   submit_btn: {
     float: "right"
@@ -268,10 +276,12 @@ class QuizPage extends Component {
   //renders the quiz choices
   renderChoices() {
     let rendered_choices = [];
+    let { classes } = this.props;
 
     _.map(this.state.quiz.choices, function(choice, idx) {
       rendered_choices.push(
         <FormControlLabel
+          className={classes.quiz_option}
           key={idx}
           value={choice.value}
           control={<Radio />}
@@ -307,12 +317,16 @@ class QuizPage extends Component {
         <div className={classes.quiz_container}>
           <div className={classes.content}>
             <div className={classes.item_title}>
-              <Typography variant="display1">
+              <Typography className={classes.title} variant="display1">
                 Quiz {this.state.selected_item.title}
               </Typography>
             </div>
             <div className={classes.quiz_prompt}>
-              <Typography paragraph variant="body1">
+              <Typography
+                className={classes.quiz_desc}
+                paragraph
+                variant="body1"
+              >
                 {this.state.quiz.description}
               </Typography>
             </div>
