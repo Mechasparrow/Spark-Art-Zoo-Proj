@@ -40,6 +40,12 @@ const styles = {
     marginBottom: 16,
     padding: "8px"
   },
+  completed: {
+    color: "green"
+  },
+  uncomplete: {
+    color: "red"
+  },
   actions: {}
 };
 
@@ -57,20 +63,26 @@ class CollectionCard extends Component {
       view_all: false
     };
 
+    console.log("Collection Card")
+    console.log(this.props.collection);
+
     //bind functions
     this.select_collection = this.select_collection.bind(this);
     this.view_collection = this.view_collection.bind(this);
     this.get_collection_completed = this.get_collection_completed.bind(this);
+
+    this.get_collection_completed();
+
   }
 
-  componentDidMount() {
-    this.get_collection_completed();
-  }
 
   //sets boolean as to whether all the items of collection has been completed
   //then it updates state
   get_collection_completed() {
     let { collection, completed_items } = this.props;
+
+    console.log(collection);
+    console.log(completed_items);
 
     ApiInterface.getCollectionItems(collection.id).then(
       function(items) {
@@ -84,6 +96,11 @@ class CollectionCard extends Component {
         });
 
         let collection_completed = uncompleted_items.length === 0;
+
+        //DEBUG
+        if (collection_completed) {
+          console.log(collection.name + "completed!");
+        }
 
         this.setState({
           ...this.state,
@@ -138,11 +155,12 @@ class CollectionCard extends Component {
             >
               {collection.name}
             </Typography>
+
           </CardContent>
 
           <CardActions className={classes.actions}>
             <Button
-              disabled={this.state.collection_completed}
+              disabled={this.props.completed}
               onClick={this.select_collection}
               size="small"
             >
