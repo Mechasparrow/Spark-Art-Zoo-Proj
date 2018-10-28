@@ -72,7 +72,8 @@ const styles = {
     fontSize: "1em"
   },
   submit_btn: {
-    float: "right"
+    float: "right",
+    marginBottom: '16px'
   }
 };
 

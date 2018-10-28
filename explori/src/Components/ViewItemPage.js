@@ -58,11 +58,14 @@ const styles = {
   },
   quiz_btn_container: {
     marginLeft: "15%",
-    marginRight: "15%"
+    marginRight: "15%",
+  },
+  quiz_button: {
   },
   quiz_start: {
     marginTop: "32px",
-    float: "right"
+    float: "right",
+    marginBottom: '16px'
   },
   view_item_link: {
     textDecoration: "none",

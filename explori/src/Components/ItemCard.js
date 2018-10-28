@@ -39,7 +39,7 @@ const styles = {
     textAlign: "center"
   },
   card_image: {
-    maxWidth: "200px"
+    maxWidth: "275px"
   },
   completed: {
     color: "green"
